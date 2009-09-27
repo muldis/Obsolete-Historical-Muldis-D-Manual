@@ -1,0 +1,24 @@
+                             Muldis::D::Manual
+---------------------------------------------------------------------------
+
+2009-09-xx   Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D::Manual version 0.0.0 is released on CPAN as
+    Muldis-D-Manual-0.0.0.tar.gz.
+
+    * This is the first release of the Muldis-D-Manual distribution, and
+    the first release of any distribution to contain Perl 5 modules named
+    Muldis::D::Manual::\w+.
+
+    * This is the initial file manifest:
+
+        Changes
+        INSTALL
+        lib/Muldis/D/Manual.pm
+        LICENSE/GPL
+        Makefile.PL
+        MANIFEST
+        MANIFEST.SKIP
+        README
+        t/Muldis_D_Manual_00_Compile.t
+        TODO

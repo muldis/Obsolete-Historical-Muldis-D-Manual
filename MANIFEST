@@ -1,0 +1,10 @@
+Changes
+INSTALL
+lib/Muldis/D/Manual.pm
+LICENSE/GPL
+Makefile.PL
+MANIFEST
+MANIFEST.SKIP
+README
+t/Muldis_D_Manual_00_Compile.t
+TODO
