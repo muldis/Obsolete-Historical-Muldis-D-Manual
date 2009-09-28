@@ -1,6 +1,14 @@
                              Muldis::D::Manual
 ---------------------------------------------------------------------------
 
+2009-09-xx   Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D::Manual version 0.0.1 is released on CPAN as
+    Muldis-D-Manual-0.0.1.tar.gz.
+
+    * Updated the README file to indicate that this distribution now has 2
+    public Git repositories, one on GitHub.com and one on utsl.gen.nz.
+
 2009-09-26   Darren Duncan <perl@DarrenDuncan.net>
 
     * Muldis::D::Manual version 0.0.0 is released on CPAN as
