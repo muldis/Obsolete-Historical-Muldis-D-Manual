@@ -9,6 +9,20 @@
     * Updated the README file to indicate that this distribution now has 2
     public Git repositories, one on GitHub.com and one on utsl.gen.nz.
 
+    * (BBEdit_LM_Muldis_D.plist)  Updates to syntax coloring patterns that
+    correspond to the increased whitespace strictness that version 0.94.0
+    of the Muldis D spec introduced for its PTMD_STD dialect.
+
+    * Updated the Changes file to copy into it (with trimming if needed)
+    all the Changes file items from the Muldis-D distribution that
+    described history of the files that were moved from that distribution
+    into this Muldis-D-Manual distribution.  In all, Changes file items
+    were imported from the Changes report for 24 Muldis-D distribution
+    releases, whose version numbers are listed here from newest to oldest:
+    0.91.0, 0.90.0, 0.88.0, 0.87.0, 0.86.0, 0.83.0, 0.82.0, 0.80.0, 0.79.1,
+    0.79.0, 0.76.1, 0.76.0, 0.75.0, 0.74.0, 0.73.0, 0.72.0, 0.68.0, 0.67.0,
+    0.65.0, 0.63.0, 0.43.0, 0.42.0, 0.41.0, 0.40.0.
+
 2009-09-26   Darren Duncan <perl@DarrenDuncan.net>
 
     * Muldis::D::Manual version 0.0.0 is released on CPAN as
@@ -53,3 +67,297 @@
     proper and any supplementary material would live in Muldis-D-Manual.
     The 1 was transferred here from the Muldis-Rosetta distribution, where
     it constituted the entire archives/ folder.
+
+2009-09-21  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.91.0 is released on CPAN as
+    Muldis-D-0.91.0.tar.gz.
+
+    * (BBEdit_LM_Muldis_D.plist)  Updates corresp to recent spec changes.
+
+2009-09-19  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.90.0 is released on CPAN as
+    Muldis-D-0.90.0.tar.gz.
+
+    * (Muldis_D_PDAFP_200807_updated.xul)  Upd corres to recent spec chgs.
+
+2009-09-12  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.88.0 is released on CPAN as
+    Muldis-D-0.88.0.tar.gz.
+
+    * (Muldis_D_PDAFP_200807_updated.xul, BBEdit_LM_Muldis_D.plist)
+    Updates corresponding to recent spec changes.
+
+2009-09-03  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.87.0 is released on CPAN as
+    Muldis-D-0.87.0.tar.gz.
+
+    * (Muldis_D_PDAFP_200807_updated.xul)  Updates corresponding to recent
+    spec changes.
+
+2009-09-02  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.86.0 is released on CPAN as
+    Muldis-D-0.86.0.tar.gz.
+
+    * (Input_Method_Muldis_D.cin)  Fixed fossils from v0.85.0 re '!' usage.
+
+    * (Input_Method_Muldis_D.cin)  Removed "<>" as an alternate concrete
+    syntax for "≠"; now only "!=" is an alternate.
+
+    * (Muldis_D_PDAFP_200807_updated.xul)  In accordance with the latest
+    Perl 6 spec (an update on 2009.08.29), updated the HDMD_Perl6_STD code
+    examples to reflect that you now use "/" to select a Perl 6 "Rat" in
+    terms of 2 "Int", where you used to use "div" to do that.
+
+2009-08-20  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.83.0 is released on CPAN as
+    Muldis-D-0.83.0.tar.gz.
+
+    * (BBEdit_LM_Muldis_D.plist)  Updates corresp to recent spec changes.
+
+2009-07-27  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.82.0 is released on CPAN as
+    Muldis-D-0.82.0.tar.gz.
+
+    * (Muldis_D_PDAFP_200807_updated.xul)  Other small updates corresp to
+    recent spec changes.
+
+2009-07-06  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.80.0 is released on CPAN as
+    Muldis-D-0.80.0.tar.gz.
+
+    * (BBEdit_LM_Muldis_D.plist, Input_Method_Muldis_D.cin)  Various minor
+    updates and fixes.
+
+2009-06-16  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.79.1 is released on CPAN as
+    Muldis-D-0.79.1.tar.gz.
+
+    * Forked the slideshow "archives/Muldis_D_PDAFP_200807_sa.xul" into
+    itself, which remains unchanged, and the new file
+    "archives/Muldis_D_PDAFP_200807_updated.xul", which has been modified
+    just enough to bring it into compliance with all the Muldis D spec
+    changes made since release 0.43.0 (when "_sa" was frozen).  The most
+    significant improvements in "_updated" is that all the concrete Muldis
+    D code examples were rewritten into ones with the same semantics but
+    that are actual semi-specced Muldis D code rather than pseudo-code;
+    especially prominant is that the new code's size is 80-90% smaller than
+    before, and in the examples comparing Muldis D to SQL, the Muldis D
+    code was generally just half the size of the SQL code, so being less
+    verbose than SQL rather than more.  And so, from now on,
+    "Muldis_D_PDAFP_200807_updated.xul" will continue to be updated with
+    each Muldis D release when it otherwise becomes incorrect, and so it
+    should remain one of the best introduction materials to Muldis D.
+
+2009-06-13  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.79.0 is released on CPAN as
+    Muldis-D-0.79.0.tar.gz.
+
+    * (BBEdit_LM_Muldis_D.plist)  Added special literal
+    syntax to the "Tuple" and "Relation" node kinds, similar to what exists
+    for "Maybe", so the plain barewords "d0", "d0c0", "d0c1" are now
+    nonscalar GCVLs by themselves, like "nothing" or "∅" are.  Note that
+    this feature is in PTMD_STD alone; the Perl-STD dialects don't have it.
+
+    * (BBEdit_LM_Muldis_D.plist)  Various minor updates and fixes.
+
+2009-06-04  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.76.1 is released on CPAN as
+    Muldis-D-0.76.1.tar.gz.
+
+    * (BBEdit_LM_Muldis_D.plist)  Missed a few updates in the last release.
+
+2009-06-04  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.76.0 is released on CPAN as
+    Muldis-D-0.76.0.tar.gz.
+
+    * (BBEdit_LM_Muldis_D.plist)  Updates corresp to recent spec changes.
+
+2009-05-28  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.75.0 is released on CPAN as
+    Muldis-D-0.75.0.tar.gz.
+
+    * (BBEdit_LM_Muldis_D.plist)  Updates corresp to recent spec changes.
+
+2009-05-27  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.74.0 is released on CPAN as
+    Muldis-D-0.74.0.tar.gz.
+
+    * Added new file "util/Input_Method_Muldis_D.cin" which is the first
+    cut of a generic-format "input method" plugin, that can be installed
+    as-is under various operating systems including Mac OS X 10.5, whose
+    use should make it much easier to type the various trans-ASCII symbols
+    that the Muldis D concrete syntaxes allow you to use for operators/etc.
+    Of course, you might already have some other "input method" tool to use
+    already that helps with mathematical/etc symbols so the one bundled
+    with the Muldis D spec may be redundant; but otherwise it should help.
+    To use it in Mac OS X, simply drop it in your "~/Library/Input Methods"
+    and log out plus log in and enable it in the "International" System
+    Preference panel.  Also updated "util/README" about this file.
+
+    * (BBEdit_LM_Muldis_D.plist)  Updates corresp to recent spec changes.
+
+2009-05-19  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.73.0 is released on CPAN as
+    Muldis-D-0.73.0.tar.gz.
+
+    * (BBEdit_LM_Muldis_D.plist)  Updates corresp to recent spec changes.
+
+2009-05-15  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.72.0 is released on CPAN as
+    Muldis-D-0.72.0.tar.gz.
+
+    * (BBEdit_LM_Muldis_D.plist)  Other minor updates.
+
+2009-05-06  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.68.0 is released on CPAN as
+    Muldis-D-0.68.0.tar.gz.
+
+    * Updated any references in BBEdit_LM_Muldis_D.plist to reflect that
+    the Muldis D dialects/grammar "PTMD_Tiny" was renamed to "PTMD_STD".
+
+2009-05-04  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.67.0 is released on CPAN as
+    Muldis-D-0.67.0.tar.gz.
+
+    * (BBEdit_LM_Muldis_D.plist)  Updated this file to the latest grammar.
+
+2009-04-22  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.65.0 is released on CPAN as
+    Muldis-D-0.65.0.tar.gz.
+
+    * (BBEdit_LM_Muldis_D.plist)  Partially rewrote this file, mainly the
+    syntax coloring regexes, to be cleaner and to reflect the previous
+    PTMD_Tiny change items.  Also, Name/NameChain/DeclNameChain literals
+    are no longer colored at all, since in general they should be treated
+    consistently as identifiers.  Also, the "value kind" barewords,
+    essentially all the unqualified main type names, are no longer colored
+    as language keywords, as they should be treated consistently with
+    either type or routine invocation names.
+
+    * (BBEdit_LM_Muldis_D.plist)  Made several additions corresponding to
+    anticipated PTMD_Tiny grammar that is yet to be codified in the spec.
+    Rewrote the routine scanning pattern to look for
+    "[inner_]?[function|updater|procedure]" rather than "[name|'name'] \s*
+    => \s* Name:".  Added a couple dozen new keywords to the syntax
+    colorer, including both the routine makers and a bunch of possible
+    infix operators that are actually sugar over normal prefix operators.
+
+2009-04-02  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.63.0 is released on CPAN as
+    Muldis-D-0.63.0.tar.gz.
+
+    * Added new file "util/BBEdit_LM_Muldis_D.plist" which is the first cut
+    of a Codeless Language Module for the BBEdit text editor for Mac OS X
+    that empowers BBEdit to syntax color and function scan code written in
+    the PTMD_Tiny dialect of Muldis D.  Also added the support file
+    "util/README" which explains the CLM further.  The new CLM is only as
+    complete as the language spec itself, and mainly what it is the most
+    complete about is syntax coloring Muldis D value literals.  Also
+    updated the README file to refer to the "util/" and "archives/" dirs.
+    While not exactly its intended use, you can get a taste of the CLM
+    working by opening the PTMD_Tiny.pod file in BBEdit with the CLM
+    installed and look at the various code examples in the POD file.
+
+2008-07-29  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.43.0 is released on CPAN as
+    Muldis-D-0.43.0.tar.gz.
+
+    * Savagely chopped the Live Talk version of the Muldis_D_PDAFP_200807
+    slideshow to remove all the content text, keeping just the section
+    headings, a handful of bullets, and all but one of the code samples.
+    There should be no doubt whatsoever now that the presenter isn't
+    reading the slides; also, this result is more like the actual Takahashi
+    format that the XUL software is designed for; also, it now should be
+    easier to fit into the allowed time.  This was presented at OSCON on
+    July 23.  Then the Stand Alone version had its end updated to format
+    like the rest of the SA slideshow.  And so following this, this
+    2-version 2008 July slideshow is now frozen into the archives.
+
+    * The file archives/OSCON2008SessionProposal.txt was moved from the
+    Muldis Rosetta version control / distribution to the Muldis D one; also
+    there is now just one copy versus with 2 versions of Muldis Rosetta.
+
+2008-07-21  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.42.0 is released on CPAN as
+    Muldis-D-0.42.0.tar.gz.
+
+    * Edited and trimmed the slideshow "archives/Muldis_D_PDAFP_200807.xul"
+    substantially, removing about 30% of its size.  The changes were
+    inspired largely by feedback from several sources on the version in
+    release 0.41.0.  The cuts mainly were about removing "boring" parts
+    like introductives and less interesting or common features; also many
+    parts were edited to say the same thing in substantially fewer words;
+    all in all, this was just fat trimming and the result shouldn't lack
+    anything useful that was in the previous one.  This new version would
+    barely fit in 45 minutes if read aloud, but it is in fact now intended
+    as the paper for download, so people not at a live talk based on this
+    can still get all the material.  There was also some reordering, and a
+    bit of additions near the front to make it easier to know early what
+    the talk and the project is about.
+
+    * Forked said slideshow into a "_sa" (Stand Alone) and "_lt" (Live
+    Talk) version, the former being the version for viewing on its own, or
+    use as speaker's notes, and the latter for actual display during the
+    talk.  The live version changes the quasi-sentences of the stand alone
+    to bullet points and less text.  This was presented at PDXPug PGDay on
+    July 20th.
+
+    * Partly due to feedback gotten at the OSCON speakers' workshop on July
+    21, the talk will be redone again, using a different presentation tool,
+    and making the live version have very little content so it differs
+    greatly from what is spoken, this all in preparation for July 23.
+
+2008-07-15  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.41.0 is released on CPAN as
+    Muldis-D-0.41.0.tar.gz.
+
+    * Rewrote the slideshow "archives/Muldis_D_PDAFP_200807.xul" so it has
+    more appropriate content, and is a better length.  While this version
+    should be complete on talking about Muldis D, it still lacks anything
+    on Muldis Rosetta, which should end up about 10% of the size, except
+    that there are internal todo notes on this.  And next I'll need to chop
+    down the size of the new version so it can be presented in about 45
+    minutes, for which I'll solicit advice.  That cut version should be in
+    a near future subsequent release.
+
+2008-07-08  Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis::D version 0.40.0 is released on CPAN as
+    Muldis-D-0.40.0.tar.gz.
+
+    * Added new file "archives/Muldis_D_PDAFP_200807.xul" which is the very
+    rough first draft of the slideshow for the 2008 July talk "Muldis D -
+    Portable Databases At Full Power".  This talk is created for giving at
+    OSCON 2008, and it is also being given at several other events in 2008
+    July.  Following a practice presentation on 2008 July 8th, which used
+    the (first half of) this exact file (except new postscript first
+    screen), it was decided to completely rewrite the slideshow with
+    different content.  Meanwhile this version is now being released on
+    CPAN for posterity.  The next CPAN release of Muldis D will not have
+    this version, rather its replacement.  This talk is a XUL file and it
+    requires Mozilla Firefox to run (or you can read its text in a text
+    editor).  Also added the 2 support files "archives/takahashi.(css|js)"
+    plus the file "archives/README".

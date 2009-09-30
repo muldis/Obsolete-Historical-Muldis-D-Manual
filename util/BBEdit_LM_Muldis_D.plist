@@ -141,28 +141,28 @@
 
     <key>Comment Pattern</key>
     <string><![CDATA[(?x:
-      \s+ (Comment \s* : \s*)?
+      \s+ (Comment : \s*)?
         (\#{2,} | \# [^\#]* \#) (\s+ (\#{2,} | \# [^\#]* \#))* \s+
     )]]></string>
 
     <key>String Pattern</key>
     <string><![CDATA[(?x:
       (
-        (Bool \s* : \s*)? (?<!\w) (false | ⊥ | true | ⊤)
-      | (Order \s* : \s*)? (?<!\w) (increase | same | decrease)
-      | (RatRoundMeth \s* : \s*)? (?<!\w)
+        (Bool : \s*)? (?<!\w) (false | ⊥ | true | ⊤)
+      | (Order : \s*)? (?<!\w) (increase | same | decrease)
+      | (RatRoundMeth : \s*)? (?<!\w)
         (
             half_down | half_up
           | half_even
           | to_floor | to_ceiling
           | to_zero | to_inf
         )
-      | (Text \s* : \s*)? (?<!\w) ' [^']* ' (\s* ~ \s* ' [^']* ')*
-      | ((Octet)? Blob \s* : \s*)? (?<!\w)
-        [137F] \s* ; \s* ' [0-9A-F]* ' (\s* ~ \s* ' [0-9A-F]* ')*
-      | (((|NN|P)Rat | Instant | Duration) \s* : \s*)? (?<!\w)
+      | (Text : \s*)? (?<!\w) ' [^']* ' (\s* ~ \s* ' [^']* ')*
+      | ((Octet)? Blob : \s*)? (?<!\w)
+        [137F] ; \s* ' [0-9A-F]* ' (\s* ~ \s* ' [0-9A-F]* ')*
+      | (((|NN|P)Rat | Instant | Duration) : \s*)? (?<!\w)
         (
-            [1-9A-Z] \s* ; \s* -?[0-9A-Z_]+
+            [1-9A-Z] ; \s* -?[0-9A-Z_]+
             (
                 \.[0-9A-Z_]+
               | \s* \/ \s* [1-9A-Z][0-9A-Z_]*
@@ -175,14 +175,14 @@
               | \s* \* \s* [1-9](_?[0-9]+)* \s* \^ \s* -?[0-9](_?[0-9]+)*
             )
         )
-      | ((|NN|P)Int \s* : \s*)? (?<!\w)
+      | ((|NN|P)Int : \s*)? (?<!\w)
         (
-            [1-9A-Z] \s* ; \s* -?[0-9A-Z_]+
+            [1-9A-Z] ; \s* -?[0-9A-Z_]+
           | (0 | -?[1-9](_?[0-9]+)*)
         )
-      | (|O|B|UCP)String \s* : \s*
+      | (|O|B|UCP)String : \s*
         (
-            [1-9A-Z] \s* ; \s*
+            [1-9A-Z] ; \s*
             \[ \s*
               -?[0-9A-Z_]+
               (\s* , \s* -?[0-9A-Z_]+)*
@@ -193,9 +193,9 @@
             \s* \]
         )
       | ((UTC | Float) (Instant | DateTime | Date | Time)
-            | UTCDuration) \s* : \s*
+            | UTCDuration) : \s*
         (
-            [1-9A-Z] \s* ; \s*
+            [1-9A-Z] ; \s*
             \[ \s*
               (-?[0-9A-Z_]+)?
               (\s* , \s* (-?[0-9A-Z_]+)?){4}
