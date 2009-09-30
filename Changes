@@ -3,8 +3,8 @@
 
 2009-09-xx   Darren Duncan <perl@DarrenDuncan.net>
 
-    * Muldis::D::Manual version 0.0.1 is released on CPAN as
-    Muldis-D-Manual-0.0.1.tar.gz.
+    * Muldis::D::Manual version 0.1.0 is released on CPAN as
+    Muldis-D-Manual-0.1.0.tar.gz.
 
     * Updated the README file to indicate that this distribution now has 2
     public Git repositories, one on GitHub.com and one on utsl.gen.nz.
@@ -19,12 +19,15 @@
     that distribution into this Muldis-D-Manual distribution.  In all,
     Changes file items were imported from the Changes report for 24
     Muldis-D distribution releases, whose version numbers are listed here
-    from newest to oldest: 0.91.0, 0.90.0, 0.88.0, 0.87.0, 0.86.0, 0.83.0,
-    0.82.0, 0.80.0, 0.79.1, 0.79.0, 0.76.1, 0.76.0, 0.75.0, 0.74.0, 0.73.0,
-    0.72.0, 0.68.0, 0.67.0, 0.65.0, 0.63.0, 0.43.0, 0.42.0, 0.41.0, 0.40.0.
-    In all, Changes file items were imported from the Changes report for 3
-    Muldis-Rosetta/DB distribution releases, whose version numbers are
-    listed here from newest to oldest: 0.8.0, 0.7.0, 0.6.1.
+    from newest to oldest: 0.91.0 (2009-09-21), 0.90.0, 0.88.0, 0.87.0,
+    0.86.0, 0.83.0, 0.82.0, 0.80.0, 0.79.1, 0.79.0, 0.76.1, 0.76.0, 0.75.0,
+    0.74.0, 0.73.0, 0.72.0, 0.68.0, 0.67.0, 0.65.0, 0.63.0, 0.43.0, 0.42.0,
+    0.41.0, 0.40.0 (2008-07-08).  In all, Changes file items were imported
+    from the Changes report for 3 Muldis-Rosetta/DB distribution releases,
+    whose version numbers are listed here from newest to oldest: 0.8.0
+    (2008-08-02), 0.7.0, 0.6.1 (2008-03-10).  Besides all of the above, a
+    single additional Changes file item was imported from the "Rosetta"
+    distribution version 0.720.0/0.720000 (2006-02-01).
 
 2009-09-26   Darren Duncan <perl@DarrenDuncan.net>
 
@@ -391,3 +394,11 @@
     of a proposal to give a talk on Muldis D + DB at OSCON 2008 (it can
     also be given elsewhere); this is likely the most succinct description
     yet of what the projects are and why one would want to use them.
+
+2006-02-01   Darren Duncan <perl@DarrenDuncan.net>
+
+    * Rosetta Release 0.720.0/0.720000 (SVN r1203).
+
+    * Added new file docs/OSCON2005LightningTalk.txt, which has the
+    pristine text for a lightning talk I gave, and outlined in 5 minutes
+    what at-that-time Rosetta was and was to be.
