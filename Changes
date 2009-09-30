@@ -14,14 +14,17 @@
     of the Muldis D spec introduced for its PTMD_STD dialect.
 
     * Updated the Changes file to copy into it (with trimming if needed)
-    all the Changes file items from the Muldis-D distribution that
-    described history of the files that were moved from that distribution
-    into this Muldis-D-Manual distribution.  In all, Changes file items
-    were imported from the Changes report for 24 Muldis-D distribution
-    releases, whose version numbers are listed here from newest to oldest:
-    0.91.0, 0.90.0, 0.88.0, 0.87.0, 0.86.0, 0.83.0, 0.82.0, 0.80.0, 0.79.1,
-    0.79.0, 0.76.1, 0.76.0, 0.75.0, 0.74.0, 0.73.0, 0.72.0, 0.68.0, 0.67.0,
-    0.65.0, 0.63.0, 0.43.0, 0.42.0, 0.41.0, 0.40.0.
+    all the Changes file items from the Muldis-D and Muldis-Rosetta/DB
+    distributions that described history of the files that were moved from
+    that distribution into this Muldis-D-Manual distribution.  In all,
+    Changes file items were imported from the Changes report for 24
+    Muldis-D distribution releases, whose version numbers are listed here
+    from newest to oldest: 0.91.0, 0.90.0, 0.88.0, 0.87.0, 0.86.0, 0.83.0,
+    0.82.0, 0.80.0, 0.79.1, 0.79.0, 0.76.1, 0.76.0, 0.75.0, 0.74.0, 0.73.0,
+    0.72.0, 0.68.0, 0.67.0, 0.65.0, 0.63.0, 0.43.0, 0.42.0, 0.41.0, 0.40.0.
+    In all, Changes file items were imported from the Changes report for 3
+    Muldis-Rosetta/DB distribution releases, whose version numbers are
+    listed here from newest to oldest: 0.8.0, 0.7.0, 0.6.1.
 
 2009-09-26   Darren Duncan <perl@DarrenDuncan.net>
 
@@ -278,6 +281,14 @@
     working by opening the PTMD_Tiny.pod file in BBEdit with the CLM
     installed and look at the various code examples in the POD file.
 
+2008-08-02   Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis Rosetta version 0.8.0 for Perl 5 is released on CPAN as
+    Muldis-Rosetta-0.8.0.tar.gz.
+
+    * The file archives/OSCON2008SessionProposal.txt was moved from the
+    Muldis Rosetta version control / distribution to the Muldis D one.
+
 2008-07-29  Darren Duncan <perl@DarrenDuncan.net>
 
     * Muldis::D version 0.43.0 is released on CPAN as
@@ -295,8 +306,7 @@
     2-version 2008 July slideshow is now frozen into the archives.
 
     * The file archives/OSCON2008SessionProposal.txt was moved from the
-    Muldis Rosetta version control / distribution to the Muldis D one; also
-    there is now just one copy versus with 2 versions of Muldis Rosetta.
+    Muldis Rosetta version control / distribution to the Muldis D one.
 
 2008-07-21  Darren Duncan <perl@DarrenDuncan.net>
 
@@ -361,3 +371,23 @@
     requires Mozilla Firefox to run (or you can read its text in a text
     editor).  Also added the 2 support files "archives/takahashi.(css|js)"
     plus the file "archives/README".
+
+2008-04-12   Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis Rosetta version 0.7.0 for Perl 5 is released on CPAN as
+    Muldis-Rosetta-0.7.0.tar.gz.
+
+    * Minor update to the file archives/OSCON2008SessionProposal.txt which
+    reflects that the proposal was accepted; the talk will be given Jul 23.
+    Also retconned the file to use current names, urls of Muldis D|Rosetta;
+    the copy on the OSCON website will likewise be updated if possible.
+
+2008-03-10   Darren Duncan <perl@DarrenDuncan.net>
+
+    * Muldis DB version 0.6.1 for Perl 5 is released on CPAN as
+    Muldis-DB-0.6.1.tar.gz.
+
+    * Added new file archives/OSCON2008SessionProposal.txt which is a copy
+    of a proposal to give a talk on Muldis D + DB at OSCON 2008 (it can
+    also be given elsewhere); this is likely the most succinct description
+    yet of what the projects are and why one would want to use them.
