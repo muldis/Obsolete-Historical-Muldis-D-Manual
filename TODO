@@ -57,5 +57,9 @@ employed for over a year or else you have yourself attended another session
 of that same course, and the trainer who gave that session that you
 attended attends as a participant the training you give." (which the book
 labeled the "pièce de résistance").
+Note: Pg 8.5 as of Week-of2009Oct10 now has named argument syntax: "Support
+use of function argument names to identify which actual arguments match
+which function parameters.  The syntax uses AS, for example funcname(value
+AS arg1, anothervalue AS arg2).  Pavel Stehule."
 
 * Whatever else needs doing, such as, fixing bugs.

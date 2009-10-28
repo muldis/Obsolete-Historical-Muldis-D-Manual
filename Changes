@@ -1,7 +1,7 @@
                              Muldis::D::Manual
 ---------------------------------------------------------------------------
 
-2009-09-xx   Darren Duncan <perl@DarrenDuncan.net>
+2009-10-xx   Darren Duncan <perl@DarrenDuncan.net>
 
     * Muldis::D::Manual version 0.1.0 is released on CPAN as
     Muldis-D-Manual-0.1.0.tar.gz.
@@ -9,9 +9,35 @@
     * Updated the README file to indicate that this distribution now has 2
     public Git repositories, one on GitHub.com and one on utsl.gen.nz.
 
-    * (BBEdit_LM_Muldis_D.plist)  Updates to syntax coloring patterns that
-    correspond to the increased whitespace strictness that version 0.94.0
-    of the Muldis D spec introduced for its PTMD_STD dialect.
+    * (Muldis_D_PDAFP_200807_updated.xul)  Corresponding to changes
+    introduced in Muldis D spec v0.93.0 for PTMD_STD:  Updates to code
+    examples to remove most expression-delimiting parenthesis because they
+    are no longer mandatory.
+
+    * (BBEdit_LM_Muldis_D.plist)  Corresponding to changes introduced in
+    Muldis D spec v0.94.0 for PTMD_STD:  Updates to syntax coloring
+    patterns that correspond to whitespace, which has increased strictness.
+
+    * (BBEdit_LM_Muldis_D.plist)  Corresponding to changes introduced in
+    Muldis D spec v0.95.0 for PTMD_STD:  Updates to syntax coloring
+    patterns that correspond to code comments; now there are 2 distinct
+    patterns, 1 "#" delimited for not-as-value comments, which is the
+    "Comment Pattern", and 1 "`" delimited for as-value Comment literals,
+    which is part of the "String Pattern".
+
+    * (BBEdit_LM_Muldis_D.plist)  Corresponding to changes introduced in
+    Muldis D spec v0.95.0 for PTMD_STD:  Updates to the keywords list and
+    function-search pattern concerning that all multi-word keywords now
+    have words separated by dashes rather than whitespace or underscores.
+
+    * (BBEdit_LM_Muldis_D.plist)  Corresponding to changes introduced in
+    Muldis D spec v0.96.0 for PTMD_STD:  Updates to the keywords list
+    concerning the 4-valued catalog_abstraction_level pragma was added.
+
+    * (Muldis_D_PDAFP_200807_updated.xul)  Corresponding to changes
+    introduced in Muldis D spec v0.96.1 for PTMD_STD:  Updates to code
+    examples to reflect param types now appearing to the right of param
+    names rather than to the left, and now with a colon between the pair.
 
     * Updated the Changes file to copy into it (with trimming if needed)
     all the Changes file items from the Muldis-D and Muldis-Rosetta/DB

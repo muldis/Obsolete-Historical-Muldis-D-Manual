@@ -522,8 +522,8 @@ updaters and procedures
 ----
 Functions
 ----
-  function cube (Int <-- Int $topic) {
-    ($topic I^ 3)
+  function cube (Int <-- $topic : Int) {
+    $topic I^ 3
   }
 ----
 Functions are pure and
@@ -536,8 +536,8 @@ invoke functional routines
 ----
 Updaters
 ----
-  updater chop_sign (Int &$topic) {
-    $topic := (I|| $topic)
+  updater chop_sign (&$topic : Int) {
+    $topic := I|| $topic
   }
 ----
 Updaters are imperative but
@@ -567,7 +567,7 @@ be factored to one instance
 Procedures
 ----
   procedure fetch_all_people
-      (type.var.fed.mydb.people &$people) {
+      (&$people : type.var.fed.mydb.people) {
     $people := $fed.mydb.people
   }
 ----
@@ -611,25 +611,25 @@ which is a value expression
 ----
 TODO: UPDATE THIS SLIDE
 Either (less abstracted from AST):
-  procedure count_people (NNInt &$p_count) {
+  procedure count_people (&$p_count : NNInt) {
     main {
       $p_count := inn.icount(
         &p_count => $p_count,
         the_db => $fed.mydb )
     }
-    updater icount (NNInt &$p_count,
-        type.var.fed.mydb $the_db) {
-      $p_count := (R# $the_db.people)
+    updater icount (&$p_count : NNInt,
+        $the_db : type.var.fed.mydb) {
+      $p_count := R# $the_db.people
     }
   }
 ----
 TODO: UPDATE THIS SLIDE
 Or (more abstracted from AST):
-  procedure count_people (NNInt &$p_count) {
-    $p_count := (R# $fed.mydb.people)
+  procedure count_people (&$p_count : NNInt) {
+    $p_count := R# $fed.mydb.people
   }
 Or (yet more abstracted):
-  query (R# $fed.mydb.people)
+  query R# $fed.mydb.people
 ----
 TODO: UPDATE THIS SLIDE
 Another use of inner
@@ -1163,7 +1163,7 @@ SQL:
   SELECT * FROM tab1
 ----
 Muldis D:
-  (R# $tab1)
+  R# $tab1
 SQL (as a scalar query):
   (SELECT COUNT(*) FROM tab1)
 ----
@@ -1174,10 +1174,10 @@ SQL:
   FROM tab1
 ----
 Muldis D:
-  ($tab1 matching Relation:{
+  $tab1 matching Relation:{
     col1 => 'hello', col2 => 5,
     col1 => 'world', col2 => 7
-  })
+  }
 SQL:
   SELECT *
   FROM tab1
@@ -1212,9 +1212,9 @@ such that the result is:
   tab(col1,col2,col3,col4)
 ----
 Muldis D:
-  ($tab1 join $tab2)
+  $tab1 join $tab2
 or:
-  ($tab1 ⋈ $tab2)
+  $tab1 ⋈ $tab2
 SQL:
   SELECT DISTINCT tab1.*, tab2.col4
   FROM tab1 NATURAL INNER JOIN tab2
@@ -1233,10 +1233,10 @@ SQL:
   FROM tab1
 ----
 Muldis D:
-  ($tab1 extend VMF->{
+  $tab1 extend VMF->{
     Tuple:{ a => 'x',
       b => ($.m I- $.n) }
-  })
+  }
 SQL:
   SELECT tab1.*, 'x' AS a,
     (tab1.m - tab1.n) AS b
