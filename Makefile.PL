@@ -12,7 +12,7 @@ sub OPTIONAL {
 
 WriteMakefile(
    NAME => 'Muldis::D::Manual',
-   VERSION => '0.0.0',
+   VERSION => '0.1.0',
    ABSTRACT => 'Muldis D language and implementations manual',
    AUTHOR => 'Darren Duncan <perl@DarrenDuncan.net>',
    PREREQ_PM => {},
@@ -25,7 +25,7 @@ WriteMakefile(
    OPTIONAL( '6.46',
       META_ADD => {
          requires => {
-            'perl' => '5.6.0', # since MIN_PERL_VERSION no affect META.yml
+            'perl' => '5.006', # as MIN_PERL_VERSION no affect META.yml
          },
          resources => {
             homepage => 'http://www.muldis.com/',

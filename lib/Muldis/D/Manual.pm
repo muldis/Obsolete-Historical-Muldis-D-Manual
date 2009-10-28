@@ -4,7 +4,7 @@ use warnings;
 package Muldis::D::Manual;
 # Note that Perl code only exists at all in this file in order to help
 # the CPAN indexer handle the distribution properly.
-our $VERSION = '0.000000';
+our $VERSION = '0.001000';
 $VERSION = eval $VERSION;
 1;
 __END__
@@ -20,7 +20,7 @@ Muldis D language and implementations manual
 
 =head1 VERSION
 
-This document is Muldis::D::Manual version 0.0.0.
+This document is Muldis::D::Manual version 0.1.0.
 
 =head1 DESCRIPTION
 
