@@ -1,7 +1,15 @@
                              Muldis::D::Manual
 ---------------------------------------------------------------------------
 
-2009-10-27   Darren Duncan <perl@DarrenDuncan.net>
+2009-11-xx   Darren Duncan <darren@DarrenDuncan.net>
+
+    * Muldis::D::Manual version 0.1.1 is released on CPAN as
+    Muldis-D-Manual-0.1.1.tar.gz.
+
+    * Updated all author references to change Darren Duncan's stated email
+    address from "perl@DarrenDuncan.net" to "darren@DarrenDuncan.net".
+
+2009-10-27   Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D::Manual version 0.1.0 is released on CPAN as
     Muldis-D-Manual-0.1.0.tar.gz.
@@ -67,7 +75,7 @@
     single additional Changes file item was imported from the "Rosetta"
     distribution version 0.720.0/0.720000 (2006-02-01).
 
-2009-09-26   Darren Duncan <perl@DarrenDuncan.net>
+2009-09-26   Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D::Manual version 0.0.0 is released on CPAN as
     Muldis-D-Manual-0.0.0.tar.gz.
@@ -112,21 +120,21 @@
     The 1 was transferred here from the Muldis-Rosetta distribution, where
     it constituted the entire archives/ folder.
 
-2009-09-21  Darren Duncan <perl@DarrenDuncan.net>
+2009-09-21  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.91.0 is released on CPAN as
     Muldis-D-0.91.0.tar.gz.
 
     * (BBEdit_LM_Muldis_D.plist)  Updates corresp to recent spec changes.
 
-2009-09-19  Darren Duncan <perl@DarrenDuncan.net>
+2009-09-19  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.90.0 is released on CPAN as
     Muldis-D-0.90.0.tar.gz.
 
     * (Muldis_D_PDAFP_200807_updated.xul)  Upd corres to recent spec chgs.
 
-2009-09-12  Darren Duncan <perl@DarrenDuncan.net>
+2009-09-12  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.88.0 is released on CPAN as
     Muldis-D-0.88.0.tar.gz.
@@ -134,7 +142,7 @@
     * (Muldis_D_PDAFP_200807_updated.xul, BBEdit_LM_Muldis_D.plist)
     Updates corresponding to recent spec changes.
 
-2009-09-03  Darren Duncan <perl@DarrenDuncan.net>
+2009-09-03  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.87.0 is released on CPAN as
     Muldis-D-0.87.0.tar.gz.
@@ -142,7 +150,7 @@
     * (Muldis_D_PDAFP_200807_updated.xul)  Updates corresponding to recent
     spec changes.
 
-2009-09-02  Darren Duncan <perl@DarrenDuncan.net>
+2009-09-02  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.86.0 is released on CPAN as
     Muldis-D-0.86.0.tar.gz.
@@ -157,14 +165,14 @@
     examples to reflect that you now use "/" to select a Perl 6 "Rat" in
     terms of 2 "Int", where you used to use "div" to do that.
 
-2009-08-20  Darren Duncan <perl@DarrenDuncan.net>
+2009-08-20  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.83.0 is released on CPAN as
     Muldis-D-0.83.0.tar.gz.
 
     * (BBEdit_LM_Muldis_D.plist)  Updates corresp to recent spec changes.
 
-2009-07-27  Darren Duncan <perl@DarrenDuncan.net>
+2009-07-27  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.82.0 is released on CPAN as
     Muldis-D-0.82.0.tar.gz.
@@ -172,7 +180,7 @@
     * (Muldis_D_PDAFP_200807_updated.xul)  Other small updates corresp to
     recent spec changes.
 
-2009-07-06  Darren Duncan <perl@DarrenDuncan.net>
+2009-07-06  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.80.0 is released on CPAN as
     Muldis-D-0.80.0.tar.gz.
@@ -180,7 +188,7 @@
     * (BBEdit_LM_Muldis_D.plist, Input_Method_Muldis_D.cin)  Various minor
     updates and fixes.
 
-2009-06-16  Darren Duncan <perl@DarrenDuncan.net>
+2009-06-16  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.79.1 is released on CPAN as
     Muldis-D-0.79.1.tar.gz.
@@ -201,7 +209,7 @@
     each Muldis D release when it otherwise becomes incorrect, and so it
     should remain one of the best introduction materials to Muldis D.
 
-2009-06-13  Darren Duncan <perl@DarrenDuncan.net>
+2009-06-13  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.79.0 is released on CPAN as
     Muldis-D-0.79.0.tar.gz.
@@ -214,28 +222,28 @@
 
     * (BBEdit_LM_Muldis_D.plist)  Various minor updates and fixes.
 
-2009-06-04  Darren Duncan <perl@DarrenDuncan.net>
+2009-06-04  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.76.1 is released on CPAN as
     Muldis-D-0.76.1.tar.gz.
 
     * (BBEdit_LM_Muldis_D.plist)  Missed a few updates in the last release.
 
-2009-06-04  Darren Duncan <perl@DarrenDuncan.net>
+2009-06-04  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.76.0 is released on CPAN as
     Muldis-D-0.76.0.tar.gz.
 
     * (BBEdit_LM_Muldis_D.plist)  Updates corresp to recent spec changes.
 
-2009-05-28  Darren Duncan <perl@DarrenDuncan.net>
+2009-05-28  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.75.0 is released on CPAN as
     Muldis-D-0.75.0.tar.gz.
 
     * (BBEdit_LM_Muldis_D.plist)  Updates corresp to recent spec changes.
 
-2009-05-27  Darren Duncan <perl@DarrenDuncan.net>
+2009-05-27  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.74.0 is released on CPAN as
     Muldis-D-0.74.0.tar.gz.
@@ -254,21 +262,21 @@
 
     * (BBEdit_LM_Muldis_D.plist)  Updates corresp to recent spec changes.
 
-2009-05-19  Darren Duncan <perl@DarrenDuncan.net>
+2009-05-19  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.73.0 is released on CPAN as
     Muldis-D-0.73.0.tar.gz.
 
     * (BBEdit_LM_Muldis_D.plist)  Updates corresp to recent spec changes.
 
-2009-05-15  Darren Duncan <perl@DarrenDuncan.net>
+2009-05-15  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.72.0 is released on CPAN as
     Muldis-D-0.72.0.tar.gz.
 
     * (BBEdit_LM_Muldis_D.plist)  Other minor updates.
 
-2009-05-06  Darren Duncan <perl@DarrenDuncan.net>
+2009-05-06  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.68.0 is released on CPAN as
     Muldis-D-0.68.0.tar.gz.
@@ -276,14 +284,14 @@
     * Updated any references in BBEdit_LM_Muldis_D.plist to reflect that
     the Muldis D dialects/grammar "PTMD_Tiny" was renamed to "PTMD_STD".
 
-2009-05-04  Darren Duncan <perl@DarrenDuncan.net>
+2009-05-04  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.67.0 is released on CPAN as
     Muldis-D-0.67.0.tar.gz.
 
     * (BBEdit_LM_Muldis_D.plist)  Updated this file to the latest grammar.
 
-2009-04-22  Darren Duncan <perl@DarrenDuncan.net>
+2009-04-22  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.65.0 is released on CPAN as
     Muldis-D-0.65.0.tar.gz.
@@ -305,7 +313,7 @@
     colorer, including both the routine makers and a bunch of possible
     infix operators that are actually sugar over normal prefix operators.
 
-2009-04-02  Darren Duncan <perl@DarrenDuncan.net>
+2009-04-02  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.63.0 is released on CPAN as
     Muldis-D-0.63.0.tar.gz.
@@ -322,7 +330,7 @@
     working by opening the PTMD_Tiny.pod file in BBEdit with the CLM
     installed and look at the various code examples in the POD file.
 
-2008-08-02   Darren Duncan <perl@DarrenDuncan.net>
+2008-08-02   Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis Rosetta version 0.8.0 for Perl 5 is released on CPAN as
     Muldis-Rosetta-0.8.0.tar.gz.
@@ -330,7 +338,7 @@
     * The file archives/OSCON2008SessionProposal.txt was moved from the
     Muldis Rosetta version control / distribution to the Muldis D one.
 
-2008-07-29  Darren Duncan <perl@DarrenDuncan.net>
+2008-07-29  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.43.0 is released on CPAN as
     Muldis-D-0.43.0.tar.gz.
@@ -349,7 +357,7 @@
     * The file archives/OSCON2008SessionProposal.txt was moved from the
     Muldis Rosetta version control / distribution to the Muldis D one.
 
-2008-07-21  Darren Duncan <perl@DarrenDuncan.net>
+2008-07-21  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.42.0 is released on CPAN as
     Muldis-D-0.42.0.tar.gz.
@@ -380,7 +388,7 @@
     and making the live version have very little content so it differs
     greatly from what is spoken, this all in preparation for July 23.
 
-2008-07-15  Darren Duncan <perl@DarrenDuncan.net>
+2008-07-15  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.41.0 is released on CPAN as
     Muldis-D-0.41.0.tar.gz.
@@ -394,7 +402,7 @@
     minutes, for which I'll solicit advice.  That cut version should be in
     a near future subsequent release.
 
-2008-07-08  Darren Duncan <perl@DarrenDuncan.net>
+2008-07-08  Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D version 0.40.0 is released on CPAN as
     Muldis-D-0.40.0.tar.gz.
@@ -413,7 +421,7 @@
     editor).  Also added the 2 support files "archives/takahashi.(css|js)"
     plus the file "archives/README".
 
-2008-04-12   Darren Duncan <perl@DarrenDuncan.net>
+2008-04-12   Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis Rosetta version 0.7.0 for Perl 5 is released on CPAN as
     Muldis-Rosetta-0.7.0.tar.gz.
@@ -423,7 +431,7 @@
     Also retconned the file to use current names, urls of Muldis D|Rosetta;
     the copy on the OSCON website will likewise be updated if possible.
 
-2008-03-10   Darren Duncan <perl@DarrenDuncan.net>
+2008-03-10   Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis DB version 0.6.1 for Perl 5 is released on CPAN as
     Muldis-DB-0.6.1.tar.gz.
@@ -433,7 +441,7 @@
     also be given elsewhere); this is likely the most succinct description
     yet of what the projects are and why one would want to use them.
 
-2006-02-01   Darren Duncan <perl@DarrenDuncan.net>
+2006-02-01   Darren Duncan <darren@DarrenDuncan.net>
 
     * Rosetta Release 0.720.0/0.720000 (SVN r1203).
 

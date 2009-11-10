@@ -14,7 +14,7 @@ WriteMakefile(
    NAME => 'Muldis::D::Manual',
    VERSION => '0.1.0',
    ABSTRACT => 'Muldis D language and implementations manual',
-   AUTHOR => 'Darren Duncan <perl@DarrenDuncan.net>',
+   AUTHOR => 'Darren Duncan <darren@DarrenDuncan.net>',
    PREREQ_PM => {},
    OPTIONAL( '6.48',
       MIN_PERL_VERSION => '5.006',

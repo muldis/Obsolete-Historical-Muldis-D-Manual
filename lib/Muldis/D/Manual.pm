@@ -2,10 +2,10 @@ use 5.006;
 use strict;
 use warnings;
 package Muldis::D::Manual;
-# Note that Perl code only exists at all in this file in order to help
-# the CPAN indexer handle the distribution properly.
 our $VERSION = '0.001000';
 $VERSION = eval $VERSION;
+# Note that Perl code only exists at all in this file in order to help
+# the CPAN indexer handle the distribution properly.
 1;
 __END__
 
@@ -64,7 +64,7 @@ about it than any other implementation-specific topic, in the short term.
 
 =head1 AUTHOR
 
-Darren Duncan (C<perl@DarrenDuncan.net>)
+Darren Duncan (C<darren@DarrenDuncan.net>)
 
 =head1 LICENSE AND COPYRIGHT
 
@@ -181,6 +181,6 @@ intended, but not yet started.
 
 Alternately, you can purchase more advanced commercial support for various
 Muldis D implementations, particularly Muldis Rosetta, from its author by
-way of Muldis Data Systems; see (L<http://www.muldis.com/>) for details.
+way of Muldis Data Systems; see L<http://www.muldis.com/> for details.
 
 =cut
