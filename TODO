@@ -13,9 +13,6 @@ table for these items; they are simply to be done "as soon as possible".
 the progress is non-trivial, so there are regular public snapshots with
 nicely rendered documentation.
 
-* Flesh out the Changes file with the history of its initial contents
-transferred from other distros.
-
 * IN PROGRESS ...
 Start this distribution, which collects miscellaneous and large
 documentation associated with the Muldis D language but isn't part of the

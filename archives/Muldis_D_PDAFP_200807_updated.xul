@@ -613,8 +613,7 @@ TODO: UPDATE THIS SLIDE
 Either (less abstracted from AST):
   procedure count_people (&$p_count : NNInt) {
     main {
-      $p_count := inn.icount(
-        &p_count => $p_count,
+      inn.icount( &$>p_count,
         the_db => $fed.mydb )
     }
     updater icount (&$p_count : NNInt,
@@ -1081,8 +1080,8 @@ at the AST level
 fully-qualified with their
 namespace, rather than
 unqualified; for example,
-"sys.std.Rational.sum" is
-used rather than "sum"
+"sys.std.Core.Rational.sum"
+is used rather than "sum"
 ----
 Doing this reduces ambiguity
 and bugs that can result
@@ -1120,11 +1119,16 @@ the top namespace "mnt"
 ----
 Global-scope user-defined
 entities are all under the
-top namespaces "fed", "dep",
-"sdp"; they mean
-all depots, current depot,
-current schema or
+top namespaces "fed", "nlx";
+they mean all depots,
+current depot or schema or
 Oracle-concept package
+----
+Alias for the lexically
+innermost routine is "rtn";
+helps directly-recursive
+routines whose names are
+auto chosen by compiler
 ----
 Lexical-scope user-defined
 entities are all under
