@@ -31,15 +31,45 @@
     <string>code_as_data</string>
     <string>plain_rtn_inv</string>
     <string>rtn_inv_alt_syn</string>
+    <string>standard_syntax_extensions</string>
+    <string>date_time</string>
 
-    <string>d0</string>
-    <string>d0c0</string>
-    <string>d0c1</string>
-    <string>nothing</string>
+    <string>D0</string>
+    <string>D0C0</string>
+    <string>D0C1</string>
+    <string>Nothing</string>
     <string>∅</string>
 
     <string>depot-catalog</string>
     <string>depot-data</string>
+
+    <string>function</string>
+    <string>updater</string>
+    <string>procedure</string>
+    <string>scalar-type</string>
+    <string>tuple-type</string>
+    <string>relation-type</string>
+    <string>domain-type</string>
+    <string>subset-type</string>
+    <string>relvar</string>
+
+    <string>possrep</string>
+    <string>attr</string>
+    <string>is</string>
+    <string>constraint</string>
+    <string>tuple</string>
+    <string>first</string>
+    <string>virtual</string>
+    <string>map</string>
+    <string>determinants</string>
+    <string>dependents</string>
+    <string>key</string>
+    <string>primary</string>
+    <string>distributed</string>
+    <string>parent</string>
+    <string>child</string>
+    <string>using</string>
+    <string>attrs</string>
 
     <string>if</string>
     <string>then</string>
@@ -103,26 +133,6 @@
     <string>depot-mount</string>
     <string>within</string>
 
-    <string>function</string>
-    <string>updater</string>
-    <string>procedure</string>
-    <string>main</string>
-
-    <string>type</string>
-    <string>scalar</string>
-    <string>nonscalar</string>
-    <string>union</string>
-    <string>subset</string>
-    <string>possrep</string>
-    <string>attr</string>
-    <string>is</string>
-    <string>constraint</string>
-    <string>key</string>
-    <string>primary</string>
-    <string>distributed</string>
-
-    <string>relvar</string>
-
     <string>var</string>
     <string>loop</string>
 
@@ -130,8 +140,6 @@
 
     <string>p5rx</string>
 
-    <string>tuple</string>
-    <string>relation</string>
     <string>set</string>
     <string>array</string>
     <string>bag</string>
@@ -153,14 +161,14 @@
     <key>String Pattern</key>
     <string><![CDATA[(?x:
       (
-        (Bool : \s*)? (?<!\w) (false | ⊥ | true | ⊤)
-      | (Order : \s*)? (?<!\w) (increase | same | decrease)
+        (Bool : \s*)? (?<!\w) (False | ⊥ | True | ⊤)
+      | (Order : \s*)? (?<!\w) (Increase | Same | Decrease)
       | (RatRoundMeth : \s*)? (?<!\w)
         (
-            half_down | half_up
-          | half_even
-          | to_floor | to_ceiling
-          | to_zero | to_inf
+            HalfDown | HalfUp
+          | HalfEven
+          | ToFloor | ToCeiling
+          | ToZero | ToInf
         )
       | (Text : \s*)? (?<!\w) ' [^']* ' (\s* ~ \s* ' [^']* ')*
       | (Comment : \s*)? (?<!\w) ` [^`]* ` (\s* ~ \s* ` [^`]* `)*
@@ -185,18 +193,6 @@
         (
             [1-9A-Z] ; \s* -?[0-9A-Z_]+
           | (0 | -?[1-9](_?[0-9]+)*)
-        )
-      | (|O|B|UCP)String : \s*
-        (
-            [1-9A-Z] ; \s*
-            \[ \s*
-              -?[0-9A-Z_]+
-              (\s* , \s* -?[0-9A-Z_]+)*
-            \s* \]
-          | \[ \s*
-              (0 | -?[1-9](_?[0-9]+)*)
-              (\s* , \s* (0 | -?[1-9](_?[0-9]+)*))*
-            \s* \]
         )
       | ((UTC | Float) (Instant | DateTime | Date | Time)
             | UTCDuration) : \s*
@@ -230,7 +226,7 @@
     <string><![CDATA[(?x:
       (?P<function_name>
         (function|updater|procedure
-          |((scalar|nonscalar|union|subset)-type)
+          |((scalar|tuple|relation|domain|subset)-type)
           |relvar) \s+
         (
             [a-zA-Z_][a-zA-Z0-9_-]*

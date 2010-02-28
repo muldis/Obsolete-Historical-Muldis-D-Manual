@@ -1,7 +1,7 @@
                              Muldis::D::Manual
 ---------------------------------------------------------------------------
 
-2009-12-xx   Darren Duncan <darren@DarrenDuncan.net>
+2010-02-xx   Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D::Manual version 0.2.0 is released on CPAN as
     Muldis-D-Manual-0.2.0.tar.gz.
@@ -18,9 +18,49 @@
     introduced in Muldis D spec v0.103.0 for PTMD_STD:  Update to code
     example to abbreviate "&p_count => $p_count" to "&$>p_count".
 
+    * (BBEdit_LM_Muldis_D.plist)  Corresponding to changes introduced in
+    Muldis D spec v0.103.0 for PTMD_STD:  Updates to the keywords list
+    concerning the list-valued standard_syntax_extensions pragma was added.
+
     * (Muldis_D_PDAFP_200807_updated.xul)  Corresponding to changes
     introduced in Muldis D spec v0.104.0:  Add a description to reflect
     that the 1 new top-level namespace "rtn" was added.
+
+    * (BBEdit_LM_Muldis_D.plist)  Corresponding to changes introduced in
+    Muldis D spec v0.105.0 for PTMD_STD:  Updates to the keywords list and
+    function-search pattern concerning that the "union-type" keyword has
+    been renamed to "domain-type" and the "nonscalar-type" keyword has been
+    split into the 2 "tuple-type" and "relation-type".
+
+    * (BBEdit_LM_Muldis_D.plist)  Corresponding to changes introduced in
+    Muldis D spec v0.107.0 for PTMD_STD:  Updates to the keywords list and
+    the syntax coloring patterns concerning single-value literals or
+    enumeration value names to rename them all so that they are now
+    capitalized like type names rather than all lowercase; for examples,
+    "nothing" and "half_even" were renamed to "Nothing" and "HalfEven".
+
+    * (Muldis_D_PDAFP_200807_updated.xul)  Corresponding to changes
+    introduced in Muldis D spec v0.107.0 for PTMD_STD:  Update to code
+    examples to rename any "true" value literals to "True".
+
+    * (BBEdit_LM_Muldis_D.plist)  Corresponding to changes introduced in
+    Muldis D spec v0.109.0 for PTMD_STD:  Updates to syntax coloring
+    patterns to remove the special "String" value literal format, as the
+    standard grammars no longer have "String"-specific value node kinds.
+
+    * (Muldis_D_PDAFP_200807_updated.xul)  Corresponding to changes
+    introduced in Muldis D spec v0.110.0:  Update descriptions to reflect
+    that "Int" now is the sole scalar primitive type and has no possreps.
+
+    * (Input_Method_Muldis_D.cin)  Corresponding to changes introduced in
+    Muldis D spec v0.110.0 for PTMD_STD:  Renamed several chardef keys to
+    more closely match the PTMD_STD-defined ASCII alternatives for Unicode
+    symbols for functions that test set membership or sub/superset
+    relationships; for example, the key for the char ∈ is now "imem" rather
+    than "ismem".  The increased consistency resulting from this change
+    should make the keys for the chars easier to remember.
+
+    * Incremented all copyright year range-ends to 2010.
 
 2009-11-09   Darren Duncan <darren@DarrenDuncan.net>
 

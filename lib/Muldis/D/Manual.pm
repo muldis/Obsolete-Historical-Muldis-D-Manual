@@ -70,7 +70,7 @@ Darren Duncan (C<darren@DarrenDuncan.net>)
 
 This file is part of the Muldis D language and implementations manual.
 
-Muldis D Manual is Copyright © 2008-2009, Muldis Data Systems, Inc.
+Muldis D Manual is Copyright © 2008-2010, Muldis Data Systems, Inc.
 
 L<http://www.muldis.com/>
 

@@ -21,7 +21,7 @@ Muldis D -
 Portable Databases
 At Full Power
 (Created 2008 July)
-(Updated 2009 September)
+(Updated 2010 February)
 ----
 Darren Duncan
 Muldis Data Systems
@@ -141,7 +141,7 @@ that is partly specced now
 As examples, here are some
 scalar literals in the
 PTMD_STD dialect:
-  true      # Bool #
+  True      # Bool #
   42        # Int #
   F;'A705E' # Blob #
   'サンプル' # Text #
@@ -343,7 +343,7 @@ Tuples in PTMD_STD dialect:
   Tuple:{
     login_name => 'hartmark',
     login_pass => 'letmein',
-    is_special => true
+    is_special => True
   }
   Tuple:{
     name => 'Michelle',
@@ -370,7 +370,7 @@ Relations in PTMD_STD dialect:
     {
       login_name => 'hartmark',
       login_pass => 'letmein',
-      is_special => true,
+      is_special => True,
     }
   }
   Relation:[ name, age ];{
@@ -442,6 +442,13 @@ HDMD_Perl6_STD dialect:
     '' => 5,
   } ]
 ----
+Just the one scalar type Int
+is special and doesn't have
+any possreps, because it is
+the sole primitive type over
+which all other scalar types
+are defined
+----
 Next are a few details about
 the system-defined generic
 scalar types; all of them
@@ -477,7 +484,8 @@ precision, able to represent
 all rational numbers, both
 fixed and floating point
 ----
-The Rat type has 2 possreps
+The Int type has no possrep;
+the Rat type has 2 possreps
 and is defined in terms of
 Ints, either as the
 [numerator, denominator]
@@ -1313,7 +1321,7 @@ can do both changes at once
 ----
 As canonical abstractions of
 these constraint functions,
-Muldis D provides analagous
+Muldis D provides analogous
 syntax to SQL's unique key
 and foreign key constraints;
 the former is on a relation,
@@ -1518,8 +1526,8 @@ while operating full speed
 ----
 Thank you!
 ----
-Copyright © 2008-2009
-Darren Duncan
+Copyright © 2008-2010
+Muldis Data Systems
 ****
 http://muldis.com
 for email, see above

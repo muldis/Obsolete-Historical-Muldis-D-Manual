@@ -1,7 +1,7 @@
 # Input_Method_Muldis_D.cin: Shortcuts for Muldis D Symbols
 #
 # This file is part of the Muldis D language and implementations manual.
-# Muldis D Manual is Copyright © 2002-2009, Muldis Data Systems, Inc.
+# Muldis D Manual is Copyright © 2002-2010, Muldis Data Systems, Inc.
 # http://www.muldis.com/
 #
 # See http://www.yale.edu/chinesemac/pages/input_methods.html#cin for an
@@ -83,18 +83,18 @@ implies →
 nimp    ↛
 if      ←
 nif     ↚
-ismem   ∈
-nismem  ∉
-hasmem  ∋
-nhasmem ∌
-sub   ⊆
-nsub  ⊈
-sup   ⊇
-nsup  ⊉
-psub  ⊂
-npsub ⊄
-psup  ⊃
-npsup ⊅
+imem    ∈
+nimem   ∉
+hmem    ∋
+nhmem   ∌
+sub     ⊆
+nsub    ⊈
+super   ⊇
+nsuper  ⊉
+psub    ⊂
+npsub   ⊄
+psuper  ⊃
+npsuper ⊅
 intersect ∩
 *         ∩
 union     ∪
