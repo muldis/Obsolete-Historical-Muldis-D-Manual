@@ -12,7 +12,7 @@ sub OPTIONAL {
 
 WriteMakefile(
    NAME => 'Muldis::D::Manual',
-   VERSION => '0.1.1',
+   VERSION => '0.2.0',
    ABSTRACT => 'Muldis D language and implementations manual',
    AUTHOR => 'Darren Duncan <darren@DarrenDuncan.net>',
    PREREQ_PM => {},
