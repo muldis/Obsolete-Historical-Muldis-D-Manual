@@ -1,7 +1,7 @@
                              Muldis::D::Manual
 ---------------------------------------------------------------------------
 
-2010-02-xx   Darren Duncan <darren@DarrenDuncan.net>
+2010-03-xx   Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D::Manual version 0.2.0 is released on CPAN as
     Muldis-D-Manual-0.2.0.tar.gz.
@@ -51,6 +51,10 @@
     * (Muldis_D_PDAFP_200807_updated.xul)  Corresponding to changes
     introduced in Muldis D spec v0.110.0:  Update descriptions to reflect
     that "Int" now is the sole scalar primitive type and has no possreps.
+
+    * (BBEdit_LM_Muldis_D.plist)  Corresponding to changes introduced in
+    Muldis D spec v0.110.0 for PTMD_STD:  Updates to the keywords list
+    concerning the 2-valued op_char_repertoire pragma was added.
 
     * (Input_Method_Muldis_D.cin)  Corresponding to changes introduced in
     Muldis D spec v0.110.0 for PTMD_STD:  Renamed several chardef keys to

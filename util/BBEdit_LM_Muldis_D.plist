@@ -31,6 +31,9 @@
     <string>code_as_data</string>
     <string>plain_rtn_inv</string>
     <string>rtn_inv_alt_syn</string>
+    <string>op_char_repertoire</string>
+    <string>basic</string>
+    <string>extended</string>
     <string>standard_syntax_extensions</string>
     <string>date_time</string>
 
