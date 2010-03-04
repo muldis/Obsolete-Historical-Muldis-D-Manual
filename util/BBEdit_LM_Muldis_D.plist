@@ -164,7 +164,7 @@
     <key>String Pattern</key>
     <string><![CDATA[(?x:
       (
-        (Bool : \s*)? (?<!\w) (False | ⊥ | True | ⊤)
+        (Bool : \s*)? (?<!\w) (False | True | ⊥ | ⊤)
       | (Order : \s*)? (?<!\w) (Increase | Same | Decrease)
       | (RatRoundMeth : \s*)? (?<!\w)
         (
@@ -173,10 +173,9 @@
           | ToFloor | ToCeiling
           | ToZero | ToInf
         )
-      | (Text : \s*)? (?<!\w) ' [^']* ' (\s* ~ \s* ' [^']* ')*
-      | (Comment : \s*)? (?<!\w) ` [^`]* ` (\s* ~ \s* ` [^`]* `)*
-      | ((Octet)? Blob : \s*)? (?<!\w)
-        [137F] ; \s* ' [0-9A-F]* ' (\s* ~ \s* ' [0-9A-F]* ')*
+      | (Text : \s*)? (?<!\w) ' [^']* '
+      | (Comment : \s*)? (?<!\w) ` [^`]* `
+      | ((Octet)? Blob : \s*)? (?<!\w) [137F] ; \s* ' [0-9A-F\\\s]* '
       | (((|NN|P)Rat | Instant | Duration) : \s*)? (?<!\w)
         (
             [1-9A-Z] ; \s* -?[0-9A-Z_]+
@@ -233,7 +232,7 @@
           |relvar) \s+
         (
             [a-zA-Z_][a-zA-Z0-9_-]*
-          | " [^"]* " ( \s* ~ \s* " [^"]* " )*
+          | " [^"]* "
         )
       )
     )]]></string>
