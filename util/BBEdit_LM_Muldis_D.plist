@@ -35,7 +35,7 @@
     <string>basic</string>
     <string>extended</string>
     <string>standard_syntax_extensions</string>
-    <string>date_time</string>
+    <string>temporal</string>
 
     <string>D0</string>
     <string>D0C0</string>
@@ -54,6 +54,7 @@
     <string>relation-type</string>
     <string>domain-type</string>
     <string>subset-type</string>
+    <string>mixin-type</string>
     <string>relvar</string>
 
     <string>possrep</string>
@@ -164,50 +165,52 @@
     <key>String Pattern</key>
     <string><![CDATA[(?x:
       (
-        (Bool : \s*)? (?<!\w) (False | True | ⊥ | ⊤)
-      | (Order : \s*)? (?<!\w) (Increase | Same | Decrease)
-      | (RatRoundMeth : \s*)? (?<!\w)
+        (Bool : (\\\s*\\)?)? (?<!\w) (False | True | ⊥ | ⊤)
+      | (Order : (\\\s*\\)?)? (?<!\w) (Increase | Same | Decrease)
+      | (RoundMeth : (\\\s*\\)?)? (?<!\w)
         (
-            HalfDown | HalfUp
+            Down | Up | ToZero | ToInf
+          | HalfDown | HalfUp | HalfToZero | HalfToInf
           | HalfEven
-          | ToFloor | ToCeiling
-          | ToZero | ToInf
         )
-      | (Text : \s*)? (?<!\w) ' [^']* '
-      | (Comment : \s*)? (?<!\w) ` [^`]* `
-      | ((Octet)? Blob : \s*)? (?<!\w) [137F] ; \s* ' [0-9A-F\\\s]* '
-      | (((|NN|P)Rat | Instant | Duration) : \s*)? (?<!\w)
+      | (Text : (\\\s*\\)?)? (?<!\w) ' [^']* '
+      | (Comment : (\\\s*\\)?)? (?<!\w) ` [^`]* `
+      | ((Octet)? Blob : (\\\s*\\)?)? (?<!\w)
+        [137F] ; (\\\s*\\)? ' [0-9A-F\\\s]* '
+      | (((|NN|P)Rat | TAIInstant | TAIDuration) : (\\\s*\\)?)? (?<!\w)
         (
-            [1-9A-Z] ; \s* -?[0-9A-Z_]+
+            [1-9A-Z] ; (\\\s*\\)? -?[0-9A-Z_]+
             (
-                \.[0-9A-Z_]+
-              | \s* \/ \s* [1-9A-Z][0-9A-Z_]*
-              | \s* \* \s* [1-9A-Z][0-9A-Z_]* \s* \^ \s* -?[0-9A-Z_]+
+                (\\\s*\\)? \. [0-9A-Z_]+
+              | (\\\s*\\)? \/ [1-9A-Z][0-9A-Z_]*
+              | (\\\s*\\)? \* [1-9A-Z][0-9A-Z_]* (\\\s*\\)? \^ -?[0-9A-Z_]+
             )
           | (0 | -?[1-9](_?[0-9]+)*)
             (
-                \.[0-9](_?[0-9]+)*
-              | \s* \/ \s* [1-9](_?[0-9]+)*
-              | \s* \* \s* [1-9](_?[0-9]+)* \s* \^ \s* -?[0-9](_?[0-9]+)*
+                (\\\s*\\)? \. [0-9](_?[0-9]+)*
+              | (\\\s*\\)? \/ [1-9](_?[0-9]+)*
+              | (\\\s*\\)? \* [1-9](_?[0-9]+)*
+                  (\\\s*\\)? \^ -?[0-9](_?[0-9]+)*
             )
         )
-      | ((|NN|P)Int : \s*)? (?<!\w)
+      | ((|NN|P)Int : (\\\s*\\)?)? (?<!\w)
         (
-            [1-9A-Z] ; \s* -?[0-9A-Z_]+
+            [1-9A-Z] ; (\\\s*\\)? -?[0-9A-Z_]+
           | (0 | -?[1-9](_?[0-9]+)*)
         )
       | ((UTC | Float) (Instant | DateTime | Date | Time)
-            | UTCDuration) : \s*
+            | UTCDuration) : (\\\s*\\)?
         (
-            [1-9A-Z] ; \s*
+            [1-9A-Z] ; (\\\s*\\)?
             \[ \s*
               (-?[0-9A-Z_]+)?
               (\s* , \s* (-?[0-9A-Z_]+)?){4}
               \s* , \s* (-?[0-9A-Z_]+
               (
-                  \.[0-9A-Z_]+
-                | \s* \/ \s* [1-9A-Z][0-9A-Z_]*
-                | \s* \* \s* [1-9A-Z][0-9A-Z_]* \s* \^ \s* -?[0-9A-Z_]+
+                  (\\\s*\\)? \. [0-9A-Z_]+
+                | (\\\s*\\)? \/ [1-9A-Z][0-9A-Z_]*
+                | (\\\s*\\)? \* [1-9A-Z][0-9A-Z_]*
+                    (\\\s*\\)? \^ -?[0-9A-Z_]+
               ))?
             \s* \]
           | \[ \s*
@@ -215,9 +218,10 @@
               (\s* , \s* (0 | -?[1-9](_?[0-9]+)*)?){4}
               \s* , \s* ((0 | -?[1-9](_?[0-9]+)*)
               (
-                  \.[0-9](_?[0-9]+)*
-                | \s* \/ \s* [1-9](_?[0-9]+)*
-                | \s* \* \s* [1-9](_?[0-9]+)* \s* \^ \s* -?[0-9](_?[0-9]+)*
+                  (\\\s*\\)? \. [0-9](_?[0-9]+)*
+                | (\\\s*\\)? \/ [1-9](_?[0-9]+)*
+                | (\\\s*\\)? \* [1-9](_?[0-9]+)*
+                    (\\\s*\\)? \^ -?[0-9](_?[0-9]+)*
               ))?
             \s* \]
         )
@@ -228,7 +232,7 @@
     <string><![CDATA[(?x:
       (?P<function_name>
         (function|updater|procedure
-          |((scalar|tuple|relation|domain|subset)-type)
+          |((scalar|tuple|relation|domain|subset|mixin)-type)
           |relvar) \s+
         (
             [a-zA-Z_][a-zA-Z0-9_-]*

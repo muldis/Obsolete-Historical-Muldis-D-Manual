@@ -83,10 +83,10 @@ implies →
 nimp    ↛
 if      ←
 nif     ↚
-imem    ∈
-nimem   ∉
-hmem    ∋
-nhmem   ∌
+in      ∈
+nin     ∉
+has     ∋
+nhas    ∌
 sub     ⊆
 nsub    ⊈
 super   ⊇
