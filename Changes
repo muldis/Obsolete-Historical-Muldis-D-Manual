@@ -1,7 +1,7 @@
                              Muldis::D::Manual
 ---------------------------------------------------------------------------
 
-2010-03-xx   Darren Duncan <darren@DarrenDuncan.net>
+2010-04-xx   Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D::Manual version 0.3.0 is released on CPAN as
     Muldis-D-Manual-0.3.0.tar.gz.
@@ -36,6 +36,33 @@
     Muldis D spec v0.113.0 for PTMD_STD:  Updates to syntax coloring
     patterns that correspond to some optional whitespace in value literals,
     which is now prohibited except as an "unspace".
+
+    * (Muldis_D_PDAFP_200807_updated.xul)  Corresponding to changes
+    introduced in Muldis D spec v0.115.0:  Update several descriptions and
+    code examples to reflect the addition of the "recipe" 4th main routine
+    kind, and the reduction of what a "procedure" can directly do.  Also
+    purged the slides talking about "inner routines", which haven't existed
+    for awhile; they were marked w rewrite-TODOs, but removal is simpler.
+
+    * (Input_Method_Muldis_D.cin)  Corresponding to changes introduced in
+    Muldis D spec v0.115.0 for PTMD_STD:  Removed 4 chardefs that
+    associated the math op chars [*+-%] with the relational ops [∩∪∖∆].
+
+    * (BBEdit_LM_Muldis_D.plist)  Corresponding to changes introduced in
+    Muldis D spec v0.116.0 for PTMD_STD:  Updates to the syntax coloring
+    patterns concerning that the "Singleton" domain-union type, and its 2
+    singleton-type values "-Inf", "Inf" (and "-∞", "∞") have been added.
+
+    * (Input_Method_Muldis_D.cin)  Corresponding to changes introduced in
+    Muldis D spec v0.116.0 for PTMD_STD:  Added chardef for "∞" character.
+
+    * (Muldis_D_PDAFP_200807_updated.xul)  Corresponding to changes
+    introduced in Muldis D spec v0.118.0 for PTMD_STD:  Update to code
+    examples to reflect that most math op spec-syn were renamed or merged.
+
+    * (BBEdit_LM_Muldis_D.plist)  Many additions to the keywords list and
+    function-search pattern, some corresponding to changes in multiple past
+    Muldis D spec versions, and some relating to plans of uspecced syntax.
 
 2010-03-01   Darren Duncan <darren@DarrenDuncan.net>
 

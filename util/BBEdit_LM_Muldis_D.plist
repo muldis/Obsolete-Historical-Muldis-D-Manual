@@ -45,35 +45,47 @@
 
     <string>depot-catalog</string>
     <string>depot-data</string>
+    <string>subdepot</string>
+    <string>self-local-dbvar-type</string>
 
     <string>function</string>
+    <string>named-value</string>
+    <string>value-map</string>
+    <string>value-map-unary</string>
+    <string>value-filter</string>
+    <string>value-constraint</string>
+    <string>transition-constraint</string>
+    <string>value-reduction</string>
+    <string>order-determination</string>
     <string>updater</string>
+    <string>recipe</string>
     <string>procedure</string>
+    <string>system-service</string>
     <string>scalar-type</string>
     <string>tuple-type</string>
+    <string>database-type</string>
     <string>relation-type</string>
     <string>domain-type</string>
     <string>subset-type</string>
     <string>mixin-type</string>
-    <string>relvar</string>
+
+    <string>implements</string>
 
     <string>possrep</string>
     <string>attr</string>
     <string>is</string>
     <string>constraint</string>
-    <string>tuple</string>
-    <string>first</string>
-    <string>virtual</string>
-    <string>map</string>
+    <string>virtual-attr-map</string>
     <string>determinants</string>
     <string>dependents</string>
     <string>key</string>
-    <string>primary</string>
-    <string>distributed</string>
+    <string>primary-key</string>
+    <string>distributed-key</string>
+    <string>subset-constraint</string>
     <string>parent</string>
+    <string>using-key</string>
     <string>child</string>
-    <string>using</string>
-    <string>attrs</string>
+    <string>using-attrs</string>
 
     <string>if</string>
     <string>then</string>
@@ -93,30 +105,64 @@
     <string>symdiff</string>
     <string>join</string>
     <string>times</string>
-    <string>cross</string>
+    <string>cross-join</string>
 
     <string>nand</string>
     <string>nor</string>
 
     <string>isa</string>
+    <string>!isa</string>
+    <string>not-isa</string>
     <string>as</string>
     <string>asserting</string>
     <string>imp</string>
     <string>implies</string>
     <string>nimp</string>
     <string>nif</string>
-    <string>mod</string>
-    <string>Bx</string>
-    <string>Tx</string>
-    <string>Ax</string>
+    <string>exp</string>
+    <string>x</string>
+    <string>in-r</string>
+    <string>!in-r</string>
+    <string>not-in-r</string>
+    <string>r-has</string>
+    <string>r-!has</string>
+    <string>r-not-has</string>
+    <string>in-s</string>
+    <string>!in-s</string>
+    <string>not-in-s</string>
+    <string>s-has</string>
+    <string>s-!has</string>
+    <string>s-not-has</string>
+    <string>in-b</string>
+    <string>!in-b</string>
+    <string>not-in-b</string>
+    <string>b-has</string>
+    <string>b-!has</string>
+    <string>b-not-has</string>
+    <string>sub</string>
+    <string>!sub</string>
+    <string>not-sub</string>
+    <string>super</string>
+    <string>!super</string>
+    <string>not-super</string>
+    <string>psub</string>
+    <string>!psub</string>
+    <string>not-psub</string>
+    <string>psuper</string>
+    <string>!psuper</string>
+    <string>not-psuper</string>
     <string>minus</string>
     <string>except</string>
-    <string>matching</string>
+    <string>!matching</string>
+    <string>not-matching</string>
     <string>antijoin</string>
     <string>semiminus</string>
+    <string>matching</string>
     <string>semijoin</string>
     <string>divideby</string>
     <string>like</string>
+    <string>!like</string>
+    <string>not-like</string>
 
     <string>d</string>
     <string>not</string>
@@ -125,17 +171,18 @@
     <string>s</string>
     <string>v</string>
 
+    <string>div</string>
+    <string>mod</string>
     <string>log</string>
-    <string>e</string>
     <string>log-e</string>
     <string>round</string>
 
     <string>min</string>
     <string>max</string>
 
-    <string>create</string>
-    <string>depot-mount</string>
-    <string>within</string>
+    <string>ordered</string>
+    <string>by</string>
+    <string>using</string>
 
     <string>var</string>
     <string>loop</string>
@@ -148,14 +195,11 @@
     <string>array</string>
     <string>bag</string>
     <string>from</string>
-
-    <string>ordered</string>
-    <string>by</string>
   </array>
   <key>Language Features</key>
   <dict>
     <key>Identifier and Keyword Character Class</key>
-    <string><![CDATA[a-zA-Z0-9_∅-]]></string>
+    <string><![CDATA[a-zA-Z0-9_∅!$-]]></string>
 
     <key>Comment Pattern</key>
     <string><![CDATA[(?x:
@@ -165,7 +209,8 @@
     <key>String Pattern</key>
     <string><![CDATA[(?x:
       (
-        (Bool : (\\\s*\\)?)? (?<!\w) (False | True | ⊥ | ⊤)
+        (Singleton : (\\\s*\\)?)? (?<!\w) (-Inf | Inf | -∞ | ∞)
+      | (Bool : (\\\s*\\)?)? (?<!\w) (False | True | ⊥ | ⊤)
       | (Order : (\\\s*\\)?)? (?<!\w) (Increase | Same | Decrease)
       | (RoundMeth : (\\\s*\\)?)? (?<!\w)
         (
@@ -231,9 +276,11 @@
     <key>Function Pattern</key>
     <string><![CDATA[(?x:
       (?P<function_name>
-        (function|updater|procedure
-          |((scalar|tuple|relation|domain|subset|mixin)-type)
-          |relvar) \s+
+        (function|named-value|value-map|value-map-unary|value-filter
+          |value-constraint|transition-constraint|value-reduction
+          |order-determination|updater|recipe|procedure|system-service
+          |scalar-type|tuple-type|database-type|relation-type|domain-type
+          |subset-type|mixin-type) \s+
         (
             [a-zA-Z_][a-zA-Z0-9_-]*
           | " [^"]* "

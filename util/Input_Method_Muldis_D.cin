@@ -49,6 +49,7 @@ z z
 > >
 %keyname end
 %chardef begin
+inf     ∞
 false   ⊥
 true    ⊤
 empty   ∅
@@ -96,16 +97,12 @@ npsub   ⊄
 psuper  ⊃
 npsuper ⊅
 intersect ∩
-*         ∩
 union     ∪
-+         ∪
 diff      ∖
 minus     ∖
 except    ∖
--         ∖
 exclude   ∆
 symdiff   ∆
-%         ∆
 times     ×
 crossjoin ×
 prod      ×

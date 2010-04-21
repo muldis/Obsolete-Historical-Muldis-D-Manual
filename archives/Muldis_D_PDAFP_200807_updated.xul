@@ -21,7 +21,7 @@ Muldis D -
 Portable Databases
 At Full Power
 (Created 2008 July)
-(Updated 2010 February)
+(Updated 2010 April)
 ----
 Darren Duncan
 Muldis Data Systems
@@ -177,7 +177,7 @@ in any gen purpose language
 Such projects could use it
 as the design of their
 internal AST for database
-meta-data, schemas, queries,
+metadata, schemas, queries,
 data, rather than
 proprietary ones, or as an
 interchange format for such
@@ -525,13 +525,14 @@ possreps defined over Int,
 Rat; some are incomplete
 ----
 Muldis D routines mainly
-come in 3 kinds: functions,
-updaters and procedures
+come in 4 kinds: functions,
+updaters, recipes,
+and procedures
 ----
 Functions
 ----
   function cube (Int <-- $topic : Int) {
-    $topic I^ 3
+    $topic exp 3
   }
 ----
 Functions are pure and
@@ -545,7 +546,7 @@ invoke functional routines
 Updaters
 ----
   updater chop_sign (&$topic : Int) {
-    $topic := I|| $topic
+    $topic := || $topic
   }
 ----
 Updaters are imperative but
@@ -572,80 +573,45 @@ naming helps with self-doc,
 and lets common sub-exprs
 be factored to one instance
 ----
+Recipes
+----
+  recipe count_people (&$p_count : NNInt,
+      $db ::= $fed.mydb) {
+    $p_count := r# $db.people
+  }
+----
+Recipes are exactly the
+same as updaters except for
+also being able to see and
+update global vars, which
+to them are like implicit
+parameters; they are atomic
+and deterministic
+----
+Only updaters may directly
+use the database
+----
 Procedures
 ----
-  procedure fetch_all_people
-      (&$people : type.var.fed.mydb.people) {
-    $people := $fed.mydb.people
+  procedure the_now (&$time : UTCInstant) {
+    UTCInstant.fetch_curr_instant( &$time )
   }
 ----
 Procedures are imperative,
-can see/update global vars,
 can have lexical vars; they
 have a sequence of stmts
 that execute one at a time
 in order; some stmts may be
-non-deterministic
+non-deterministic; some
+procedures may be non-atomic
 ----
-Only procedures may have
-side-effects in non-args;
+Only procs may be non-atomic
+or non-deterministic;
 they can't have value exprs;
 they are pure imperative as
 functions are pure
-functional; updaters bridge
+functional; recipes bridge
 the gap between these
-----
-TODO: UPDATE THIS SLIDE
-All 3 routine kinds may, and
-often do, have other "inner"
-routines declared within
-themselves, allowing them to
-be arbitrarily complex
-without forcing parts to be
-externalized as public rtns
-----
-TODO: UPDATE THIS SLIDE
-For example, to represent a
-SQL procedure like this:
-  CREATE PROCEDURE count_people
-      (INOUT p_count INT)
-    SELECT COUNT(*)
-    INTO p_count
-    FROM mydb.people;
-... a Muldis DB procedure would
-use an inner updater to hold the
-"COUNT(*) FROM people" portion,
-which is a value expression
-----
-TODO: UPDATE THIS SLIDE
-Either (less abstracted from AST):
-  procedure count_people (&$p_count : NNInt) {
-    main {
-      inn.icount( &$>p_count,
-        the_db => $fed.mydb )
-    }
-    updater icount (&$p_count : NNInt,
-        $the_db : type.var.fed.mydb) {
-      $p_count := R# $the_db.people
-    }
-  }
-----
-TODO: UPDATE THIS SLIDE
-Or (more abstracted from AST):
-  procedure count_people (&$p_count : NNInt) {
-    $p_count := R# $fed.mydb.people
-  }
-Or (yet more abstracted):
-  query R# $fed.mydb.people
-----
-TODO: UPDATE THIS SLIDE
-Another use of inner
-routines is to support
-internal recursion; for
-functions, this is like
-a named WITH RECURSIVE
-section in SQL; inners
-are like WITH in general
 ----
 All routine parameters are
 named, not positional; also,
@@ -1175,7 +1141,7 @@ SQL:
   SELECT * FROM tab1
 ----
 Muldis D:
-  R# $tab1
+  r# $tab1
 SQL (as a scalar query):
   (SELECT COUNT(*) FROM tab1)
 ----
@@ -1247,7 +1213,7 @@ SQL:
 Muldis D:
   $tab1 extend VMF->{
     Tuple:{ a => 'x',
-      b => ($.m I- $.n) }
+      b => ($.m - $.n) }
   }
 SQL:
   SELECT tab1.*, 'x' AS a,
