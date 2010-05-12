@@ -1,7 +1,7 @@
                              Muldis::D::Manual
 ---------------------------------------------------------------------------
 
-2010-04-xx   Darren Duncan <darren@DarrenDuncan.net>
+2010-05-xx   Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D::Manual version 0.3.0 is released on CPAN as
     Muldis-D-Manual-0.3.0.tar.gz.
@@ -57,8 +57,31 @@
     Muldis D spec v0.116.0 for PTMD_STD:  Added chardef for "∞" character.
 
     * (Muldis_D_PDAFP_200807_updated.xul)  Corresponding to changes
+    introduced in Muldis D spec v0.117.0:  Added a note to
+    reflect no one writes "lex" anymore; that namespace now just a concept.
+
+    * (Muldis_D_PDAFP_200807_updated.xul)  Corresponding to changes
     introduced in Muldis D spec v0.118.0 for PTMD_STD:  Update to code
     examples to reflect that most math op spec-syn were renamed or merged.
+
+    * (Muldis_D_PDAFP_200807_updated.xul)  Corresponding to changes
+    introduced in Muldis D spec v0.120.0:  Update to code example to
+    reflect use of new mixin temporal type and virtual system-service.
+
+    * (BBEdit_LM_Muldis_D.plist)  Corresponding to changes introduced in
+    Muldis D spec v0.121.0 for PTMD_STD:  Updates to the syntax coloring
+    patterns and keywords list concerning that the temporal standard syntax
+    extension has been completely removed from the grammar, as part of the
+    purge of all non-mixin temporal types and all non-virtual temporal
+    routines from the language; removed the 'temporal' keyword and the
+    syntax coloring patterns for "TAI[Instant|Duration]",
+    "[UTC|Float][Instant|DateTime|Date|Time", "UTCDuration".
+
+    * (Muldis_D_PDAFP_200807_updated.xul)  Corresponding to changes
+    introduced in Muldis D spec v0.122.0 and v0.124.0 for PTMD_STD:  Update
+    to code example to reflect that concrete syntax for material
+    references, and for routine embedding, both such as are used for
+    higher-order functions, is now finalized.
 
     * (BBEdit_LM_Muldis_D.plist)  Many additions to the keywords list and
     function-search pattern, some corresponding to changes in multiple past

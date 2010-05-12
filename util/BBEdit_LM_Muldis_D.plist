@@ -35,7 +35,6 @@
     <string>basic</string>
     <string>extended</string>
     <string>standard_syntax_extensions</string>
-    <string>temporal</string>
 
     <string>D0</string>
     <string>D0C0</string>
@@ -61,6 +60,8 @@
     <string>recipe</string>
     <string>procedure</string>
     <string>system-service</string>
+    <string>transaction</string>
+
     <string>scalar-type</string>
     <string>tuple-type</string>
     <string>database-type</string>
@@ -68,24 +69,49 @@
     <string>domain-type</string>
     <string>subset-type</string>
     <string>mixin-type</string>
+    <string>key-constraint</string>
+    <string>primary-key</string>
+    <string>distrib-key-constraint</string>
+    <string>distrib-primary-key</string>
+    <string>subset-constraint</string>
+    <string>distrib-subset-constraint</string>
+
+    <string>stimulus-response-rule</string>
+    <string>after-mount</string>
+    <string>invoke</string>
 
     <string>implements</string>
+    <string>with</string>
 
     <string>possrep</string>
+    <string>is-base</string>
+    <string>possrep-map</string>
+    <string>from</string>
+    <string>using</string>
+    <string>reverse-using</string>
     <string>attr</string>
-    <string>is</string>
-    <string>constraint</string>
     <string>virtual-attr-map</string>
     <string>determinants</string>
     <string>dependents</string>
-    <string>key</string>
-    <string>primary-key</string>
-    <string>distributed-key</string>
-    <string>subset-constraint</string>
+    <string>source-union</string>
+    <string>source-intersection</string>
+    <string>filter-union</string>
+    <string>filter-intersection</string>
+    <string>base-type</string>
+    <string>of</string>
+    <string>constraint</string>
+    <string>default</string>
     <string>parent</string>
     <string>using-key</string>
     <string>child</string>
     <string>using-attrs</string>
+
+    <string>var</string>
+    <string>try</string>
+    <string>catch</string>
+    <string>leave</string>
+    <string>iterate</string>
+    <string>loop</string>
 
     <string>if</string>
     <string>then</string>
@@ -115,12 +141,16 @@
     <string>not-isa</string>
     <string>as</string>
     <string>asserting</string>
+    <string>assuming</string>
     <string>imp</string>
     <string>implies</string>
     <string>nimp</string>
     <string>nif</string>
     <string>exp</string>
     <string>x</string>
+    <string>where</string>
+    <string>!where</string>
+    <string>not-where</string>
     <string>in-r</string>
     <string>!in-r</string>
     <string>not-in-r</string>
@@ -182,19 +212,11 @@
 
     <string>ordered</string>
     <string>by</string>
-    <string>using</string>
-
-    <string>var</string>
-    <string>loop</string>
-
-    <string>where</string>
 
     <string>p5rx</string>
-
     <string>set</string>
     <string>array</string>
     <string>bag</string>
-    <string>from</string>
   </array>
   <key>Language Features</key>
   <dict>
@@ -222,7 +244,7 @@
       | (Comment : (\\\s*\\)?)? (?<!\w) ` [^`]* `
       | ((Octet)? Blob : (\\\s*\\)?)? (?<!\w)
         [137F] ; (\\\s*\\)? ' [0-9A-F\\\s]* '
-      | (((|NN|P)Rat | TAIInstant | TAIDuration) : (\\\s*\\)?)? (?<!\w)
+      | ((|NN|P)Rat : (\\\s*\\)?)? (?<!\w)
         (
             [1-9A-Z] ; (\\\s*\\)? -?[0-9A-Z_]+
             (
@@ -243,33 +265,6 @@
             [1-9A-Z] ; (\\\s*\\)? -?[0-9A-Z_]+
           | (0 | -?[1-9](_?[0-9]+)*)
         )
-      | ((UTC | Float) (Instant | DateTime | Date | Time)
-            | UTCDuration) : (\\\s*\\)?
-        (
-            [1-9A-Z] ; (\\\s*\\)?
-            \[ \s*
-              (-?[0-9A-Z_]+)?
-              (\s* , \s* (-?[0-9A-Z_]+)?){4}
-              \s* , \s* (-?[0-9A-Z_]+
-              (
-                  (\\\s*\\)? \. [0-9A-Z_]+
-                | (\\\s*\\)? \/ [1-9A-Z][0-9A-Z_]*
-                | (\\\s*\\)? \* [1-9A-Z][0-9A-Z_]*
-                    (\\\s*\\)? \^ -?[0-9A-Z_]+
-              ))?
-            \s* \]
-          | \[ \s*
-              (0 | -?[1-9](_?[0-9]+)*)?
-              (\s* , \s* (0 | -?[1-9](_?[0-9]+)*)?){4}
-              \s* , \s* ((0 | -?[1-9](_?[0-9]+)*)
-              (
-                  (\\\s*\\)? \. [0-9](_?[0-9]+)*
-                | (\\\s*\\)? \/ [1-9](_?[0-9]+)*
-                | (\\\s*\\)? \* [1-9](_?[0-9]+)*
-                    (\\\s*\\)? \^ -?[0-9](_?[0-9]+)*
-              ))?
-            \s* \]
-        )
       )
     )]]></string>
 
@@ -279,8 +274,10 @@
         (function|named-value|value-map|value-map-unary|value-filter
           |value-constraint|transition-constraint|value-reduction
           |order-determination|updater|recipe|procedure|system-service
-          |scalar-type|tuple-type|database-type|relation-type|domain-type
-          |subset-type|mixin-type) \s+
+          |transaction|scalar-type|tuple-type|database-type|relation-type
+          |domain-type|subset-type|mixin-type|key-constraint|primary-key
+          |distrib-key-constraint|distrib-primary-key|subset-constraint
+          |distrib-subset-constraint|stimulus-response-rule) \s+
         (
             [a-zA-Z_][a-zA-Z0-9_-]*
           | " [^"]* "

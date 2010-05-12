@@ -593,8 +593,8 @@ use the database
 ----
 Procedures
 ----
-  procedure the_now (&$time : UTCInstant) {
-    UTCInstant.fetch_curr_instant( &$time )
+  procedure the_now (&$time : Instant) {
+    fetch_curr_instant( &$time )
   }
 ----
 Procedures are imperative,
@@ -1108,7 +1108,9 @@ Lexical-scope user-defined
 entities are all under
 "lex", which is for the curr
 routine's param args, vars,
-expression nodes, etc
+expression nodes, etc; or
+that's just the concept; no
+one actually writes "lex"
 ----
 Some Muldis D features make
 use of special prefixes or
@@ -1211,10 +1213,11 @@ SQL:
   FROM tab1
 ----
 Muldis D:
-  $tab1 extend VMF->{
+  with value-map myext {
     Tuple:{ a => 'x',
       b => ($.m - $.n) }
   }
+  $tab1 extend <nlx.lib.myext>()
 SQL:
   SELECT tab1.*, 'x' AS a,
     (tab1.m - tab1.n) AS b
