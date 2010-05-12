@@ -9,6 +9,7 @@ archives/takahashi.js
 Changes
 INSTALL
 lib/Muldis/D/Manual.pm
+lib/Muldis/D/Manual/TemporalExtras.pod
 LICENSE/GPL
 Makefile.PL
 MANIFEST

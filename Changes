@@ -1,6 +1,19 @@
                              Muldis::D::Manual
 ---------------------------------------------------------------------------
 
+2010-05-xx   Darren Duncan <darren@DarrenDuncan.net>
+
+    * Muldis::D::Manual version 0.4.0 is released on CPAN as
+    Muldis-D-Manual-0.4.0.tar.gz.
+
+    * Added new file "lib/Muldis/D/Manual/TemporalExtras.pod" which houses
+    all the substantial material that was purged from the "Muldis D
+    Temporal Extension" and related parts of the Muldis D language spec as
+    of its release 0.121.0, with the intent to be moved to the Muldis D
+    Manual for use as a resource when implementing non-mixin temporal types
+    and non-virtual temporal operators in Muldis D in the future,
+    especially if those would be by third parties as user-def materials.
+
 2010-05-11   Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D::Manual version 0.3.0 is released on CPAN as
