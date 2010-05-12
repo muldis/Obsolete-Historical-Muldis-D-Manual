@@ -9,7 +9,7 @@ Legacy temporal data types, operators, and syntax removed from Muldis D
 
 =head1 VERSION
 
-This document is Muldis::D::Manual::TemporalExtras version 0.3.0.
+This document is Muldis::D::Manual::TemporalExtras version 0.4.0.
 
 =head1 PREFACE
 
@@ -387,7 +387,7 @@ same units as a C<UTCInstant> is structured with.  It is not fixed to any
 date or time and is agnostic to the calendar, other than the interpretation
 of units' size.  A C<UTCDuration> is the result type of taking the
 difference between two C<UTCInstant> values or between two C<FloatInstant>
-values, but it is not defined in terms of said two values.  The 
+values, but it is not defined in terms of said two values.  The
 C<UTCDuration> type explicitly composes the C<Duration> mixin type.
 
 A C<UTCDuration> has 1 system-defined possrep whose name is C<duration>,
