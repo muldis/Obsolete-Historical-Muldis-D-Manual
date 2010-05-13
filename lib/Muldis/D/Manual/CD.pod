@@ -1,0 +1,207 @@
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+Muldis::D::Manual::CD -
+Simple CD database example
+
+=head1 VERSION
+
+This document is Muldis::D::Manual::CD version 0.3.0.
+
+=head1 PREFACE
+
+This document is part of the Muldis D language and implementations manual,
+whose root document is L<Muldis::D::Manual>; you should read that root
+document before you read this one, which provides subservient details.
+
+=head1 DESCRIPTION
+
+This example code demonstrates a very basic CD database, which consists of
+a schema definition having relvars to store data and routines to fetch or
+update that data, and it includes some sample data.
+
+This schema definition, routines, and sample data are heavily based on the
+contents of L<DBIx::Class::Manual::Example>; they are essentially the same
+except for optimizations to perceived better practice for Muldis D.
+
+The database consists of the following:
+
+    - relvar 'artists' with attributes: artist_id, artist_name
+    - relvar 'cds'     with attributes: cd_id, artist_id, cd_title
+    - relvar 'tracks'  with attributes: track_id, cd_id, track_title
+
+And these rules exist:
+
+    - one artist can have many cds
+    - one cd belongs to one artist
+    - one cd can have many tracks
+    - one track belongs to one cd
+
+In an effort to keep this example more realistic, the code is divided into
+3 depots:
+
+=over
+
+=item B<the_database>
+
+This is what you would traditionally call I<the database>.  It represents
+the state of a newly created depot that has the relvar and access routine
+definitions freshly installed in its catalog section, and corresponding
+relvars in its data section which are empty.
+
+=item B<insert_db>
+
+This is a program which inserts some test data into B<the_database>.
+
+=item B<test_db>
+
+This is a program which queries B<the_database> and prints out its
+findings for the user to see.
+
+=back
+
+This document has 3 main copies of the example, one in each of the 3
+standard dialects of Muldis D.
+
+=head1 EXAMPLE USING PTMD_STD DIALECT
+
+=head2 the_database
+
+    Muldis_D:"http://muldis.com":0.128.0:PTMD_STD:{
+        catalog_abstraction_level => rtn_inv_alt_syn,
+        op_char_repertoire => basic
+    }
+
+    depot-catalog {
+        self-local-dbvar-type nlx.lib.CD_DB
+
+    #######################################################################
+
+    database-type CD_DB {
+        attr $artists : nlx.lib.Artists
+        attr $cds     : nlx.lib.CDs
+        attr $tracks  : nlx.lib.Tracks
+        constraint nlx.lib.sc_artist_has_cds
+        constraint nlx.lib.sc_cd_has_tracks
+    }
+
+    subset-constraint sc_artist_has_cds {
+        parent $artists using-key nlx.lib.pk_artist_id
+        child $cds using-attrs { $>artist_id }
+    }
+
+    subset-constraint sc_cd_has_tracks {
+        parent $cds using-key nlx.lib.pk_cd_id
+        child $tracks using-attrs { $>cd_id }
+    }
+
+    #######################################################################
+
+    tuple-type Artist {
+        attr $artist_id   : Int
+        attr $artist_name : Text
+    }
+
+    relation-type Artists {
+        tuple-type nlx.lib.Artist
+        constraint nlx.lib.pk_artist_id
+    }
+
+    primary-key pk_artist_id { $artist_id }
+
+    #######################################################################
+
+    tuple-type CD {
+        attr $cd_id     : Int
+        attr $artist_id : Int
+        attr $cd_title  : Text
+    }
+
+    relation-type CDs {
+        tuple-type nlx.lib.CD
+        constraint nlx.lib.pk_cd_id
+    }
+
+    primary-key pk_cd_id { $cd_id }
+
+    #######################################################################
+
+    tuple-type Track {
+        attr $track_id    : Int
+        attr $cd_id       : Int
+        attr $track_title : Text
+    }
+
+    relation-type Tracks {
+        tuple-type nlx.lib.Track
+        constraint nlx.lib.pk_track_id
+    }
+
+    primary-key pk_track_id { $track_id }
+
+    #######################################################################
+
+    #######################################################################
+
+    } # depot-catalog #
+
+    depot-data Database:{
+        artists => Relation:{ artist_id, artist_name }
+        cds     => Relation:{ cd_id, artist_id, cd_title }
+        tracks  => Relation:{ track_id, cd_id, track_title }
+    } # depot-data #
+
+=head2 insert_db
+
+=head2 test_db
+
+=head1 EXAMPLE USING HDMD_Perl6_STD DIALECT
+
+I<TODO.>
+
+=head1 EXAMPLE USING HDMD_Perl5_STD DIALECT
+
+I<TODO.>
+
+=head1 SEE ALSO
+
+Go to L<Muldis::D::Manual> for the majority of distribution-internal
+references.
+
+Go to L<DBIx::Class::Manual::Example> to see the original version of the
+"Simple CD database example" from which this document was originally
+derived/translated.
+
+=head1 AUTHOR
+
+The original document that this current document was translated from,
+L<DBIx::Class::Manual::Example>, cites as its authors:
+
+    sc_ from irc.perl.org#dbix-class
+    Kieren Diment <kd@totaldatasolution.com>
+    Nigel Metheringham <nigelm@cpan.org>
+
+This current document was written/derived by:
+
+    Darren Duncan <darren@DarrenDuncan.net>
+
+=head1 LICENSE AND COPYRIGHT
+
+This file is part of the Muldis D language and implementations manual.
+
+Muldis D Manual is Copyright © 2008-2010, Muldis Data Systems, Inc.
+
+See the LICENSE AND COPYRIGHT of L<Muldis::D::Manual> for details.
+
+=head1 TRADEMARK POLICY
+
+The TRADEMARK POLICY in L<Muldis::D::Manual> applies to this file too.
+
+=head1 ACKNOWLEDGEMENTS
+
+The ACKNOWLEDGEMENTS in L<Muldis::D::Manual> apply to this file too.
+
+=cut

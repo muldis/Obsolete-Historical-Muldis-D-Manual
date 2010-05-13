@@ -59,6 +59,10 @@ L</SECTIONS>.  Other forthcoming content may be under C<examples/>.
 
 =over
 
+=item L<Muldis::D::Manual::CD>
+
+Simple CD database example - Muldis D code examples.
+
 =item L<Muldis::D::Manual::TemporalExtras>
 
 Legacy temporal data types, operators, and syntax removed from Muldis D.
