@@ -11,7 +11,9 @@
     schema definition having relvars to store data and routines to fetch or
     update that data, and it includes some sample data.  For users that are
     better served with a complete example than a spec, this should do it.
-TODO - FINISH THIS
+
+    * (BBEdit_LM_Muldis_D.plist)  Corresponding to changes introduced in
+    Muldis D spec v0.129.0 for PTMD_STD:  Added "compose" to keywords list.
 
 2010-05-11   Darren Duncan <darren@DarrenDuncan.net>
 

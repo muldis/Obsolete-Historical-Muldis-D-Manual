@@ -9,7 +9,7 @@ Simple CD database example
 
 =head1 VERSION
 
-This document is Muldis::D::Manual::CD version 0.3.0.
+This document is Muldis::D::Manual::CD version 0.4.0.
 
 =head1 PREFACE
 
@@ -25,7 +25,7 @@ update that data, and it includes some sample data.
 
 This schema definition, routines, and sample data are heavily based on the
 contents of L<DBIx::Class::Manual::Example>; they are essentially the same
-except for optimizations to perceived better practice for Muldis D.
+except for optimizations towards perceived better practice for Muldis D.
 
 The database consists of the following:
 
@@ -70,7 +70,7 @@ standard dialects of Muldis D.
 
 =head2 the_database
 
-    Muldis_D:"http://muldis.com":0.128.0:PTMD_STD:{
+    Muldis_D:"http://muldis.com":0.129.0:PTMD_STD:{
         catalog_abstraction_level => rtn_inv_alt_syn,
         op_char_repertoire => basic
     }
@@ -88,16 +88,6 @@ standard dialects of Muldis D.
         constraint nlx.lib.sc_cd_has_tracks
     }
 
-    subset-constraint sc_artist_has_cds {
-        parent $artists using-key nlx.lib.pk_artist_id
-        child $cds using-attrs { $>artist_id }
-    }
-
-    subset-constraint sc_cd_has_tracks {
-        parent $cds using-key nlx.lib.pk_cd_id
-        child $tracks using-attrs { $>cd_id }
-    }
-
     #######################################################################
 
     tuple-type Artist {
@@ -108,9 +98,11 @@ standard dialects of Muldis D.
     relation-type Artists {
         tuple-type nlx.lib.Artist
         constraint nlx.lib.pk_artist_id
+        constraint nlx.lib.sk_artist_name
     }
 
     primary-key pk_artist_id { $artist_id }
+    key-constraint sk_artist_name { $artist_name }
 
     #######################################################################
 
@@ -123,9 +115,16 @@ standard dialects of Muldis D.
     relation-type CDs {
         tuple-type nlx.lib.CD
         constraint nlx.lib.pk_cd_id
+        constraint nlx.lib.sk_cd_title
     }
 
     primary-key pk_cd_id { $cd_id }
+    key-constraint sk_cd_title { $cd_title }
+
+    subset-constraint sc_artist_has_cds {
+        parent $artists using-key nlx.lib.pk_artist_id
+        child $cds using-attrs { $>artist_id }
+    }
 
     #######################################################################
 
@@ -138,25 +137,291 @@ standard dialects of Muldis D.
     relation-type Tracks {
         tuple-type nlx.lib.Track
         constraint nlx.lib.pk_track_id
+        constraint nlx.lib.sk_track_title
     }
 
     primary-key pk_track_id { $track_id }
+    key-constraint sk_track_title { $track_title }
+
+    subset-constraint sc_cd_has_tracks {
+        parent $cds using-key nlx.lib.pk_cd_id
+        child $tracks using-attrs { $>cd_id }
+    }
 
     #######################################################################
+
+    recipe get_tracks_by_cd (&$track_titles : array_of.Text,
+            $cd_title : Text, $db ::= $nlx.data) {
+        $track_titles := Array_from_attr( $db.tracks matching (
+            $db.cds matching Relation:{ { $>cd_title } }
+        ), name => Name:track_title )
+    }
+
+    recipe get_tracks_by_artist (&$track_titles : array_of.Text,
+            $artist_name : Text, $db ::= $nlx.data) {
+        $track_titles := Array_from_attr( $db.tracks matching (
+            $db.cds matching (
+                $db.artists matching Relation:{ { $>artist_name } }
+            )
+        ), name => Name:track_title )
+    }
+
+    #######################################################################
+
+    recipe get_cd_by_track (&$cd_title : Text,
+            $track_title : Text, $db ::= $nlx.data) {
+        $cd_title := (t ($db.cds matching (
+            $db.tracks matching Relation:{ { $>track_title } }
+        ) )).cd_title
+    }
+
+    recipe get_cds_by_artist (&$cd_titles : array_of.Text,
+            $artist_name : Text, $db ::= $nlx.data) {
+        $cd_titles := Array_from_attr( $db.cds matching (
+            $db.artists matching Relation:{ { $>artist_name } }
+        ), name => Name:cd_title )
+    }
+
+    #######################################################################
+
+    recipe get_artist_by_track (&$artist_name : Text,
+            $track_title : Text, $db ::= $nlx.data) {
+        $artist_name := (t ($db.artists matching ($db.cds matching (
+            $db.tracks matching Relation:{ { $>track_title } }
+        ) ) )).artist_name
+    }
+
+    recipe get_artist_by_cd (&$artist_name : Text,
+            $cd_title : Text, $db ::= $nlx.data) {
+        $artist_name := (t ($db.artists matching (
+            $db.cds matching Relation:{ { $>cd_title } }
+        ) )).artist_name
+    }
 
     #######################################################################
 
     } # depot-catalog #
 
     depot-data Database:{
-        artists => Relation:{ artist_id, artist_name }
-        cds     => Relation:{ cd_id, artist_id, cd_title }
+        artists => Relation:{ artist_id, artist_name },
+        cds     => Relation:{ cd_id, artist_id, cd_title },
         tracks  => Relation:{ track_id, cd_id, track_title }
     } # depot-data #
 
 =head2 insert_db
 
+    Muldis_D:"http://muldis.com":0.128.0:PTMD_STD:{
+        catalog_abstraction_level => rtn_inv_alt_syn,
+        op_char_repertoire => basic
+    }
+
+    depot-catalog {
+        self-local-dbvar-type Database
+
+        stimulus-response-rule bootstrap {
+            when after-mount
+            invoke main
+        }
+
+    #######################################################################
+
+    procedure main () [
+        # Connect to the_database in read-write mode. #
+        # The "..." has likes of filename, server name, user, pass, etc. #
+        create_depot_mount( name => Name:db, we_may_update => True,
+            details => Relation:OVLScaValExprNodeSet:{ ... } )
+
+        # Add test data to the_database, as a single atomic transaction. #
+        nlx.lib.insert_records()
+
+        # Disconnect the_database now that we're done with it. #
+        drop_depot_mount( name => Name:db )
+    ]
+
+    #######################################################################
+
+    recipe insert_records (&$db ::= $fed.data.db, $src ::= $nlx.data) {
+        # We will generate new integer record ids serially starting after #
+        # the maximum ids currently in use per relvar. #
+        # There are, of course, other ways to produce record ids. #
+
+        # So start by determining the existing maximum ids. #
+        $max_used_artist_id ::= is_empty($db.artists) ?? 0
+            !! max( Set_from_attr( $db.artists, name => Name:artist_id ) )
+        $max_used_cd_id ::= is_empty($db.cds) ?? 0
+            !! max( Set_from_attr( $db.cds, name => Name:cd_id ) )
+        $max_used_track_id ::= is_empty($db.tracks) ?? 0
+            !! max( Set_from_attr( $db.tracks, name => Name:track_id ) )
+
+        # Now generate new record ids and attach them to records to add. #
+        # The process involves sorting of the new data simply to make it #
+        # fully-deterministic, giving same result on any implementation. #
+        $src_artists_with_ids ::= rank_by_attr_names( $src.artists,
+            name => Name:artist_id,
+            order_by => Array:[ Tuple:{ name => Name:artist_name,
+                is_reverse_order => False } ],
+            first_rank => $max_used_artist_id ++
+        )
+        $src_cds_with_ids ::= rank_by_attr_names( $src.cds,
+            name => Name:cd_id,
+            order_by => Array:[ Tuple:{ name => Name:cd_title,
+                is_reverse_order => False } ],
+            first_rank => $max_used_cd_id ++
+        )
+        $src_tracks_with_ids ::= rank_by_attr_names( $src.tracks,
+            name => Name:track_id,
+            order_by => Array:[ Tuple:{ name => Name:track_title,
+                is_reverse_order => False } ],
+            first_rank => $max_used_track_id ++
+        )
+
+        # Now substitute parent record ids for parent names or titles. #
+        $new_artists ::= $src_artists_with_ids
+        $new_cds ::= $src_cds_with_ids compose $new_artists
+        $new_tracks ::= $src_tracks_with_ids compose $new_cds@{!artist_id}
+
+        # Now insert the prepared new records into the_database. #
+        $db.artists :=union $new_artists
+        $db.cds :=union $new_cds
+        $db.tracks :=union $new_tracks
+    }
+
+    #######################################################################
+
+    } # depot-catalog #
+
+    depot-data Database:{
+        artists => Relation:[ artist_name ];{
+            [ 'Michael Jackson' ],
+            [ 'Eminem'          ]
+        },
+        cds => Relation:[ cd_title, artist_name ];{
+            [ 'Thriller'               , 'Michael Jackson' ],
+            [ 'Bad'                    , 'Michael Jackson' ],
+            [ 'The Marshall Mathers LP', 'Eminem'          ]
+        },
+        tracks => Relation:[ track_title, cd_title ];{
+            [ 'Beat It'        , 'Thriller'                ],
+            [ 'Billie Jean'    , 'Thriller'                ],
+            [ 'Dirty Diana'    , 'Bad'                     ],
+            [ 'Smooth Criminal', 'Bad'                     ],
+            [ 'Leave Me Alone' , 'Bad'                     ],
+            [ 'Stan'           , 'The Marshall Mathers LP' ],
+            [ 'The Way I Am'   , 'The Marshall Mathers LP' ]
+        }
+    } # depot-data #
+
 =head2 test_db
+
+    Muldis_D:"http://muldis.com":0.128.0:PTMD_STD:{
+        catalog_abstraction_level => rtn_inv_alt_syn,
+        op_char_repertoire => basic
+    }
+
+    depot-catalog {
+        stimulus-response-rule bootstrap {
+            when after-mount
+            invoke main
+        }
+
+    #######################################################################
+
+    procedure main () [
+        # Connect to the_database in read-only mode. #
+        # The "..." has likes of filename, server name, user, pass, etc. #
+        create_depot_mount( name => Name:db,
+            details => Relation:OVLScaValExprNodeSet:{ ... } )
+
+        # Fetch test data, in a transaction for read-consistency. #
+        nlx.lib.get_records()
+
+        # Disconnect the_database now that we're done with it. #
+        drop_depot_mount( name => Name:db )
+    ]
+
+    #######################################################################
+
+    transaction get_records () [
+        nlx.lib.get_tracks_by_cd( cd_title => 'Bad' )
+        nlx.lib.get_tracks_by_artist( artist_name => 'Michael Jackson' )
+
+        nlx.lib.get_cd_by_track( track_title => 'Stan' )
+        nlx.lib.get_cds_by_artist( artist_name => 'Michael Jackson' )
+
+        nlx.lib.get_artist_by_track( track_title => 'Dirty Diana' )
+        nlx.lib.get_artist_by_cd( cd_title => 'The Marshall Mathers LP' )
+    ]
+
+    #######################################################################
+
+    procedure disp_list ($h1 : Text, $h2 : Text, $list : array_of.Text) [
+        var $eol : Text
+        end_of_line_Text( &$eol )
+        var $msg : Text
+        { $msg := $h1 ~ '(' ~ $h2 ~ '):'
+            ~ $eol ~ cat_with_sep( $list, $eol ) ~ $eol ~ $eol }
+        write_Text( $msg )
+    ]
+
+    procedure disp_item ($h1 : Text, $h2 : Text, $item : Text) [
+        var $h : Text
+        { $h := $h1 ~ '(' ~ $h2 ~ '):' }
+        write_Text_line( $h )
+        write_Text_line( $item )
+        write_Text_line()
+    ]
+
+    #######################################################################
+
+    procedure get_tracks_by_cd ($cd_title : Text) [
+        var $track_titles : array_of.Text
+        fed.lib.db.get_tracks_by_cd( &$>track_titles, $>cd_title )
+        nlx.lib.disp_list( h1 => 'get_tracks_by_cd',
+            h2 => $cd_title, list => $track_titles )
+    ]
+
+    procedure get_tracks_by_artist ($artist_name : Text) [
+        var $track_titles : array_of.Text
+        fed.lib.db.get_tracks_by_artist( &$>track_titles, $>artist_name )
+        nlx.lib.disp_list( h1 => 'get_tracks_by_artist',
+            h2 => $artist_name, list => $track_titles )
+    ]
+
+    #######################################################################
+
+    procedure get_cd_by_track ($track_title : Text) [
+        var $cd_title : Text
+        fed.lib.db.get_cd_by_track( &$>cd_title, $>track_title )
+        nlx.lib.disp_item( h1 => 'get_cd_by_track',
+            h2 => $track_title, item => $cd_title )
+    ]
+
+    procedure get_cds_by_artist ($artist_name : Text) [
+        var $cd_titles : array_of.Text
+        fed.lib.db.get_cds_by_artist( &$>cd_titles, $>artist_name )
+        nlx.lib.disp_list( h1 => 'get_cds_by_artist',
+            h2 => $artist_name, list => $cd_titles )
+    ]
+
+    #######################################################################
+
+    procedure get_artist_by_track ($track_title : Text) [
+        var $artist_name : Text
+        fed.lib.db.get_artist_by_track( &$>artist_name, $>track_title )
+        nlx.lib.disp_item( h1 => 'get_artist_by_track',
+            h2 => $track_title, item => $artist_name )
+    ]
+
+    procedure get_artist_by_cd ($cd_title : Text) [
+        var $artist_name : Text
+        fed.lib.db.get_artist_by_cd( &$>artist_name, $>cd_title )
+        nlx.lib.disp_item( h1 => 'get_artist_by_cd',
+            h2 => $cd_title, item => $artist_name )
+    ]
+
+    #######################################################################
+
+    } # depot-catalog #
 
 =head1 EXAMPLE USING HDMD_Perl6_STD DIALECT
 
@@ -165,6 +430,35 @@ I<TODO.>
 =head1 EXAMPLE USING HDMD_Perl5_STD DIALECT
 
 I<TODO.>
+
+=head1 EXPECTED OUTPUT
+
+Each copy of the example should have identical output on STDOUT, which is:
+
+    get_tracks_by_cd(Bad):
+    Dirty Diana
+    Leave Me Alone
+    Smooth Criminal
+
+    get_tracks_by_artist(Michael Jackson):
+    Beat it
+    Billie Jean
+    Dirty Diana
+    Leave Me Alone
+    Smooth Criminal
+
+    get_cd_by_track(Stan):
+    The Marshall Mathers LP
+
+    get_cds_by_artist(Michael Jackson):
+    Bad
+    Thriller
+
+    get_artist_by_track(Dirty Diana):
+    Michael Jackson
+
+    get_artist_by_cd(The Marshall Mathers LP):
+    Eminem
 
 =head1 SEE ALSO
 

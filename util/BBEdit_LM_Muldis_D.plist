@@ -135,6 +135,7 @@
 
     <string>nand</string>
     <string>nor</string>
+    <string>compose</string>
 
     <string>isa</string>
     <string>!isa</string>
