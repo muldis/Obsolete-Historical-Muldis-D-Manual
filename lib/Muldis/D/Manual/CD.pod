@@ -168,11 +168,11 @@ standard dialects of Muldis D.
 
     #######################################################################
 
-    recipe get_cd_by_track (&$cd_title : Text,
+    recipe get_cd_by_track (&$cd_title : maybe_of.Text,
             $track_title : Text, $db ::= $nlx.data) {
-        $cd_title := (t ($db.cds matching (
+        $cd_title := Set_from_attr( $db.cds matching (
             $db.tracks matching Relation:{ { $>track_title } }
-        ) )).cd_title
+        ), name => Name:cd_title )
     }
 
     recipe get_cds_by_artist (&$cd_titles : array_of.Text,
@@ -184,18 +184,20 @@ standard dialects of Muldis D.
 
     #######################################################################
 
-    recipe get_artist_by_track (&$artist_name : Text,
+    recipe get_artist_by_track (&$artist_name : maybe_of.Text,
             $track_title : Text, $db ::= $nlx.data) {
-        $artist_name := (t ($db.artists matching ($db.cds matching (
-            $db.tracks matching Relation:{ { $>track_title } }
-        ) ) )).artist_name
+        $artist_name := Set_from_attr( $db.artists matching (
+            $db.cds matching (
+                $db.tracks matching Relation:{ { $>track_title } }
+            )
+        ), name => Name:artist_name )
     }
 
-    recipe get_artist_by_cd (&$artist_name : Text,
+    recipe get_artist_by_cd (&$artist_name : maybe_of.Text,
             $cd_title : Text, $db ::= $nlx.data) {
-        $artist_name := (t ($db.artists matching (
+        $artist_name := Set_from_attr( $db.artists matching (
             $db.cds matching Relation:{ { $>cd_title } }
-        ) )).artist_name
+        ), name => Name:artist_name )
     }
 
     #######################################################################
@@ -210,7 +212,7 @@ standard dialects of Muldis D.
 
 =head2 insert_db
 
-    Muldis_D:"http://muldis.com":0.128.0:PTMD_STD:{
+    Muldis_D:"http://muldis.com":0.129.0:PTMD_STD:{
         catalog_abstraction_level => rtn_inv_alt_syn,
         op_char_repertoire => basic
     }
@@ -232,10 +234,18 @@ standard dialects of Muldis D.
             details => Relation:OVLScaValExprNodeSet:{ ... } )
 
         # Add test data to the_database, as a single atomic transaction. #
-        nlx.lib.insert_records()
+        # This might fail if records with same titles/etc already there. #
+        try
+            nlx.lib.insert_records()
+        catch
+            nlx.lib.insert_failed()
 
         # Disconnect the_database now that we're done with it. #
         drop_depot_mount( name => Name:db )
+    ]
+
+    procedure insert_failed ($err : Exception) [
+        write_Text_line( 'Failed to insert, maybe because of duplicates.' )
     ]
 
     #######################################################################
@@ -313,7 +323,7 @@ standard dialects of Muldis D.
 
 =head2 test_db
 
-    Muldis_D:"http://muldis.com":0.128.0:PTMD_STD:{
+    Muldis_D:"http://muldis.com":0.129.0:PTMD_STD:{
         catalog_abstraction_level => rtn_inv_alt_syn,
         op_char_repertoire => basic
     }
@@ -363,11 +373,15 @@ standard dialects of Muldis D.
         write_Text( $msg )
     ]
 
-    procedure disp_item ($h1 : Text, $h2 : Text, $item : Text) [
+    procedure disp_item ($h1 : Text, $h2 : Text, $item : maybe_of.Text) [
         var $h : Text
-        { $h := $h1 ~ '(' ~ $h2 ~ '):' }
+        var $v : Text
+        {
+            $h := $h1 ~ '(' ~ $h2 ~ '):'
+            $v := $item // '<No Match!>'
+        }
         write_Text_line( $h )
-        write_Text_line( $item )
+        write_Text_line( $v )
         write_Text_line()
     ]
 
@@ -390,7 +404,7 @@ standard dialects of Muldis D.
     #######################################################################
 
     procedure get_cd_by_track ($track_title : Text) [
-        var $cd_title : Text
+        var $cd_title : maybe_of.Text
         fed.lib.db.get_cd_by_track( &$>cd_title, $>track_title )
         nlx.lib.disp_item( h1 => 'get_cd_by_track',
             h2 => $track_title, item => $cd_title )
@@ -406,14 +420,14 @@ standard dialects of Muldis D.
     #######################################################################
 
     procedure get_artist_by_track ($track_title : Text) [
-        var $artist_name : Text
+        var $artist_name : maybe_of.Text
         fed.lib.db.get_artist_by_track( &$>artist_name, $>track_title )
         nlx.lib.disp_item( h1 => 'get_artist_by_track',
             h2 => $track_title, item => $artist_name )
     ]
 
     procedure get_artist_by_cd ($cd_title : Text) [
-        var $artist_name : Text
+        var $artist_name : maybe_of.Text
         fed.lib.db.get_artist_by_cd( &$>artist_name, $>cd_title )
         nlx.lib.disp_item( h1 => 'get_artist_by_cd',
             h2 => $cd_title, item => $artist_name )

@@ -1,6 +1,19 @@
                              Muldis::D::Manual
 ---------------------------------------------------------------------------
 
+2010-05-xx   Darren Duncan <darren@DarrenDuncan.net>
+
+    * Muldis::D::Manual version 0.6.0 is released on CPAN as
+    Muldis-D-Manual-0.6.0.tar.gz.
+
+    * (CD.pod)  Fixed a design error in the example code where it assumed
+    that exactly one tuple would result from some queries, when in fact
+    zero tuples might result instead.
+
+    * (CD.pod)  Fixed example code to add a try/catch block around the
+    record insertion code, to gracefully deal and display a message if the
+    insertion failed due to duplicate titles/etc constraint violation.
+
 2010-05-12   Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D::Manual version 0.5.0 is released on CPAN as
