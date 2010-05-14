@@ -446,29 +446,191 @@ might also be made complete later if the rationale exists.
 
 =head2 HDMD_Perl6_STD - the_database
 
-I<TODO.>
+    [
+        [ 'Muldis_D', 'http://muldis.com', '0.129.0', 'HDMD_Perl6_STD', {
+            catalog_abstraction_level => 'rtn_inv_alt_syn',
+            op_char_repertoire => 'basic'
+        } ],
+
+        [ 'depot',
+            :depot-catalog[
+                :self-local-dbvar-type<nlx.lib.CD_DB>,
+
+    #######################################################################
+
+
+    #######################################################################
+
+            ], # depot-catalog #
+
+            :depot-data[ 'Database', {
+                artists => :Relation(Set.new(<artist_id artist_name>)),
+                cds     => :Relation(Set.new(<cd_id artist_id cd_title>)),
+                tracks  => :Relation(Set.new(<track_id cd_id track_title>))
+            } ] # depot-data #
+        ]
+    ]
 
 =head2 HDMD_Perl6_STD - insert_db
 
-I<TODO.>
+    [
+        [ 'Muldis_D', 'http://muldis.com', '0.129.0', 'HDMD_Perl6_STD', {
+            catalog_abstraction_level => 'rtn_inv_alt_syn',
+            op_char_repertoire => 'basic'
+        } ],
+
+        [ 'depot',
+            :depot-catalog[
+                :self-local-dbvar-type<Database>,
+
+                ['stimulus-response-rule','bootstrap',:after-mount<main>],
+
+    #######################################################################
+
+
+    #######################################################################
+
+            ], # depot-catalog #
+
+            :depot-data[ 'Database', {
+                artists => :Relation( <artist_name> => Set.new(
+                    [ 'Michael Jackson' ],
+                    [ 'Eminem'          ]
+                ) ),
+                cds => :Relation( <cd_title artist_name> => Set.new(
+                    [ 'Thriller'               , 'Michael Jackson' ],
+                    [ 'Bad'                    , 'Michael Jackson' ],
+                    [ 'The Marshall Mathers LP', 'Eminem'          ]
+                ) ),
+                tracks => :Relation( <track_title cd_title> => Set.new(
+                    [ 'Beat It'        , 'Thriller'                ],
+                    [ 'Billie Jean'    , 'Thriller'                ],
+                    [ 'Dirty Diana'    , 'Bad'                     ],
+                    [ 'Smooth Criminal', 'Bad'                     ],
+                    [ 'Leave Me Alone' , 'Bad'                     ],
+                    [ 'Stan'           , 'The Marshall Mathers LP' ],
+                    [ 'The Way I Am'   , 'The Marshall Mathers LP' ]
+                ) )
+            } ] # depot-data #
+        ]
+    ]
 
 =head2 HDMD_Perl6_STD - test_db
 
-I<TODO.>
+    [
+        [ 'Muldis_D', 'http://muldis.com', '0.129.0', 'HDMD_Perl6_STD', {
+            catalog_abstraction_level => 'rtn_inv_alt_syn',
+            op_char_repertoire => 'basic'
+        } ],
+
+        [ 'depot',
+            :depot-catalog[
+                ['stimulus-response-rule','bootstrap',:after-mount<main>],
+
+    #######################################################################
+
+
+    #######################################################################
+
+            ] # depot-catalog #
+        ]
+    ]
 
 =head1 EXAMPLE USING HDMD_Perl5_STD DIALECT
 
 =head2 HDMD_Perl5_STD - the_database
 
-I<TODO.>
+    [
+        [ 'Muldis_D', 'http://muldis.com', '0.129.0', 'HDMD_Perl5_STD', {
+            catalog_abstraction_level => 'rtn_inv_alt_syn',
+            op_char_repertoire => 'basic'
+        } ],
+
+        [ 'depot',
+            [ 'depot-catalog' => [
+                [ 'self-local-dbvar-type', 'nlx.lib.CD_DB' ],
+
+    #######################################################################
+
+
+    #######################################################################
+
+            ] ], # depot-catalog #
+
+            [ 'depot-data' => [ 'Database', {
+                artists => ['Relation',['artist_id','artist_name']],
+                cds     => ['Relation',['cd_id','artist_id','cd_title']],
+                tracks  => ['Relation',['track_id','cd_id','track_title']]
+            } ] ] # depot-data #
+        ]
+    ]
 
 =head2 HDMD_Perl5_STD - insert_db
 
-I<TODO.>
+    [
+        [ 'Muldis_D', 'http://muldis.com', '0.129.0', 'HDMD_Perl5_STD', {
+            catalog_abstraction_level => 'rtn_inv_alt_syn',
+            op_char_repertoire => 'basic'
+        } ],
+
+        [ 'depot',
+            [ 'depot-catalog' => [
+                [ 'self-local-dbvar-type', 'Database' ],
+
+                [ 'stimulus-response-rule', 'bootstrap',
+                    ['after-mount' => 'main'] ],
+
+    #######################################################################
+
+
+    #######################################################################
+
+            ] ], # depot-catalog #
+
+            [ 'depot-data' => [ 'Database', {
+                artists => [ 'Relation', [ [ 'artist_name' ] => [
+                    [ 'Michael Jackson' ],
+                    [ 'Eminem'          ]
+                ] ] ],
+                cds => [ 'Relation', [ [ 'cd_title','artist_name' ] => [
+                    [ 'Thriller'               , 'Michael Jackson' ],
+                    [ 'Bad'                    , 'Michael Jackson' ],
+                    [ 'The Marshall Mathers LP', 'Eminem'          ]
+                ] ] ],
+                tracks => [ 'Relation', [ [ 'track_title','cd_title' ] => [
+                    [ 'Beat It'        , 'Thriller'                ],
+                    [ 'Billie Jean'    , 'Thriller'                ],
+                    [ 'Dirty Diana'    , 'Bad'                     ],
+                    [ 'Smooth Criminal', 'Bad'                     ],
+                    [ 'Leave Me Alone' , 'Bad'                     ],
+                    [ 'Stan'           , 'The Marshall Mathers LP' ],
+                    [ 'The Way I Am'   , 'The Marshall Mathers LP' ]
+                ] ] ]
+            } ] ] # depot-data #
+        ]
+    ]
 
 =head2 HDMD_Perl5_STD - test_db
 
-I<TODO.>
+    [
+        [ 'Muldis_D', 'http://muldis.com', '0.129.0', 'HDMD_Perl5_STD', {
+            catalog_abstraction_level => 'rtn_inv_alt_syn',
+            op_char_repertoire => 'basic'
+        } ],
+
+        [ 'depot',
+            [ 'depot-catalog' => [
+                [ 'stimulus-response-rule', 'bootstrap',
+                    ['after-mount' => 'main'] ],
+
+    #######################################################################
+
+
+    #######################################################################
+
+            ] ] # depot-catalog #
+        ]
+    ]
 
 =head1 EXPECTED OUTPUT
 

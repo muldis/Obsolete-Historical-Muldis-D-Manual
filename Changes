@@ -17,6 +17,10 @@
     * (TemporalExtras.pod)  Renamed the 3 "Date and Time Literals" pod
     sub-sections to add unique prefixes so that navigation links work.
 
+    * (CD.pod)  Add 2 more copies of the example code, one for each of the
+    2 Muldis D Perl-STD dialects.
+... IN PROGRESS ...
+
 2010-05-12   Darren Duncan <darren@DarrenDuncan.net>
 
     * Muldis::D::Manual version 0.5.0 is released on CPAN as
