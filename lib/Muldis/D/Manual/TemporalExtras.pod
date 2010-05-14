@@ -846,7 +846,7 @@ Grammar:
         | <FloatInstant_payload>
         | <UTCDuration_payload>
 
-=head2 Date and Time Literals
+=head2 PTMD_STD - Date and Time Literals
 
 Grammar:
 
@@ -1028,7 +1028,7 @@ C<UTC[Instant|DateTime|Date|Time]>,
 C<Float[Instant|DateTime|Date|Time]>, C<UTCDuration>.  For all of these
 varieties, the C<value_kind> may not be omitted.
 
-=head2 Date and Time Literals
+=head2 HDMD_Perl6_STD - Date and Time Literals
 
 A C<TAIInstant> node represents a single point in time which is specified
 in terms of atomic seconds.  This node is interpreted as a Muldis D
@@ -1138,7 +1138,7 @@ C<UTC[Instant|DateTime|Date|Time]>,
 C<Float[Instant|DateTime|Date|Time]>, C<UTCDuration>.  For all of these
 varieties, the C<value_kind> may not be omitted.
 
-=head2 Date and Time Literals
+=head2 HDMD_Perl5_STD - Date and Time Literals
 
 A C<TAIInstant> node represents a single point in time which is specified
 in terms of atomic seconds; it is a rational numeric type, that is disjoint

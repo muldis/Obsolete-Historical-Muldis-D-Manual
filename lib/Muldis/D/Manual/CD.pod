@@ -64,11 +64,16 @@ findings for the user to see.
 =back
 
 This document has 3 main copies of the example, one in each of the 3
-standard dialects of Muldis D.
+standard dialects of Muldis D.  But only the PTMD_STD dialect has the
+complete example, because that dialect is the most terse and readable; the
+HDMD_Perl6_STD and HDMD_Perl5_STD dialects have a representative subset
+only, such that one should be able to infer the missing portions easily
+enough through comparison with the complete PTMD_STD example; but they
+might also be made complete later if the rationale exists.
 
 =head1 EXAMPLE USING PTMD_STD DIALECT
 
-=head2 the_database
+=head2 PTMD_STD - the_database
 
     Muldis_D:"http://muldis.com":0.129.0:PTMD_STD:{
         catalog_abstraction_level => rtn_inv_alt_syn,
@@ -210,7 +215,7 @@ standard dialects of Muldis D.
         tracks  => Relation:{ track_id, cd_id, track_title }
     } # depot-data #
 
-=head2 insert_db
+=head2 PTMD_STD - insert_db
 
     Muldis_D:"http://muldis.com":0.129.0:PTMD_STD:{
         catalog_abstraction_level => rtn_inv_alt_syn,
@@ -321,7 +326,7 @@ standard dialects of Muldis D.
         }
     } # depot-data #
 
-=head2 test_db
+=head2 PTMD_STD - test_db
 
     Muldis_D:"http://muldis.com":0.129.0:PTMD_STD:{
         catalog_abstraction_level => rtn_inv_alt_syn,
@@ -439,9 +444,29 @@ standard dialects of Muldis D.
 
 =head1 EXAMPLE USING HDMD_Perl6_STD DIALECT
 
+=head2 HDMD_Perl6_STD - the_database
+
+I<TODO.>
+
+=head2 HDMD_Perl6_STD - insert_db
+
+I<TODO.>
+
+=head2 HDMD_Perl6_STD - test_db
+
 I<TODO.>
 
 =head1 EXAMPLE USING HDMD_Perl5_STD DIALECT
+
+=head2 HDMD_Perl5_STD - the_database
+
+I<TODO.>
+
+=head2 HDMD_Perl5_STD - insert_db
+
+I<TODO.>
+
+=head2 HDMD_Perl5_STD - test_db
 
 I<TODO.>
 
