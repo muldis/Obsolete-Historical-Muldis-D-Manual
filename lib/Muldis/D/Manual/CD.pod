@@ -461,6 +461,33 @@ might also be made complete later if the rationale exists.
 
     #######################################################################
 
+    [ 'recipe', 'get_tracks_by_cd',
+        { track_titles => ['&','array_of.Text'], cd_title => 'Text',
+        db => ['::=','nlx.data'] } => '...' ],
+
+    [ 'recipe', 'get_tracks_by_artist',
+        { track_titles => ['&','array_of.Text'], artist_name => 'Text',
+        db => ['::=','nlx.data'] } => '...' ],
+
+    #######################################################################
+
+    [ 'recipe', 'get_cd_by_track', { cd_title => ['&','maybe_of.Text'],
+        track_title => 'Text', db => ['::=','nlx.data'] } => '...' ],
+
+    [ 'recipe', 'get_cds_by_artist', { cd_titles => ['&','array_of.Text'],
+        artist_name => 'Text', db => ['::=','nlx.data'] } => '...' ],
+
+    #######################################################################
+
+    [ 'recipe', 'get_artist_by_track',
+        { artist_name => ['&','maybe_of.Text'], track_title => 'Text',
+        db => ['::=','nlx.data'] } => '...' ],
+
+    [ 'recipe', 'get_artist_by_cd', { artist_name => ['&','maybe_of.Text'],
+        cd_title => 'Text', db => ['::=','nlx.data'] } => '...' ],
+
+    #######################################################################
+
             ], # depot-catalog #
 
             :depot-data[ 'Database', {
@@ -487,6 +514,33 @@ might also be made complete later if the rationale exists.
 
     #######################################################################
 
+    [ 'procedure', 'main', {} => [
+        # Connect to the_database in read-write mode. #
+        # The "..." has likes of filename, server name, user, pass, etc. #
+        [ 'iproc-imp-invo', 'create_depot_mount', { name => :Name<db>,
+            we_may_update => Bool::True,
+            details => [ 'Relation', 'OVLScaValExprNodeSet', '...' ] } ],
+
+        # Add test data to the_database, as a single atomic transaction. #
+        # This might fail if records with same titles/etc already there. #
+        [ 'try-catch',
+            :iproc-imp-invo<nlx.lib.insert_records>,
+            :iproc-imp-invo<nlx.lib.insert_failed>
+        ],
+
+        # Disconnect the_database now that we're done with it. #
+        [ 'iproc-imp-invo', 'drop_depot_mount', { name => :Name<db> } ],
+    ] ],
+
+    [ 'procedure', 'insert_failed', { err => 'Exception' } => [
+        [ 'iproc-imp-invo', 'write_Text_line',
+            [ 'Failed to insert, maybe because of duplicates.' ] ]
+    ] ],
+
+    #######################################################################
+
+    [ 'recipe', 'insert_records', { db => ['&','::=','fed.data.db'],
+        src => ['::=','nlx.data'] } => '...' ],
 
     #######################################################################
 
@@ -529,6 +583,63 @@ might also be made complete later if the rationale exists.
 
     #######################################################################
 
+    [ 'procedure', 'main', {} => [
+        # Connect to the_database in read-only mode. #
+        # The "..." has likes of filename, server name, user, pass, etc. #
+        [ 'iproc-imp-invo', 'create_depot_mount', { name => :Name<db>,
+            details => [ 'Relation', 'OVLScaValExprNodeSet', '...' ] } ],
+
+        # Fetch test data, in a transaction for read-consistency. #
+        :iproc-imp-invo<nlx.lib.get_records>,
+
+        # Disconnect the_database now that we're done with it. #
+        [ 'iproc-imp-invo', 'drop_depot_mount', { name => :Name<db> } ],
+    ] ],
+
+    #######################################################################
+
+    [ 'transaction', 'get_records', {} => [
+        [ 'iproc-imp-invo', 'nlx.lib.get_tracks_by_cd',
+            { cd_title => 'Bad' } ],
+        [ 'iproc-imp-invo', 'nlx.lib.get_tracks_by_artist',
+            { artist_name => 'Michael Jackson' } ],
+
+        [ 'iproc-imp-invo', 'nlx.lib.get_cd_by_track',
+            { track_title => 'Stan' } ],
+        [ 'iproc-imp-invo', 'nlx.lib.get_cds_by_artist',
+            { artist_name => 'Michael Jackson' } ],
+
+        [ 'iproc-imp-invo', 'nlx.lib.get_artist_by_track',
+            { track_title => 'Dirty Diana' } ],
+        [ 'iproc-imp-invo', 'nlx.lib.get_artist_by_cd',
+            { cd_title => 'The Marshall Mathers LP' } ],
+    ] ],
+
+    #######################################################################
+
+    [ 'procedure', 'disp_list', { h1 => 'Text', h2 => 'Text',
+        list => 'array_of.Text',  } => '...' ],
+
+    [ 'procedure', 'disp_item', { h1 => 'Text', h2 => 'Text',
+        item => 'maybe_of.Text',  } => '...' ],
+
+    #######################################################################
+
+    [ 'procedure', 'get_tracks_by_cd', { cd_title => 'Text' } => '...' ],
+
+    [ 'procedure', 'get_tracks_by_artist', {artist_name=>'Text'}=>'...' ],
+
+    #######################################################################
+
+    [ 'procedure', 'get_cd_by_track', { track_title => 'Text' } => '...' ],
+
+    [ 'procedure', 'get_cds_by_artist', {artist_name => 'Text'} => '...' ],
+
+    #######################################################################
+
+    [ 'procedure', 'get_artist_by_track', {track_title=>'Text'} => '...' ],
+
+    [ 'procedure', 'get_artist_by_cd', { cd_title => 'Text' } => '...' ],
 
     #######################################################################
 
@@ -552,6 +663,36 @@ might also be made complete later if the rationale exists.
 
     #######################################################################
 
+
+    #######################################################################
+
+    [ 'recipe', 'get_tracks_by_cd',
+        [ {track_titles => ['&','array_of.Text'], cd_title => 'Text',
+        db => ['::=','nlx.data'] } => '...' ] ],
+
+    [ 'recipe', 'get_tracks_by_artist',
+        [ {track_titles => ['&','array_of.Text'], artist_name => 'Text',
+        db => ['::=','nlx.data'] } => '...' ] ],
+
+    #######################################################################
+
+    [ 'recipe', 'get_cd_by_track',
+        [ {cd_title => ['&','maybe_of.Text'], track_title => 'Text',
+        db => ['::=','nlx.data'] } => '...' ] ],
+
+    [ 'recipe', 'get_cds_by_artist',
+        [ {cd_titles => ['&','array_of.Text'], artist_name => 'Text',
+        db => ['::=','nlx.data'] } => '...' ] ],
+
+    #######################################################################
+
+    [ 'recipe', 'get_artist_by_track',
+        [ {artist_name => ['&','maybe_of.Text'], track_title => 'Text',
+        db => ['::=','nlx.data'] } => '...' ] ],
+
+    [ 'recipe', 'get_artist_by_cd',
+        [ {artist_name => ['&','maybe_of.Text'], cd_title => 'Text',
+        db => ['::=','nlx.data'] } => '...' ] ],
 
     #######################################################################
 
@@ -582,6 +723,33 @@ might also be made complete later if the rationale exists.
 
     #######################################################################
 
+    [ 'procedure', 'main', [ {} => [
+        # Connect to the_database in read-write mode. #
+        # The "..." has likes of filename, server name, user, pass, etc. #
+        [ 'iproc-imp-invo', 'create_depot_mount', { name => ['Name','db'],
+            we_may_update => ['Bool','True'],
+            details => [ 'Relation', 'OVLScaValExprNodeSet', '...' ] } ],
+
+        # Add test data to the_database, as a single atomic transaction. #
+        # This might fail if records with same titles/etc already there. #
+        [ 'try-catch',
+            [ 'iproc-imp-invo', 'nlx.lib.insert_records' ],
+            [ 'iproc-imp-invo', 'nlx.lib.insert_failed' ]
+        ],
+
+        # Disconnect the_database now that we're done with it. #
+        [ 'iproc-imp-invo', 'drop_depot_mount', {name => ['Name','db']} ],
+    ] ] ],
+
+    [ 'procedure', 'insert_failed', [ { err => 'Exception' } => [
+        [ 'iproc-imp-invo', 'write_Text_line',
+            [ 'Failed to insert, maybe because of duplicates.' ] ]
+    ] ] ],
+
+    #######################################################################
+
+    [ 'recipe', 'insert_records', [ { db => ['&','::=','fed.data.db'],
+        src => ['::=','nlx.data'] } => '...' ] ],
 
     #######################################################################
 
@@ -625,6 +793,63 @@ might also be made complete later if the rationale exists.
 
     #######################################################################
 
+    [ 'procedure', 'main', [ {} => [
+        # Connect to the_database in read-only mode. #
+        # The "..." has likes of filename, server name, user, pass, etc. #
+        [ 'iproc-imp-invo', 'create_depot_mount', { name => ['Name','db'],
+            details => [ 'Relation', 'OVLScaValExprNodeSet', '...' ] } ],
+
+        # Fetch test data, in a transaction for read-consistency. #
+        [ 'iproc-imp-invo', 'nlx.lib.get_records' ],
+
+        # Disconnect the_database now that we're done with it. #
+        [ 'iproc-imp-invo', 'drop_depot_mount', {name => ['Name','db']} ],
+    ] ] ],
+
+    #######################################################################
+
+    [ 'transaction', 'get_records', [ {} => [
+        [ 'iproc-imp-invo', 'nlx.lib.get_tracks_by_cd',
+            { cd_title => 'Bad' } ],
+        [ 'iproc-imp-invo', 'nlx.lib.get_tracks_by_artist',
+            { artist_name => 'Michael Jackson' } ],
+
+        [ 'iproc-imp-invo', 'nlx.lib.get_cd_by_track',
+            { track_title => 'Stan' } ],
+        [ 'iproc-imp-invo', 'nlx.lib.get_cds_by_artist',
+            { artist_name => 'Michael Jackson' } ],
+
+        [ 'iproc-imp-invo', 'nlx.lib.get_artist_by_track',
+            { track_title => 'Dirty Diana' } ],
+        [ 'iproc-imp-invo', 'nlx.lib.get_artist_by_cd',
+            { cd_title => 'The Marshall Mathers LP' } ],
+    ] ] ],
+
+    #######################################################################
+
+    [ 'procedure', 'disp_list', [ { h1 => 'Text', h2 => 'Text',
+        list => 'array_of.Text',  } => '...' ] ],
+
+    [ 'procedure', 'disp_item', [ { h1 => 'Text', h2 => 'Text',
+        item => 'maybe_of.Text',  } => '...' ] ],
+
+    #######################################################################
+
+    [ 'procedure', 'get_tracks_by_cd', [{ cd_title => 'Text' } => '...'] ],
+
+    ['procedure', 'get_tracks_by_artist', [{artist_name=>'Text'}=>'...']],
+
+    #######################################################################
+
+    [ 'procedure', 'get_cd_by_track', [{track_title => 'Text'} => '...'] ],
+
+    [ 'procedure', 'get_cds_by_artist', [{artist_name=>'Text'} => '...'] ],
+
+    #######################################################################
+
+    [ 'procedure', 'get_artist_by_track', [{track_title=>'Text'}=>'...'] ],
+
+    [ 'procedure', 'get_artist_by_cd', [{ cd_title => 'Text' } => '...'] ],
 
     #######################################################################
 
