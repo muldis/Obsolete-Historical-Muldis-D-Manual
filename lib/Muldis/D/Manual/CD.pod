@@ -458,6 +458,77 @@ might also be made complete later if the rationale exists.
 
     #######################################################################
 
+    [ 'database-type', 'CD_DB', [
+        [ 'attr', 'artists', 'nlx.lib.Artists' ],
+        [ 'attr', 'cds'    , 'nlx.lib.CDs'     ],
+        [ 'attr', 'tracks' , 'nlx.lib.Tracks'  ],
+        :constraint<nlx.lib.sc_artist_has_cds>,
+        :constraint<nlx.lib.sc_cd_has_tracks>,
+    ] ],
+
+    #######################################################################
+
+    [ 'tuple-type', 'Artist', [
+        [ 'attr', 'artist_id'  , 'Int'  ],
+        [ 'attr', 'artist_name', 'Text' ],
+    ] ],
+
+    [ 'relation-type', 'Artists', [
+        :tuple-type<nlx.lib.Artist>,
+        :constraint<nlx.lib.pk_artist_id>,
+        :constraint<nlx.lib.sk_artist_name>,
+    ] ],
+
+    [ 'primary-key', 'pk_artist_id', 'artist_id' ],
+    [ 'key-constraint', 'sk_artist_name', 'artist_name' ],
+
+    #######################################################################
+
+    [ 'tuple-type', 'CD', [
+        [ 'attr', 'cd_id'    , 'Int'  ],
+        [ 'attr', 'artist_id', 'Int'  ],
+        [ 'attr', 'cd_title' , 'Text' ],
+    ] ],
+
+    [ 'relation-type', 'CDs', [
+        :tuple-type<nlx.lib.CD>,
+        :constraint<nlx.lib.pk_cd_id>,
+        :constraint<nlx.lib.sk_cd_title>,
+    ] ],
+
+    [ 'primary-key', 'pk_cd_id', 'cd_id' ],
+    [ 'key-constraint', 'sk_cd_title', 'cd_title' ],
+
+    [ 'subset-constraint', 'sc_artist_has_cds', {
+        parent      => 'artists',
+        using-key   => 'nlx.lib.pk_artist_id',
+        child       => 'cds',
+        using-attrs => { artist_id => 'artist_id' }
+    } ],
+
+    #######################################################################
+
+    [ 'tuple-type', 'Track', [
+        [ 'attr', 'track_id'   , 'Int'  ],
+        [ 'attr', 'cd_id'      , 'Int'  ],
+        [ 'attr', 'track_title', 'Text' ],
+    ] ],
+
+    [ 'relation-type', 'Tracks', [
+        :tuple-type<nlx.lib.Track>,
+        :constraint<nlx.lib.pk_track_id>,
+        :constraint<nlx.lib.sk_track_title>,
+    ] ],
+
+    [ 'primary-key', 'pk_track_id', 'track_id' ],
+    [ 'key-constraint', 'sk_track_title', 'track_title' ],
+
+    [ 'subset-constraint', 'sc_cd_has_tracks', {
+        parent      => 'cds',
+        using-key   => 'nlx.lib.pk_cd_id',
+        child       => 'tracks',
+        using-attrs => { cd_id => 'cd_id' }
+    } ],
 
     #######################################################################
 
@@ -663,6 +734,77 @@ might also be made complete later if the rationale exists.
 
     #######################################################################
 
+    [ 'database-type', 'CD_DB', [
+        [ 'attr', 'artists', 'nlx.lib.Artists' ],
+        [ 'attr', 'cds'    , 'nlx.lib.CDs'     ],
+        [ 'attr', 'tracks' , 'nlx.lib.Tracks'  ],
+        [ 'constraint', 'nlx.lib.sc_artist_has_cds' ],
+        [ 'constraint', 'nlx.lib.sc_cd_has_tracks'  ],
+    ] ],
+
+    #######################################################################
+
+    [ 'tuple-type', 'Artist', [
+        [ 'attr', 'artist_id'  , 'Int'  ],
+        [ 'attr', 'artist_name', 'Text' ],
+    ] ],
+
+    [ 'relation-type', 'Artists', [
+        [ 'tuple-type', 'nlx.lib.Artist' ],
+        [ 'constraint', 'nlx.lib.pk_artist_id' ],
+        [ 'constraint', 'nlx.lib.sk_artist_name' ],
+    ] ],
+
+    [ 'primary-key', 'pk_artist_id', 'artist_id' ],
+    [ 'key-constraint', 'sk_artist_name', 'artist_name' ],
+
+    #######################################################################
+
+    [ 'tuple-type', 'CD', [
+        [ 'attr', 'cd_id'    , 'Int'  ],
+        [ 'attr', 'artist_id', 'Int'  ],
+        [ 'attr', 'cd_title' , 'Text' ],
+    ] ],
+
+    [ 'relation-type', 'CDs', [
+        [ 'tuple-type', 'nlx.lib.CD' ],
+        [ 'constraint', 'nlx.lib.pk_cd_id' ],
+        [ 'constraint', 'nlx.lib.sk_cd_title' ],
+    ] ],
+
+    [ 'primary-key', 'pk_cd_id', 'cd_id' ],
+    [ 'key-constraint', 'sk_cd_title', 'cd_title' ],
+
+    [ 'subset-constraint', 'sc_artist_has_cds', {
+        parent      => 'artists',
+        using-key   => 'nlx.lib.pk_artist_id',
+        child       => 'cds',
+        using-attrs => { artist_id => 'artist_id' }
+    } ],
+
+    #######################################################################
+
+    [ 'tuple-type', 'Track', [
+        [ 'attr', 'track_id'   , 'Int'  ],
+        [ 'attr', 'cd_id'      , 'Int'  ],
+        [ 'attr', 'track_title', 'Text' ],
+    ] ],
+
+    [ 'relation-type', 'Tracks', [
+        [ 'tuple-type', 'nlx.lib.Track' ],
+        [ 'constraint', 'nlx.lib.pk_track_id' ],
+        [ 'constraint', 'nlx.lib.sk_track_title' ],
+    ] ],
+
+    [ 'primary-key', 'pk_track_id', 'track_id' ],
+    [ 'key-constraint', 'sk_track_title', 'track_title' ],
+
+    [ 'subset-constraint', 'sc_cd_has_tracks', {
+        parent      => 'cds',
+        using-key   => 'nlx.lib.pk_cd_id',
+        child       => 'tracks',
+        using-attrs => { cd_id => 'cd_id' }
+    } ],
 
     #######################################################################
 
