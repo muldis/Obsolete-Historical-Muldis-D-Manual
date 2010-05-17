@@ -64,12 +64,20 @@ findings for the user to see.
 =back
 
 This document has 3 main copies of the example, one in each of the 3
-standard dialects of Muldis D.  But only the PTMD_STD dialect has the
-complete example, because that dialect is the most terse and readable; the
-HDMD_Perl6_STD and HDMD_Perl5_STD dialects have a representative subset
-only, such that one should be able to infer the missing portions easily
-enough through comparison with the complete PTMD_STD example; but they
-might also be made complete later if the rationale exists.
+standard dialects of Muldis D.
+
+But while the PTMD_STD dialect's copy of the example is complete, the
+HDMD_Perl6_STD and HDMD_Perl5_STD dialects' copies of the example are each
+missing the bodies of 13 routines, and have just the headings/signatures
+for those 13; the HDMD_Perl6_STD and HDMD_Perl5_STD dialects' copies of the
+example are otherwise complete, having the complete definitions of 7
+routines, and all of the type definitions, constraints, scaffolding, and
+data.  The PTMD_STD copy is, in any event, the most terse and readable,
+especially for routine definitions; the routines that are complete in the 2
+Perl-STD copies should constitute a representative subset, such that one
+should be able to infer the missing routine bodies easily enough through
+comparison with the complete PTMD_STD copy; but the other routines might
+also be made complete later if the rationale exists.
 
 =head1 EXAMPLE USING PTMD_STD DIALECT
 
@@ -374,7 +382,7 @@ might also be made complete later if the rationale exists.
         end_of_line_Text( &$eol )
         var $msg : Text
         { $msg := $h1 ~ '(' ~ $h2 ~ '):'
-            ~ $eol ~ cat_with_sep( $list, $eol ) ~ $eol ~ $eol }
+            ~ $eol ~ cat_with_sep( $list, sep => $eol ) ~ $eol ~ $eol }
         write_Text( $msg )
     ]
 
@@ -540,6 +548,24 @@ might also be made complete later if the rationale exists.
         { track_titles => ['&','array_of.Text'], artist_name => 'Text',
         db => ['::=','nlx.data'] } => '...' ],
 
+    [ 'recipe', 'get_tracks_by_artist',
+            { track_titles => ['&','array_of.Text'],
+            artist_name => 'Text', db => ['::=','nlx.data'] } => [
+        [ 'op', ':=', [ ['$','track_titles'],
+            [ 'curried-func', 'Array_from_attr', [
+                [ 'op', 'matching', [ ['$.','db.tracks'],
+                    [ 'op', 'matching', [ ['$.','db.cds'],
+                        [ 'op', 'matching', [ ['$.','db.artists'],
+                            :Relation( Set.new(
+                                { artist_name => ['$','artist_name'] }
+                            ) )
+                        ] ]
+                    ] ]
+                ] ]
+            ], { name => :Name<track_title> } ]
+        ] ],
+    ] ],
+
     #######################################################################
 
     [ 'recipe', 'get_cd_by_track', { cd_title => ['&','maybe_of.Text'],
@@ -689,16 +715,38 @@ might also be made complete later if the rationale exists.
     #######################################################################
 
     [ 'procedure', 'disp_list', { h1 => 'Text', h2 => 'Text',
-        list => 'array_of.Text',  } => '...' ],
+            list => 'array_of.Text' } => [
+        [ 'var', 'eol', 'Text' ],
+        [ 'iproc-imp-invo', 'end_of_line_Text', [ ['&',['$','eol']] ] ],
+        [ 'var', 'msg', 'Text' ],
+        :atomic-stmt[
+            [ 'op', ':=', [ ['$','msg'], [ 'op', '~', [
+                ['$','h1'], '(', ['$','h2'], '):',
+                ['$','eol'],
+                [ 'func-invo', 'cat_with_sep', [ ['$','list'] ],
+                    { 'sep' => ['$','eol'] } ],
+                ['$','eol'], ['$','eol']
+            ] ] ] ]
+        ],
+        [ 'iproc-imp-invo', 'write_Text', [ ['$','msg'] ] ],
+    ] ],
 
     [ 'procedure', 'disp_item', { h1 => 'Text', h2 => 'Text',
-        item => 'maybe_of.Text',  } => '...' ],
+        item => 'maybe_of.Text' } => '...' ],
 
     #######################################################################
 
     [ 'procedure', 'get_tracks_by_cd', { cd_title => 'Text' } => '...' ],
 
-    [ 'procedure', 'get_tracks_by_artist', {artist_name=>'Text'}=>'...' ],
+    [ 'procedure', 'get_tracks_by_artist', { artist_name => 'Text' } => [
+        [ 'var', 'track_titles', 'array_of.Text' ],
+        [ 'iproc-imp-invo', 'fed.lib.db.get_tracks_by_artist',
+            { track_titles => ['&',['$','track_titles']],
+            artist_name => ['$','artist_name'] } ],
+        [ 'iproc-imp-invo', 'nlx.lib.disp_list',
+            { h1 => 'get_tracks_by_artist', h2 => ['$','artist_name'],
+            list => ['$','track_titles'] } ],
+    ] ],
 
     #######################################################################
 
@@ -776,10 +824,10 @@ might also be made complete later if the rationale exists.
     [ 'key-constraint', 'sk_cd_title', 'cd_title' ],
 
     [ 'subset-constraint', 'sc_artist_has_cds', {
-        parent      => 'artists',
-        using-key   => 'nlx.lib.pk_artist_id',
-        child       => 'cds',
-        using-attrs => { artist_id => 'artist_id' }
+        parent        => 'artists',
+        'using-key'   => 'nlx.lib.pk_artist_id',
+        child         => 'cds',
+        'using-attrs' => { artist_id => 'artist_id' }
     } ],
 
     #######################################################################
@@ -800,40 +848,54 @@ might also be made complete later if the rationale exists.
     [ 'key-constraint', 'sk_track_title', 'track_title' ],
 
     [ 'subset-constraint', 'sc_cd_has_tracks', {
-        parent      => 'cds',
-        using-key   => 'nlx.lib.pk_cd_id',
-        child       => 'tracks',
-        using-attrs => { cd_id => 'cd_id' }
+        parent        => 'cds',
+        'using-key'   => 'nlx.lib.pk_cd_id',
+        child         => 'tracks',
+        'using-attrs' => { cd_id => 'cd_id' }
     } ],
 
     #######################################################################
 
     [ 'recipe', 'get_tracks_by_cd',
-        [ {track_titles => ['&','array_of.Text'], cd_title => 'Text',
+        [ { track_titles => ['&','array_of.Text'], cd_title => 'Text',
         db => ['::=','nlx.data'] } => '...' ] ],
 
     [ 'recipe', 'get_tracks_by_artist',
-        [ {track_titles => ['&','array_of.Text'], artist_name => 'Text',
-        db => ['::=','nlx.data'] } => '...' ] ],
+            [ { track_titles => ['&','array_of.Text'],
+            artist_name => 'Text', db => ['::=','nlx.data'] } => [
+        [ 'op', ':=', [ ['$','track_titles'],
+            [ 'curried-func', 'Array_from_attr', [
+                [ 'op', 'matching', [ ['$.','db.tracks'],
+                    [ 'op', 'matching', [ ['$.','db.cds'],
+                        [ 'op', 'matching', [ ['$.','db.artists'],
+                            [ 'Relation', [
+                                { artist_name => ['$','artist_name'] }
+                            ] ]
+                        ] ]
+                    ] ]
+                ] ]
+            ], { name => ['Name','track_title'] } ]
+        ] ],
+    ] ] ],
 
     #######################################################################
 
     [ 'recipe', 'get_cd_by_track',
-        [ {cd_title => ['&','maybe_of.Text'], track_title => 'Text',
+        [ { cd_title => ['&','maybe_of.Text'], track_title => 'Text',
         db => ['::=','nlx.data'] } => '...' ] ],
 
     [ 'recipe', 'get_cds_by_artist',
-        [ {cd_titles => ['&','array_of.Text'], artist_name => 'Text',
+        [ { cd_titles => ['&','array_of.Text'], artist_name => 'Text',
         db => ['::=','nlx.data'] } => '...' ] ],
 
     #######################################################################
 
     [ 'recipe', 'get_artist_by_track',
-        [ {artist_name => ['&','maybe_of.Text'], track_title => 'Text',
+        [ { artist_name => ['&','maybe_of.Text'], track_title => 'Text',
         db => ['::=','nlx.data'] } => '...' ] ],
 
     [ 'recipe', 'get_artist_by_cd',
-        [ {artist_name => ['&','maybe_of.Text'], cd_title => 'Text',
+        [ { artist_name => ['&','maybe_of.Text'], cd_title => 'Text',
         db => ['::=','nlx.data'] } => '...' ] ],
 
     #######################################################################
@@ -970,16 +1032,38 @@ might also be made complete later if the rationale exists.
     #######################################################################
 
     [ 'procedure', 'disp_list', [ { h1 => 'Text', h2 => 'Text',
-        list => 'array_of.Text',  } => '...' ] ],
+            list => 'array_of.Text' } => [
+        [ 'var', 'eol', 'Text' ],
+        [ 'iproc-imp-invo', 'end_of_line_Text', [ ['&',['$','eol']] ] ],
+        [ 'var', 'msg', 'Text' ],
+        [ 'atomic-stmt' => [
+            [ 'op', ':=', [ ['$','msg'], [ 'op', '~', [
+                ['$','h1'], '(', ['$','h2'], '):',
+                ['$','eol'],
+                [ 'func-invo', 'cat_with_sep', [ ['$','list'] ],
+                    { 'sep' => ['$','eol'] } ],
+                ['$','eol'], ['$','eol']
+            ] ] ] ]
+        ] ],
+        [ 'iproc-imp-invo', 'write_Text', [ ['$','msg'] ] ],
+    ] ] ],
 
     [ 'procedure', 'disp_item', [ { h1 => 'Text', h2 => 'Text',
-        item => 'maybe_of.Text',  } => '...' ] ],
+        item => 'maybe_of.Text' } => '...' ] ],
 
     #######################################################################
 
     [ 'procedure', 'get_tracks_by_cd', [{ cd_title => 'Text' } => '...'] ],
 
-    ['procedure', 'get_tracks_by_artist', [{artist_name=>'Text'}=>'...']],
+    [ 'procedure', 'get_tracks_by_artist', [ { artist_name => 'Text' } => [
+        [ 'var', 'track_titles', 'array_of.Text' ],
+        [ 'iproc-imp-invo', 'fed.lib.db.get_tracks_by_artist',
+            { track_titles => ['&',['$','track_titles']],
+            artist_name => ['$','artist_name'] } ],
+        [ 'iproc-imp-invo', 'nlx.lib.disp_list',
+            { h1 => 'get_tracks_by_artist', h2 => ['$','artist_name'],
+            list => ['$','track_titles'] } ],
+    ] ] ],
 
     #######################################################################
 

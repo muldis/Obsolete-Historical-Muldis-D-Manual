@@ -18,8 +18,19 @@
     sub-sections to add unique prefixes so that navigation links work.
 
     * (CD.pod)  Add 2 more copies of the example code, one for each of the
-    2 Muldis D Perl-STD dialects.
-... IN PROGRESS ...
+    2 Muldis D Perl-STD dialects.  But while the PTMD_STD dialect's copy of
+    the example is complete, the HDMD_Perl6_STD and HDMD_Perl5_STD
+    dialects' copies of the example are each missing the bodies of 13
+    routines, and have just the headings/signatures for those 13; the
+    HDMD_Perl6_STD and HDMD_Perl5_STD dialects' copies of the example are
+    otherwise complete, having the complete definitions of 7 routines, and
+    all of the type definitions, constraints, scaffolding, and data.  The
+    PTMD_STD copy is, in any event, the most terse and readable, especially
+    for routine definitions; the routines that are complete in the 2
+    Perl-STD copies should constitute a representative subset, such that
+    one should be able to infer the missing routine bodies easily enough
+    through comparison with the complete PTMD_STD copy; but the other
+    routines might also be made complete later if the rationale exists.
 
 2010-05-12   Darren Duncan <darren@DarrenDuncan.net>
 
