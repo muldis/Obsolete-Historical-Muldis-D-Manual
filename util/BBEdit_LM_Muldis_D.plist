@@ -91,8 +91,10 @@
     <string>reverse-using</string>
     <string>attr</string>
     <string>virtual-attr-map</string>
-    <string>determinants</string>
-    <string>dependents</string>
+    <string>determinant-attrs</string>
+    <string>dependent-attrs</string>
+    <string>map-function</string>
+    <string>is-updateable</string>
     <string>source-union</string>
     <string>source-intersection</string>
     <string>filter-union</string>
@@ -101,6 +103,7 @@
     <string>of</string>
     <string>constraint</string>
     <string>default</string>
+    <string>and-provides-its-default</string>
     <string>parent</string>
     <string>using-key</string>
     <string>child</string>
