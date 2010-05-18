@@ -43,7 +43,7 @@ You can get it here:
 
 
   * A copy of this talk:
-  http://www.DarrenDuncan.net/OSCON/OSCON2005LightningTalk.txt
+  http://www.darrenduncan.net/OSCON/OSCON2005LightningTalk.txt
 
   * Perl 5 version control:
   http://svn.utsl.gen.nz/trunk/Rosetta/
