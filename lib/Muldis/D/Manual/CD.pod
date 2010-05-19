@@ -9,7 +9,7 @@ Simple CD database example
 
 =head1 VERSION
 
-This document is Muldis::D::Manual::CD version 0.6.0.
+This document is Muldis::D::Manual::CD version 0.6.1.
 
 =head1 PREFACE
 

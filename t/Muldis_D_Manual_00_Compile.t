@@ -9,6 +9,6 @@ BEGIN { plan tests => 2 }
 use Muldis::D::Manual;
 ok(1);
 
-ok( $Muldis::D::Manual::VERSION, 0.006000 );
+ok( $Muldis::D::Manual::VERSION, 0.006001 );
 
 1;
