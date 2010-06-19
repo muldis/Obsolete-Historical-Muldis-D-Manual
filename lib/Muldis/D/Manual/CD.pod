@@ -136,7 +136,7 @@ also be made complete later if the rationale exists.
 
     subset-constraint sc_artist_has_cds {
         parent $artists using-key nlx.lib.pk_artist_id
-        child $cds using-attrs { $>artist_id }
+        child $cds using-attrs { =>$artist_id }
     }
 
     #######################################################################
@@ -158,7 +158,7 @@ also be made complete later if the rationale exists.
 
     subset-constraint sc_cd_has_tracks {
         parent $cds using-key nlx.lib.pk_cd_id
-        child $tracks using-attrs { $>cd_id }
+        child $tracks using-attrs { =>$cd_id }
     }
 
     #######################################################################
@@ -166,7 +166,7 @@ also be made complete later if the rationale exists.
     recipe get_tracks_by_cd (&$track_titles : array_of.Text,
             $cd_title : Text, $db ::= $nlx.data) {
         $track_titles := Array_from_attr( $db.tracks matching (
-            $db.cds matching Relation:{ { $>cd_title } }
+            $db.cds matching Relation:{ { =>$cd_title } }
         ), name => Name:track_title )
     }
 
@@ -174,7 +174,7 @@ also be made complete later if the rationale exists.
             $artist_name : Text, $db ::= $nlx.data) {
         $track_titles := Array_from_attr( $db.tracks matching (
             $db.cds matching (
-                $db.artists matching Relation:{ { $>artist_name } }
+                $db.artists matching Relation:{ { =>$artist_name } }
             )
         ), name => Name:track_title )
     }
@@ -184,14 +184,14 @@ also be made complete later if the rationale exists.
     recipe get_cd_by_track (&$cd_title : maybe_of.Text,
             $track_title : Text, $db ::= $nlx.data) {
         $cd_title := Set_from_attr( $db.cds matching (
-            $db.tracks matching Relation:{ { $>track_title } }
+            $db.tracks matching Relation:{ { =>$track_title } }
         ), name => Name:cd_title )
     }
 
     recipe get_cds_by_artist (&$cd_titles : array_of.Text,
             $artist_name : Text, $db ::= $nlx.data) {
         $cd_titles := Array_from_attr( $db.cds matching (
-            $db.artists matching Relation:{ { $>artist_name } }
+            $db.artists matching Relation:{ { =>$artist_name } }
         ), name => Name:cd_title )
     }
 
@@ -201,7 +201,7 @@ also be made complete later if the rationale exists.
             $track_title : Text, $db ::= $nlx.data) {
         $artist_name := Set_from_attr( $db.artists matching (
             $db.cds matching (
-                $db.tracks matching Relation:{ { $>track_title } }
+                $db.tracks matching Relation:{ { =>$track_title } }
             )
         ), name => Name:artist_name )
     }
@@ -209,7 +209,7 @@ also be made complete later if the rationale exists.
     recipe get_artist_by_cd (&$artist_name : maybe_of.Text,
             $cd_title : Text, $db ::= $nlx.data) {
         $artist_name := Set_from_attr( $db.artists matching (
-            $db.cds matching Relation:{ { $>cd_title } }
+            $db.cds matching Relation:{ { =>$cd_title } }
         ), name => Name:artist_name )
     }
 
@@ -402,14 +402,14 @@ also be made complete later if the rationale exists.
 
     procedure get_tracks_by_cd ($cd_title : Text) [
         var $track_titles : array_of.Text
-        fed.lib.db.get_tracks_by_cd( &$>track_titles, $>cd_title )
+        fed.lib.db.get_tracks_by_cd( &=>$track_titles, =>$cd_title )
         nlx.lib.disp_list( h1 => 'get_tracks_by_cd',
             h2 => $cd_title, list => $track_titles )
     ]
 
     procedure get_tracks_by_artist ($artist_name : Text) [
         var $track_titles : array_of.Text
-        fed.lib.db.get_tracks_by_artist( &$>track_titles, $>artist_name )
+        fed.lib.db.get_tracks_by_artist( &=>$track_titles, =>$artist_name )
         nlx.lib.disp_list( h1 => 'get_tracks_by_artist',
             h2 => $artist_name, list => $track_titles )
     ]
@@ -418,14 +418,14 @@ also be made complete later if the rationale exists.
 
     procedure get_cd_by_track ($track_title : Text) [
         var $cd_title : maybe_of.Text
-        fed.lib.db.get_cd_by_track( &$>cd_title, $>track_title )
+        fed.lib.db.get_cd_by_track( &=>$cd_title, =>$track_title )
         nlx.lib.disp_item( h1 => 'get_cd_by_track',
             h2 => $track_title, item => $cd_title )
     ]
 
     procedure get_cds_by_artist ($artist_name : Text) [
         var $cd_titles : array_of.Text
-        fed.lib.db.get_cds_by_artist( &$>cd_titles, $>artist_name )
+        fed.lib.db.get_cds_by_artist( &=>$cd_titles, =>$artist_name )
         nlx.lib.disp_list( h1 => 'get_cds_by_artist',
             h2 => $artist_name, list => $cd_titles )
     ]
@@ -434,14 +434,14 @@ also be made complete later if the rationale exists.
 
     procedure get_artist_by_track ($track_title : Text) [
         var $artist_name : maybe_of.Text
-        fed.lib.db.get_artist_by_track( &$>artist_name, $>track_title )
+        fed.lib.db.get_artist_by_track( &=>$artist_name, =>$track_title )
         nlx.lib.disp_item( h1 => 'get_artist_by_track',
             h2 => $track_title, item => $artist_name )
     ]
 
     procedure get_artist_by_cd ($cd_title : Text) [
         var $artist_name : maybe_of.Text
-        fed.lib.db.get_artist_by_cd( &$>artist_name, $>cd_title )
+        fed.lib.db.get_artist_by_cd( &=>$artist_name, =>$cd_title )
         nlx.lib.disp_item( h1 => 'get_artist_by_cd',
             h2 => $cd_title, item => $artist_name )
     ]

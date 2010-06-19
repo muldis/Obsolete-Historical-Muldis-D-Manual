@@ -13,6 +13,10 @@
 
     * (Muldis_D_PDAFP_200807_updated.xul)  Minor terminology change.
 
+    * (CD.pod)  Corresponding to changes introduced in Muldis D spec
+    v0.130.0 for PTMD_STD:  Update all code examples using shorthand syntax
+    for "foo=>foo" that looked like ">foo" to instead look like "=>foo".
+
 2010-05-18
 
     * Muldis::D::Manual version 0.6.1 is released on CPAN as
