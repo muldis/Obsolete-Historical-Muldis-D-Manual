@@ -219,7 +219,7 @@ for when and how a number
 loses precision or is
 rounded are made explicit;
 or when and how the case
-or accents or whitespace of
+or marks or whitespace of
 text affects comparisons
 ----
 How Muldis D specifies
@@ -754,7 +754,7 @@ contrivances
 With character data,
 "is_identical" treats any
 differences in case or
-accents or whitespace as
+marks or whitespace as
 significant, and so any
 derived ops like relational
 joins and unions do also
