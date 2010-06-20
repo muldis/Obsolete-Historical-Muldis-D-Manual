@@ -13,6 +13,12 @@
 
     * (Muldis_D_PDAFP_200807_updated.xul)  Minor terminology change.
 
+    * (TemporalExtras.pod)  Updated all system-defined routine
+    documentation so that the illustrative declarations of each now just
+    have the unqualified routine names, same as the real declarations
+    would, rather than being fully-qualified; the level-2 heading for each
+    routine description already has the latter.
+
     * (CD.pod)  Corresponding to changes introduced in Muldis D spec
     v0.130.0 for PTMD_STD:  Update all code examples using shorthand syntax
     for "foo=>foo" that looked like ">foo" to instead look like "=>foo".
