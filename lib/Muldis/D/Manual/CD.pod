@@ -94,9 +94,9 @@ also be made complete later if the rationale exists.
     #######################################################################
 
     database-type CD_DB {
-        attr $artists : nlx.lib.Artists
-        attr $cds     : nlx.lib.CDs
-        attr $tracks  : nlx.lib.Tracks
+        attr artists : nlx.lib.Artists
+        attr cds     : nlx.lib.CDs
+        attr tracks  : nlx.lib.Tracks
         constraint nlx.lib.sc_artist_has_cds
         constraint nlx.lib.sc_cd_has_tracks
     }
@@ -104,8 +104,8 @@ also be made complete later if the rationale exists.
     #######################################################################
 
     tuple-type Artist {
-        attr $artist_id   : Int
-        attr $artist_name : Text
+        attr artist_id   : Int
+        attr artist_name : Text
     }
 
     relation-type Artists {
@@ -114,15 +114,15 @@ also be made complete later if the rationale exists.
         constraint nlx.lib.sk_artist_name
     }
 
-    primary-key pk_artist_id { $artist_id }
-    key-constraint sk_artist_name { $artist_name }
+    primary-key pk_artist_id { artist_id }
+    key-constraint sk_artist_name { artist_name }
 
     #######################################################################
 
     tuple-type CD {
-        attr $cd_id     : Int
-        attr $artist_id : Int
-        attr $cd_title  : Text
+        attr cd_id     : Int
+        attr artist_id : Int
+        attr cd_title  : Text
     }
 
     relation-type CDs {
@@ -131,20 +131,20 @@ also be made complete later if the rationale exists.
         constraint nlx.lib.sk_cd_title
     }
 
-    primary-key pk_cd_id { $cd_id }
-    key-constraint sk_cd_title { $cd_title }
+    primary-key pk_cd_id { cd_id }
+    key-constraint sk_cd_title { cd_title }
 
     subset-constraint sc_artist_has_cds {
-        parent $artists using-key nlx.lib.pk_artist_id
-        child $cds using-attrs { =>$artist_id }
+        parent artists using-key nlx.lib.pk_artist_id
+        child cds using-attrs { =>artist_id }
     }
 
     #######################################################################
 
     tuple-type Track {
-        attr $track_id    : Int
-        attr $cd_id       : Int
-        attr $track_title : Text
+        attr track_id    : Int
+        attr cd_id       : Int
+        attr track_title : Text
     }
 
     relation-type Tracks {
@@ -153,63 +153,63 @@ also be made complete later if the rationale exists.
         constraint nlx.lib.sk_track_title
     }
 
-    primary-key pk_track_id { $track_id }
-    key-constraint sk_track_title { $track_title }
+    primary-key pk_track_id { track_id }
+    key-constraint sk_track_title { track_title }
 
     subset-constraint sc_cd_has_tracks {
-        parent $cds using-key nlx.lib.pk_cd_id
-        child $tracks using-attrs { =>$cd_id }
+        parent cds using-key nlx.lib.pk_cd_id
+        child tracks using-attrs { =>cd_id }
     }
 
     #######################################################################
 
-    recipe get_tracks_by_cd (&$track_titles : array_of.Text,
-            $cd_title : Text, $db ::= $nlx.data) {
-        $track_titles := Array_from_attr( $db.tracks matching (
-            $db.cds matching Relation:{ { =>$cd_title } }
+    recipe get_tracks_by_cd (&track_titles : array_of.Text,
+            cd_title : Text, db ::= nlx.data) {
+        track_titles := Array_from_attr( db.tracks matching (
+            db.cds matching Relation:{ { =>cd_title } }
         ), name => Name:track_title )
     }
 
-    recipe get_tracks_by_artist (&$track_titles : array_of.Text,
-            $artist_name : Text, $db ::= $nlx.data) {
-        $track_titles := Array_from_attr( $db.tracks matching (
-            $db.cds matching (
-                $db.artists matching Relation:{ { =>$artist_name } }
+    recipe get_tracks_by_artist (&track_titles : array_of.Text,
+            artist_name : Text, db ::= nlx.data) {
+        track_titles := Array_from_attr( db.tracks matching (
+            db.cds matching (
+                db.artists matching Relation:{ { =>artist_name } }
             )
         ), name => Name:track_title )
     }
 
     #######################################################################
 
-    recipe get_cd_by_track (&$cd_title : maybe_of.Text,
-            $track_title : Text, $db ::= $nlx.data) {
-        $cd_title := Set_from_attr( $db.cds matching (
-            $db.tracks matching Relation:{ { =>$track_title } }
+    recipe get_cd_by_track (&cd_title : maybe_of.Text,
+            track_title : Text, db ::= nlx.data) {
+        cd_title := Set_from_attr( db.cds matching (
+            db.tracks matching Relation:{ { =>track_title } }
         ), name => Name:cd_title )
     }
 
-    recipe get_cds_by_artist (&$cd_titles : array_of.Text,
-            $artist_name : Text, $db ::= $nlx.data) {
-        $cd_titles := Array_from_attr( $db.cds matching (
-            $db.artists matching Relation:{ { =>$artist_name } }
+    recipe get_cds_by_artist (&cd_titles : array_of.Text,
+            artist_name : Text, db ::= nlx.data) {
+        cd_titles := Array_from_attr( db.cds matching (
+            db.artists matching Relation:{ { =>artist_name } }
         ), name => Name:cd_title )
     }
 
     #######################################################################
 
-    recipe get_artist_by_track (&$artist_name : maybe_of.Text,
-            $track_title : Text, $db ::= $nlx.data) {
-        $artist_name := Set_from_attr( $db.artists matching (
-            $db.cds matching (
-                $db.tracks matching Relation:{ { =>$track_title } }
+    recipe get_artist_by_track (&artist_name : maybe_of.Text,
+            track_title : Text, db ::= nlx.data) {
+        artist_name := Set_from_attr( db.artists matching (
+            db.cds matching (
+                db.tracks matching Relation:{ { =>track_title } }
             )
         ), name => Name:artist_name )
     }
 
-    recipe get_artist_by_cd (&$artist_name : maybe_of.Text,
-            $cd_title : Text, $db ::= $nlx.data) {
-        $artist_name := Set_from_attr( $db.artists matching (
-            $db.cds matching Relation:{ { =>$cd_title } }
+    recipe get_artist_by_cd (&artist_name : maybe_of.Text,
+            cd_title : Text, db ::= nlx.data) {
+        artist_name := Set_from_attr( db.artists matching (
+            db.cds matching Relation:{ { =>cd_title } }
         ), name => Name:artist_name )
     }
 
@@ -257,56 +257,56 @@ also be made complete later if the rationale exists.
         drop_depot_mount( name => Name:db )
     ]
 
-    procedure insert_failed ($err : Exception) [
+    procedure insert_failed (err : Exception) [
         write_Text_line( 'Failed to insert, maybe because of duplicates.' )
     ]
 
     #######################################################################
 
-    recipe insert_records (&$db ::= $fed.data.db, $src ::= $nlx.data) {
+    recipe insert_records (&db ::= fed.data.db, src ::= nlx.data) {
         # We will generate new integer record ids serially starting after #
         # the maximum ids currently in use per relvar. #
         # There are, of course, other ways to produce record ids. #
 
         # So start by determining the existing maximum ids. #
-        $max_used_artist_id ::= is_empty($db.artists) ?? 0
-            !! max( Set_from_attr( $db.artists, name => Name:artist_id ) )
-        $max_used_cd_id ::= is_empty($db.cds) ?? 0
-            !! max( Set_from_attr( $db.cds, name => Name:cd_id ) )
-        $max_used_track_id ::= is_empty($db.tracks) ?? 0
-            !! max( Set_from_attr( $db.tracks, name => Name:track_id ) )
+        max_used_artist_id ::= is_empty(db.artists) ?? 0
+            !! max( Set_from_attr( db.artists, name => Name:artist_id ) )
+        max_used_cd_id ::= is_empty(db.cds) ?? 0
+            !! max( Set_from_attr( db.cds, name => Name:cd_id ) )
+        max_used_track_id ::= is_empty(db.tracks) ?? 0
+            !! max( Set_from_attr( db.tracks, name => Name:track_id ) )
 
         # Now generate new record ids and attach them to records to add. #
         # The process involves sorting of the new data simply to make it #
         # fully-deterministic, giving same result on any implementation. #
-        $src_artists_with_ids ::= rank_by_attr_names( $src.artists,
+        src_artists_with_ids ::= rank_by_attr_names( src.artists,
             name => Name:artist_id,
             order_by => Array:[ Tuple:{ name => Name:artist_name,
                 is_reverse_order => False } ],
-            first_rank => $max_used_artist_id ++
+            first_rank => max_used_artist_id ++
         )
-        $src_cds_with_ids ::= rank_by_attr_names( $src.cds,
+        src_cds_with_ids ::= rank_by_attr_names( src.cds,
             name => Name:cd_id,
             order_by => Array:[ Tuple:{ name => Name:cd_title,
                 is_reverse_order => False } ],
-            first_rank => $max_used_cd_id ++
+            first_rank => max_used_cd_id ++
         )
-        $src_tracks_with_ids ::= rank_by_attr_names( $src.tracks,
+        src_tracks_with_ids ::= rank_by_attr_names( src.tracks,
             name => Name:track_id,
             order_by => Array:[ Tuple:{ name => Name:track_title,
                 is_reverse_order => False } ],
-            first_rank => $max_used_track_id ++
+            first_rank => max_used_track_id ++
         )
 
         # Now substitute parent record ids for parent names or titles. #
-        $new_artists ::= $src_artists_with_ids
-        $new_cds ::= $src_cds_with_ids compose $new_artists
-        $new_tracks ::= $src_tracks_with_ids compose $new_cds@{!artist_id}
+        new_artists ::= src_artists_with_ids
+        new_cds ::= src_cds_with_ids compose new_artists
+        new_tracks ::= src_tracks_with_ids compose new_cds@{!artist_id}
 
         # Now insert the prepared new records into the_database. #
-        $db.artists :=union $new_artists
-        $db.cds :=union $new_cds
-        $db.tracks :=union $new_tracks
+        db.artists :=union new_artists
+        db.cds :=union new_cds
+        db.tracks :=union new_tracks
     }
 
     #######################################################################
@@ -377,73 +377,73 @@ also be made complete later if the rationale exists.
 
     #######################################################################
 
-    procedure disp_list ($h1 : Text, $h2 : Text, $list : array_of.Text) [
-        var $eol : Text
-        end_of_line_Text( &$eol )
-        var $msg : Text
-        { $msg := $h1 ~ '(' ~ $h2 ~ '):'
-            ~ $eol ~ cat_with_sep( $list, sep => $eol ) ~ $eol ~ $eol }
-        write_Text( $msg )
+    procedure disp_list (h1 : Text, h2 : Text, list : array_of.Text) [
+        var eol : Text
+        end_of_line_Text( &eol )
+        var msg : Text
+        { msg := h1 ~ '(' ~ h2 ~ '):'
+            ~ eol ~ cat_with_sep( list, sep => eol ) ~ eol ~ eol }
+        write_Text( msg )
     ]
 
-    procedure disp_item ($h1 : Text, $h2 : Text, $item : maybe_of.Text) [
-        var $h : Text
-        var $v : Text
+    procedure disp_item (h1 : Text, h2 : Text, item : maybe_of.Text) [
+        var h : Text
+        var v : Text
         {
-            $h := $h1 ~ '(' ~ $h2 ~ '):'
-            $v := $item // '<No Match!>'
+            h := h1 ~ '(' ~ h2 ~ '):'
+            v := item // '<No Match!>'
         }
-        write_Text_line( $h )
-        write_Text_line( $v )
+        write_Text_line( h )
+        write_Text_line( v )
         write_Text_line()
     ]
 
     #######################################################################
 
-    procedure get_tracks_by_cd ($cd_title : Text) [
-        var $track_titles : array_of.Text
-        fed.lib.db.get_tracks_by_cd( &=>$track_titles, =>$cd_title )
+    procedure get_tracks_by_cd (cd_title : Text) [
+        var track_titles : array_of.Text
+        fed.lib.db.get_tracks_by_cd( &=>track_titles, =>cd_title )
         nlx.lib.disp_list( h1 => 'get_tracks_by_cd',
-            h2 => $cd_title, list => $track_titles )
+            h2 => cd_title, list => track_titles )
     ]
 
-    procedure get_tracks_by_artist ($artist_name : Text) [
-        var $track_titles : array_of.Text
-        fed.lib.db.get_tracks_by_artist( &=>$track_titles, =>$artist_name )
+    procedure get_tracks_by_artist (artist_name : Text) [
+        var track_titles : array_of.Text
+        fed.lib.db.get_tracks_by_artist( &=>track_titles, =>artist_name )
         nlx.lib.disp_list( h1 => 'get_tracks_by_artist',
-            h2 => $artist_name, list => $track_titles )
+            h2 => artist_name, list => track_titles )
     ]
 
     #######################################################################
 
-    procedure get_cd_by_track ($track_title : Text) [
-        var $cd_title : maybe_of.Text
-        fed.lib.db.get_cd_by_track( &=>$cd_title, =>$track_title )
+    procedure get_cd_by_track (track_title : Text) [
+        var cd_title : maybe_of.Text
+        fed.lib.db.get_cd_by_track( &=>cd_title, =>track_title )
         nlx.lib.disp_item( h1 => 'get_cd_by_track',
-            h2 => $track_title, item => $cd_title )
+            h2 => track_title, item => cd_title )
     ]
 
-    procedure get_cds_by_artist ($artist_name : Text) [
-        var $cd_titles : array_of.Text
-        fed.lib.db.get_cds_by_artist( &=>$cd_titles, =>$artist_name )
+    procedure get_cds_by_artist (artist_name : Text) [
+        var cd_titles : array_of.Text
+        fed.lib.db.get_cds_by_artist( &=>cd_titles, =>artist_name )
         nlx.lib.disp_list( h1 => 'get_cds_by_artist',
-            h2 => $artist_name, list => $cd_titles )
+            h2 => artist_name, list => cd_titles )
     ]
 
     #######################################################################
 
-    procedure get_artist_by_track ($track_title : Text) [
-        var $artist_name : maybe_of.Text
-        fed.lib.db.get_artist_by_track( &=>$artist_name, =>$track_title )
+    procedure get_artist_by_track (track_title : Text) [
+        var artist_name : maybe_of.Text
+        fed.lib.db.get_artist_by_track( &=>artist_name, =>track_title )
         nlx.lib.disp_item( h1 => 'get_artist_by_track',
-            h2 => $track_title, item => $artist_name )
+            h2 => track_title, item => artist_name )
     ]
 
-    procedure get_artist_by_cd ($cd_title : Text) [
-        var $artist_name : maybe_of.Text
-        fed.lib.db.get_artist_by_cd( &=>$artist_name, =>$cd_title )
+    procedure get_artist_by_cd (cd_title : Text) [
+        var artist_name : maybe_of.Text
+        fed.lib.db.get_artist_by_cd( &=>artist_name, =>cd_title )
         nlx.lib.disp_item( h1 => 'get_artist_by_cd',
-            h2 => $cd_title, item => $artist_name )
+            h2 => cd_title, item => artist_name )
     ]
 
     #######################################################################
@@ -551,13 +551,13 @@ also be made complete later if the rationale exists.
     [ 'recipe', 'get_tracks_by_artist',
             { track_titles => ['&','array_of.Text'],
             artist_name => 'Text', db => ['::=','nlx.data'] } => [
-        [ 'op', ':=', [ ['$','track_titles'],
+        [ 'op', ':=', [ :d<track_titles>,
             [ 'curried-func', 'Array_from_attr', [
-                [ 'op', 'matching', [ ['$.','db.tracks'],
-                    [ 'op', 'matching', [ ['$.','db.cds'],
-                        [ 'op', 'matching', [ ['$.','db.artists'],
+                [ 'op', 'matching', [ :acc<db.tracks>,
+                    [ 'op', 'matching', [ :acc<db.cds>,
+                        [ 'op', 'matching', [ :acc<db.artists>,
                             :Relation( Set.new(
-                                { artist_name => ['$','artist_name'] }
+                                { artist_name => :d<artist_name> }
                             ) )
                         ] ]
                     ] ]
@@ -717,18 +717,18 @@ also be made complete later if the rationale exists.
     [ 'procedure', 'disp_list', { h1 => 'Text', h2 => 'Text',
             list => 'array_of.Text' } => [
         [ 'var', 'eol', 'Text' ],
-        [ 'iproc-imp-invo', 'end_of_line_Text', [ ['&',['$','eol']] ] ],
+        [ 'iproc-imp-invo', 'end_of_line_Text', [ ['&',:d<eol>] ] ],
         [ 'var', 'msg', 'Text' ],
         :atomic-stmt[
-            [ 'op', ':=', [ ['$','msg'], [ 'op', '~', [
-                ['$','h1'], '(', ['$','h2'], '):',
-                ['$','eol'],
-                [ 'func-invo', 'cat_with_sep', [ ['$','list'] ],
-                    { 'sep' => ['$','eol'] } ],
-                ['$','eol'], ['$','eol']
+            [ 'op', ':=', [ :d<msg>, [ 'op', '~', [
+                :d<h1>, '(', :d<h2>, '):',
+                :d<eol>,
+                [ 'func-invo', 'cat_with_sep', [ :d<list> ],
+                    { 'sep' => :d<eol> } ],
+                :d<eol>, :d<eol>
             ] ] ] ]
         ],
-        [ 'iproc-imp-invo', 'write_Text', [ ['$','msg'] ] ],
+        [ 'iproc-imp-invo', 'write_Text', [ :d<msg> ] ],
     ] ],
 
     [ 'procedure', 'disp_item', { h1 => 'Text', h2 => 'Text',
@@ -741,11 +741,11 @@ also be made complete later if the rationale exists.
     [ 'procedure', 'get_tracks_by_artist', { artist_name => 'Text' } => [
         [ 'var', 'track_titles', 'array_of.Text' ],
         [ 'iproc-imp-invo', 'fed.lib.db.get_tracks_by_artist',
-            { track_titles => ['&',['$','track_titles']],
-            artist_name => ['$','artist_name'] } ],
+            { track_titles => ['&',:d<track_titles>],
+            artist_name => :d<artist_name> } ],
         [ 'iproc-imp-invo', 'nlx.lib.disp_list',
-            { h1 => 'get_tracks_by_artist', h2 => ['$','artist_name'],
-            list => ['$','track_titles'] } ],
+            { h1 => 'get_tracks_by_artist', h2 => :d<artist_name>,
+            list => :d<track_titles> } ],
     ] ],
 
     #######################################################################
@@ -863,13 +863,13 @@ also be made complete later if the rationale exists.
     [ 'recipe', 'get_tracks_by_artist',
             [ { track_titles => ['&','array_of.Text'],
             artist_name => 'Text', db => ['::=','nlx.data'] } => [
-        [ 'op', ':=', [ ['$','track_titles'],
+        [ 'op', ':=', [ ['d','track_titles'],
             [ 'curried-func', 'Array_from_attr', [
-                [ 'op', 'matching', [ ['$.','db.tracks'],
-                    [ 'op', 'matching', [ ['$.','db.cds'],
-                        [ 'op', 'matching', [ ['$.','db.artists'],
+                [ 'op', 'matching', [ ['acc','db.tracks'],
+                    [ 'op', 'matching', [ ['acc','db.cds'],
+                        [ 'op', 'matching', [ ['acc','db.artists'],
                             [ 'Relation', [
-                                { artist_name => ['$','artist_name'] }
+                                { artist_name => ['d','artist_name'] }
                             ] ]
                         ] ]
                     ] ]
@@ -1034,18 +1034,18 @@ also be made complete later if the rationale exists.
     [ 'procedure', 'disp_list', [ { h1 => 'Text', h2 => 'Text',
             list => 'array_of.Text' } => [
         [ 'var', 'eol', 'Text' ],
-        [ 'iproc-imp-invo', 'end_of_line_Text', [ ['&',['$','eol']] ] ],
+        [ 'iproc-imp-invo', 'end_of_line_Text', [ ['&',['d','eol']] ] ],
         [ 'var', 'msg', 'Text' ],
         [ 'atomic-stmt' => [
-            [ 'op', ':=', [ ['$','msg'], [ 'op', '~', [
-                ['$','h1'], '(', ['$','h2'], '):',
-                ['$','eol'],
-                [ 'func-invo', 'cat_with_sep', [ ['$','list'] ],
-                    { 'sep' => ['$','eol'] } ],
-                ['$','eol'], ['$','eol']
+            [ 'op', ':=', [ ['d','msg'], [ 'op', '~', [
+                ['d','h1'], '(', ['d','h2'], '):',
+                ['d','eol'],
+                [ 'func-invo', 'cat_with_sep', [ ['d','list'] ],
+                    { 'sep' => ['d','eol'] } ],
+                ['d','eol'], ['d','eol']
             ] ] ] ]
         ] ],
-        [ 'iproc-imp-invo', 'write_Text', [ ['$','msg'] ] ],
+        [ 'iproc-imp-invo', 'write_Text', [ ['d','msg'] ] ],
     ] ] ],
 
     [ 'procedure', 'disp_item', [ { h1 => 'Text', h2 => 'Text',
@@ -1058,11 +1058,11 @@ also be made complete later if the rationale exists.
     [ 'procedure', 'get_tracks_by_artist', [ { artist_name => 'Text' } => [
         [ 'var', 'track_titles', 'array_of.Text' ],
         [ 'iproc-imp-invo', 'fed.lib.db.get_tracks_by_artist',
-            { track_titles => ['&',['$','track_titles']],
-            artist_name => ['$','artist_name'] } ],
+            { track_titles => ['&',['d','track_titles']],
+            artist_name => ['d','artist_name'] } ],
         [ 'iproc-imp-invo', 'nlx.lib.disp_list',
-            { h1 => 'get_tracks_by_artist', h2 => ['$','artist_name'],
-            list => ['$','track_titles'] } ],
+            { h1 => 'get_tracks_by_artist', h2 => ['d','artist_name'],
+            list => ['d','track_titles'] } ],
     ] ] ],
 
     #######################################################################

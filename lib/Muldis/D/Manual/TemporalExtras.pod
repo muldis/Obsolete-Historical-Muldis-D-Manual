@@ -421,8 +421,8 @@ values.
 =head2 sys.std.Temporal.TAIInstant.order
 
 C<< function order (Order <--
-$topic : TAIInstant, $other : TAIInstant, $misc_args? : Tuple,
-$is_reverse_order? : Bool) implements sys.std.Core.Ordered.order {...} >>
+topic : TAIInstant, other : TAIInstant, misc_args? : Tuple,
+is_reverse_order? : Bool) implements sys.std.Core.Ordered.order {...} >>
 
 This is a (total) C<order-determination> function specific to
 C<TAIInstant>.
@@ -430,8 +430,8 @@ C<TAIInstant>.
 =head2 sys.std.Temporal.TAIDuration.order
 
 C<< function order (Order <--
-$topic : TAIDuration, $other : TAIDuration, $misc_args? : Tuple,
-$is_reverse_order? : Bool) implements sys.std.Core.Ordered.order {...} >>
+topic : TAIDuration, other : TAIDuration, misc_args? : Tuple,
+is_reverse_order? : Bool) implements sys.std.Core.Ordered.order {...} >>
 
 This is a (total) C<order-determination> function specific to
 C<TAIDuration>.
@@ -439,8 +439,8 @@ C<TAIDuration>.
 =head2 sys.std.Temporal.UTCInstant.order
 
 C<< function order (Order <--
-$topic : UTCInstant, $other : UTCInstant, $misc_args? : Tuple,
-$is_reverse_order? : Bool) implements sys.std.Core.Ordered.order {...} >>
+topic : UTCInstant, other : UTCInstant, misc_args? : Tuple,
+is_reverse_order? : Bool) implements sys.std.Core.Ordered.order {...} >>
 
 This is a (total) C<order-determination> function specific to
 C<UTCInstant>.
@@ -448,8 +448,8 @@ C<UTCInstant>.
 =head2 sys.std.Temporal.FloatInstant.order
 
 C<< function order (Order <--
-$topic : FloatInstant, $other : FloatInstant, $misc_args? : Tuple,
-$is_reverse_order? : Bool) implements sys.std.Core.Ordered.order {...} >>
+topic : FloatInstant, other : FloatInstant, misc_args? : Tuple,
+is_reverse_order? : Bool) implements sys.std.Core.Ordered.order {...} >>
 
 This is a (total) C<order-determination> function specific to
 C<FloatInstant>.
@@ -457,8 +457,8 @@ C<FloatInstant>.
 =head2 sys.std.Temporal.UTCDuration.order
 
 C<< function order (Order <--
-$topic : UTCDuration, $other : UTCDuration, $misc_args? : Tuple,
-$is_reverse_order? : Bool) implements sys.std.Core.Ordered.order {...} >>
+topic : UTCDuration, other : UTCDuration, misc_args? : Tuple,
+is_reverse_order? : Bool) implements sys.std.Core.Ordered.order {...} >>
 
 This is a (total) C<order-determination> function specific to
 C<UTCDuration>.
@@ -470,7 +470,7 @@ C<UTCDuration>.
 =head2 sys.std.Temporal.TAIInstant.diff
 
 C<< function diff (TAIDuration <--
-$minuend : TAIInstant, $subtrahend : TAIInstant)
+minuend : TAIInstant, subtrahend : TAIInstant)
 implements sys.std.Temporal.Instant.diff {...} >>
 
 This function results in the duration-typed difference when its
@@ -482,7 +482,7 @@ was earlier.
 =head2 sys.std.Temporal.TAIInstant.abs_diff
 
 C<< function abs_diff (TAIDuration <--
-$topic : TAIInstant, $other : TAIInstant)
+topic : TAIInstant, other : TAIInstant)
 implements sys.std.Temporal.Instant.abs_diff {...} >>
 
 This symmetric function results in the absolute difference between its 2
@@ -492,7 +492,7 @@ is always non-negative.
 =head2 sys.std.Temporal.TAIInstant.later
 
 C<< function later (TAIInstant <--
-$instant : TAIInstant, $duration : TAIDuration)
+instant : TAIInstant, duration : TAIDuration)
 implements sys.std.Temporal.Instant.later {...} >>
 
 This function results in the instant that is later than its C<instant>
@@ -501,7 +501,7 @@ argument by the amount of time in the C<duration> argument.
 =head2 sys.std.Temporal.TAIInstant.earlier
 
 C<< function earlier (TAIInstant <--
-$instant : TAIInstant, $duration : TAIDuration)
+instant : TAIInstant, duration : TAIDuration)
 implements sys.std.Temporal.Instant.earlier {...} >>
 
 This function results in the instant that is earlier than its C<instant>
@@ -512,7 +512,7 @@ argument by the amount of time in the C<duration> argument.
 =head2 sys.std.Temporal.UTCInstant.diff
 
 C<< function diff (UTCDuration <--
-$minuend : UTCInstant, $subtrahend : UTCInstant)
+minuend : UTCInstant, subtrahend : UTCInstant)
 implements sys.std.Temporal.Instant.diff {...} >>
 
 This function results in the duration-typed difference when its
@@ -524,7 +524,7 @@ was earlier.
 =head2 sys.std.Temporal.UTCInstant.abs_diff
 
 C<< function abs_diff (UTCDuration <--
-$topic : UTCInstant, $other : UTCInstant)
+topic : UTCInstant, other : UTCInstant)
 implements sys.std.Temporal.Instant.abs_diff {...} >>
 
 This symmetric function results in the absolute difference between its 2
@@ -534,7 +534,7 @@ is always non-negative.
 =head2 sys.std.Temporal.UTCInstant.later
 
 C<< function later (UTCInstant <--
-$instant : UTCInstant, $duration : UTCDuration)
+instant : UTCInstant, duration : UTCDuration)
 implements sys.std.Temporal.Instant.later {...} >>
 
 This function results in the instant that is later than its C<instant>
@@ -543,7 +543,7 @@ argument by the amount of time in the C<duration> argument.
 =head2 sys.std.Temporal.UTCInstant.earlier
 
 C<< function earlier (UTCInstant <--
-$instant : UTCInstant, $duration : UTCDuration)
+instant : UTCInstant, duration : UTCDuration)
 implements sys.std.Temporal.Instant.earlier {...} >>
 
 This function results in the instant that is earlier than its C<instant>
@@ -554,7 +554,7 @@ argument by the amount of time in the C<duration> argument.
 =head2 sys.std.Temporal.FloatInstant.diff
 
 C<< function diff (UTCDuration <--
-$minuend : FloatInstant, $subtrahend : FloatInstant)
+minuend : FloatInstant, subtrahend : FloatInstant)
 implements sys.std.Temporal.Instant.diff {...} >>
 
 This function results in the duration-typed difference when its
@@ -566,7 +566,7 @@ was earlier.
 =head2 sys.std.Temporal.FloatInstant.abs_diff
 
 C<< function abs_diff (UTCDuration <--
-$topic : FloatInstant, $other : FloatInstant)
+topic : FloatInstant, other : FloatInstant)
 implements sys.std.Temporal.Instant.abs_diff {...} >>
 
 This symmetric function results in the absolute difference between its 2
@@ -576,7 +576,7 @@ is always non-negative.
 =head2 sys.std.Temporal.FloatInstant.later
 
 C<< function later (FloatInstant <--
-$instant : FloatInstant, $duration : UTCDuration)
+instant : FloatInstant, duration : UTCDuration)
 implements sys.std.Temporal.Instant.later {...} >>
 
 This function results in the instant that is later than its C<instant>
@@ -585,7 +585,7 @@ argument by the amount of time in the C<duration> argument.
 =head2 sys.std.Temporal.FloatInstant.earlier
 
 C<< function earlier (FloatInstant <--
-$instant : FloatInstant, $duration : UTCDuration)
+instant : FloatInstant, duration : UTCDuration)
 implements sys.std.Temporal.Instant.earlier {...} >>
 
 This function results in the instant that is earlier than its C<instant>
@@ -598,14 +598,14 @@ argument by the amount of time in the C<duration> argument.
 =head2 sys.std.Temporal.TAIDuration.abs
 
 C<< function abs (TAIDuration <--
-$topic : TAIDuration) implements sys.std.Temporal.Duration.abs {...} >>
+topic : TAIDuration) implements sys.std.Temporal.Duration.abs {...} >>
 
 This function results in the absolute value of its argument.
 
 =head2 sys.std.Temporal.TAIDuration.sum
 
 C<< function sum (TAIDuration <--
-$topic? : bag_of.TAIDuration) implements sys.std.Temporal.Duration.sum
+topic? : bag_of.TAIDuration) implements sys.std.Temporal.Duration.sum
 {...} >>
 
 This function results in the sum of the N element values of its argument;
@@ -618,7 +618,7 @@ addition.
 =head2 sys.std.Temporal.TAIDuration.diff
 
 C<< function diff (TAIDuration <--
-$minuend : TAIDuration, $subtrahend : TAIDuration)
+minuend : TAIDuration, subtrahend : TAIDuration)
 implements sys.std.Temporal.Duration.diff {...} >>
 
 This function results in the difference when its C<subtrahend> argument is
@@ -627,7 +627,7 @@ subtracted from its C<minuend> argument.
 =head2 sys.std.Temporal.TAIDuration.abs_diff
 
 C<< function abs_diff (TAIDuration <--
-$topic : TAIDuration, $other : TAIDuration)
+topic : TAIDuration, other : TAIDuration)
 implements sys.std.Temporal.Duration.abs_diff {...} >>
 
 This symmetric function results in the absolute difference between its 2
@@ -642,14 +642,14 @@ attributes.  This is subject to be revised in the future.
 =head2 sys.std.Temporal.UTCDuration.abs
 
 C<< function abs (UTCDuration <--
-$topic : UTCDuration) implements sys.std.Temporal.Duration.abs {...} >>
+topic : UTCDuration) implements sys.std.Temporal.Duration.abs {...} >>
 
 This function results in the absolute value of its argument.
 
 =head2 sys.std.Temporal.UTCDuration.sum
 
 C<< function sum (UTCDuration <--
-$topic? : bag_of.UTCDuration) implements sys.std.Temporal.Duration.sum
+topic? : bag_of.UTCDuration) implements sys.std.Temporal.Duration.sum
 {...} >>
 
 This function results in the sum of the N element values of its argument;
@@ -662,7 +662,7 @@ addition.
 =head2 sys.std.Temporal.UTCDuration.diff
 
 C<< function diff (UTCDuration <--
-$minuend : UTCDuration, $subtrahend : UTCDuration)
+minuend : UTCDuration, subtrahend : UTCDuration)
 implements sys.std.Temporal.Duration.diff {...} >>
 
 This function results in the difference when its C<subtrahend> argument is
@@ -671,7 +671,7 @@ subtracted from its C<minuend> argument.
 =head2 sys.std.Temporal.UTCDuration.abs_diff
 
 C<< function abs_diff (UTCDuration <--
-$topic : UTCDuration, $other : UTCDuration)
+topic : UTCDuration, other : UTCDuration)
 implements sys.std.Temporal.Duration.abs_diff {...} >>
 
 This symmetric function results in the absolute difference between its 2
@@ -688,7 +688,7 @@ and TAI has no leap seconds.>
 =head2 sys.std.Temporal.UTCInstant.UTC_from_TAI
 
 C<< function UTC_from_TAI (UTCDateTime <--
-$tai : TAIInstant) {...} >>
+tai : TAIInstant) {...} >>
 
 This selector function results in the C<UTCDateTime> value that is
 conceptually equal to its C<TAIInstant> argument, insofar as relevant leap
@@ -697,7 +697,7 @@ seconds are known.
 =head2 sys.std.Temporal.UTCInstant.TAI_from_UTC
 
 C<< function TAI_from_UTC (TAIInstant <--
-$utc : UTCDateTime) {...} >>
+utc : UTCDateTime) {...} >>
 
 This selector function results in the C<TAIInstant> value that is
 conceptually equal to its C<UTCDateTime> argument, insofar as relevant leap
@@ -711,7 +711,7 @@ from the system.
 =head2 sys.std.Temporal.TAIInstant.fetch_curr_instant
 
 C<system-service fetch_curr_instant
-(&$target : TAIInstant)
+(&target : TAIInstant)
 implements sys.std.Temporal.Instant.fetch_curr_instant {...}>
 
 This system-service routine will update the variable supplied as its
@@ -722,7 +722,7 @@ used time server supports.
 =head2 sys.std.Temporal.UTCInstant.fetch_curr_datetime
 
 C<system-service fetch_curr_datetime
-(&$target : UTCDateTime)
+(&target : UTCDateTime)
 implements sys.std.Temporal.Instant.fetch_curr_instant {...}>
 
 This system-service routine will update the variable supplied as its
@@ -733,7 +733,7 @@ system clock or used time server supports.
 =head2 sys.std.Temporal.UTCInstant.fetch_curr_date
 
 C<system-service fetch_curr_date
-(&$target : UTCDate)
+(&target : UTCDate)
 implements sys.std.Temporal.Instant.fetch_curr_instant {...}>
 
 This system-service routine is the same as
@@ -743,7 +743,7 @@ produces an instant value with the date (YMD) attributes set.
 =head2 sys.std.Temporal.UTCInstant.fetch_curr_time
 
 C<system-service fetch_curr_time
-(&$target : UTCTime)
+(&target : UTCTime)
 implements sys.std.Temporal.Instant.fetch_curr_instant {...}>
 
 This system-service routine is the same as
@@ -754,7 +754,7 @@ retains the full precision.
 =head2 sys.std.Temporal.FloatInstant.fetch_curr_datetime
 
 C<system-service fetch_curr_datetime
-(&$target : FloatDateTime)
+(&target : FloatDateTime)
 implements sys.std.Temporal.Instant.fetch_curr_instant {...}>
 
 This system-service routine will update the variable supplied as its
@@ -765,7 +765,7 @@ implementation's system clock or used time server supports.
 =head2 sys.std.Temporal.FloatInstant.fetch_curr_date
 
 C<system-service fetch_curr_date
-(&$target : FloatDate)
+(&target : FloatDate)
 implements sys.std.Temporal.Instant.fetch_curr_instant {...}>
 
 This system-service routine is the same as
@@ -775,7 +775,7 @@ produces an instant value with the date (YMD) attributes set.
 =head2 sys.std.Temporal.FloatInstant.fetch_curr_time
 
 C<system-service fetch_curr_time
-(&$target : FloatTime)
+(&target : FloatTime)
 implements sys.std.Temporal.Instant.fetch_curr_instant {...}>
 
 This system-service routine is the same as

@@ -219,7 +219,7 @@
   <key>Language Features</key>
   <dict>
     <key>Identifier and Keyword Character Class</key>
-    <string><![CDATA[a-zA-Z0-9_∅!$-]]></string>
+    <string><![CDATA[a-zA-Z0-9_∅!-]]></string>
 
     <key>Comment Pattern</key>
     <string><![CDATA[(?x:

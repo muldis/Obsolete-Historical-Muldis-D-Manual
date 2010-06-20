@@ -531,8 +531,8 @@ and procedures
 ----
 Functions
 ----
-  function cube (Int <-- $topic : Int) {
-    $topic exp 3
+  function cube (Int <-- topic : Int) {
+    topic exp 3
   }
 ----
 Functions are pure and
@@ -545,8 +545,8 @@ invoke functional routines
 ----
 Updaters
 ----
-  updater chop_sign (&$topic : Int) {
-    $topic := || $topic
+  updater chop_sign (&topic : Int) {
+    topic := || topic
   }
 ----
 Updaters are imperative but
@@ -575,9 +575,9 @@ be factored to one instance
 ----
 Recipes
 ----
-  recipe count_people (&$p_count : NNInt,
-      $db ::= $fed.mydb) {
-    $p_count := r# $db.people
+  recipe count_people (&p_count : NNInt,
+      db ::= fed.mydb) {
+    p_count := r# db.people
   }
 ----
 Recipes are exactly the
@@ -593,8 +593,8 @@ use the database
 ----
 Procedures
 ----
-  procedure the_now (&$time : Instant) {
-    fetch_curr_instant( &$time )
+  procedure the_now (&time : Instant) {
+    fetch_curr_instant( &time )
   }
 ----
 Procedures are imperative,
@@ -1138,23 +1138,23 @@ or:
   (SELECT 'x' FROM dual)
 ----
 Muldis D:
-  $tab1
+  tab1
 SQL:
   SELECT * FROM tab1
 ----
 Muldis D:
-  r# $tab1
+  r# tab1
 SQL (as a scalar query):
   (SELECT COUNT(*) FROM tab1)
 ----
 Muldis D:
-  $tab1@{col1,col2}
+  tab1@{col1,col2}
 SQL:
   SELECT DISTINCT col1, col2
   FROM tab1
 ----
 Muldis D:
-  $tab1 matching Relation:{
+  tab1 matching Relation:{
     col1 => 'hello', col2 => 5,
     col1 => 'world', col2 => 7
   }
@@ -1192,9 +1192,9 @@ such that the result is:
   tab(col1,col2,col3,col4)
 ----
 Muldis D:
-  $tab1 join $tab2
+  tab1 join tab2
 or:
-  $tab1 ⋈ $tab2
+  tab1 ⋈ tab2
 SQL:
   SELECT DISTINCT tab1.*, tab2.col4
   FROM tab1 NATURAL INNER JOIN tab2
@@ -1207,7 +1207,7 @@ or:
     ON tab2.col2 = tab1.col2 AND tab2.col3 = tab1.col3
 ----
 Muldis D:
-  $tab1@{foo<-col1,bar<-col3}
+  tab1@{foo<-col1,bar<-col3}
 SQL:
   SELECT col1 AS foo, col2, col3 AS bar
   FROM tab1
@@ -1215,9 +1215,9 @@ SQL:
 Muldis D:
   with value-map myext {
     Tuple:{ a => 'x',
-      b => ($.m - $.n) }
+      b => (.m - .n) }
   }
-  $tab1 extend <nlx.lib.myext>()
+  tab1 extend <nlx.lib.myext>()
 SQL:
   SELECT tab1.*, 'x' AS a,
     (tab1.m - tab1.n) AS b

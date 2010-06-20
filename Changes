@@ -27,6 +27,11 @@
     Muldis D spec v0.130.0 for PTMD_STD:  Update the keywords list to
     remove all 6 single-Latin-letter keywords: x, d, t, r, s, v.
 
+    * (CD.pod, TemporalExtras.pod, Muldis_D_PDAFP_200807_updated.xul)
+    Corresponding to changes introduced in Muldis D spec v0.130.0 for
+    PTMD_STD:  Update all code examples or routine documentation to excise
+    the "$" sigils, which are no longer used to mark data-entities.
+
 2010-05-18
 
     * Muldis::D::Manual version 0.6.1 is released on CPAN as
