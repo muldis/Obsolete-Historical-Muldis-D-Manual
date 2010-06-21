@@ -9,7 +9,7 @@ Simple CD database example
 
 =head1 VERSION
 
-This document is Muldis::D::Manual::CD version 0.6.1.
+This document is Muldis::D::Manual::CD version 0.7.0.
 
 =head1 PREFACE
 
@@ -83,7 +83,7 @@ also be made complete later if the rationale exists.
 
 =head2 PTMD_STD - the_database
 
-    Muldis_D:"http://muldis.com":0.129.1:PTMD_STD:{
+    Muldis_D:"http://muldis.com":0.130.0:PTMD_STD:{
         catalog_abstraction_level => rtn_inv_alt_syn,
         op_char_repertoire => basic
     }
@@ -225,7 +225,7 @@ also be made complete later if the rationale exists.
 
 =head2 PTMD_STD - insert_db
 
-    Muldis_D:"http://muldis.com":0.129.1:PTMD_STD:{
+    Muldis_D:"http://muldis.com":0.130.0:PTMD_STD:{
         catalog_abstraction_level => rtn_inv_alt_syn,
         op_char_repertoire => basic
     }
@@ -336,7 +336,7 @@ also be made complete later if the rationale exists.
 
 =head2 PTMD_STD - test_db
 
-    Muldis_D:"http://muldis.com":0.129.1:PTMD_STD:{
+    Muldis_D:"http://muldis.com":0.130.0:PTMD_STD:{
         catalog_abstraction_level => rtn_inv_alt_syn,
         op_char_repertoire => basic
     }
@@ -455,7 +455,7 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl6_STD - the_database
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.129.1', 'HDMD_Perl6_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.130.0', 'HDMD_Perl6_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
@@ -598,7 +598,7 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl6_STD - insert_db
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.129.1', 'HDMD_Perl6_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.130.0', 'HDMD_Perl6_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
@@ -669,7 +669,7 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl6_STD - test_db
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.129.1', 'HDMD_Perl6_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.130.0', 'HDMD_Perl6_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
@@ -771,7 +771,7 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl5_STD - the_database
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.129.1', 'HDMD_Perl5_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.130.0', 'HDMD_Perl5_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
@@ -913,7 +913,7 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl5_STD - insert_db
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.129.1', 'HDMD_Perl5_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.130.0', 'HDMD_Perl5_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
@@ -985,7 +985,7 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl5_STD - test_db
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.129.1', 'HDMD_Perl5_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.130.0', 'HDMD_Perl5_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
