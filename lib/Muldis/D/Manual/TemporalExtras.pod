@@ -271,7 +271,7 @@ which has 6 attributes: C<year> (a C<maybe_of.Int>), C<month> (a
 C<maybe_of.PInt12>), C<day> (a C<maybe_of.PInt31>), C<hour> (a
 C<maybe_of.NNInt23>), C<minute> (a C<maybe_of.NNInt59>), C<second> (a
 C<maybe_of.NNRatLT62>).  For each attribute, that attribute should be a
-C<Single> if a quanity in that unit is known, and it should be C<Nothing>
+C<Just> if a quanity in that unit is known, and it should be C<Nothing>
 if there is no applicable or known quantity in that unit.  The C<year>
 values greater than zero are CE, those less than zero are BCE.  The
 C<month> value C<1> corresponds to the month of January, and C<12>
@@ -302,14 +302,14 @@ To make full ordering of C<UTCInstant> values possible and deterministic
 (though semi-meaningless) in the face of unknown/inapplicable attributes;
 the algorithm works like this: 1. ordering is done numerically one
 attribute at a time, from the largest units to the smallest; 2. for each
-attribute, the C<Nothing> value will order before any C<Single> value.
+attribute, the C<Nothing> value will order before any C<Just> value.
 
 =head2 sys.std.Temporal.Type.UTCDateTime
 
 A C<UTCDateTime> is a single specific
 time on a specific date, with precision to arbitrary fractions of a second.
 A C<UTCDateTime> is a proper subtype of C<UTCInstant> where all 6
-attributes of its C<instant> possrep have C<Single> / known values.  A
+attributes of its C<instant> possrep have C<Just> / known values.  A
 C<UTCDateTime> adds 1 system-defined possrep whose name is C<datetime>,
 which has 6 attributes: C<year> (an C<Int>), C<month> (a C<PInt12>), C<day>
 (a C<PInt31>), C<hour> (a C<NNInt23>), C<minute> (a C<NNInt59>), C<second>
@@ -321,7 +321,7 @@ as for C<UTCInstant>.
 A C<UTCDate> is a single specific
 terrestrial day, at no particular time of day.  A C<UTCDate> is a proper
 subtype of C<UTCInstant> where the 3 attributes of its C<instant> possrep
-named [C<year>, C<month>, C<day>] have C<Single> / known values, and the
+named [C<year>, C<month>, C<day>] have C<Just> / known values, and the
 other 3 C<instant> possrep attributes each have the C<Nothing> / unknown
 value.  A C<UTCDate> adds 1 system-defined possrep whose name is C<date>,
 which has 3 attributes: C<year> (an C<Int>), C<month> (a C<PInt12>), C<day>
@@ -340,7 +340,7 @@ multiple days), with a precision to arbitrary fractions of a second; its
 allowed range is between zero seconds (inclusive) and 1 terrestrial day
 (exclusive).  A C<UTCTime> is a proper subtype of C<UTCInstant> where the 3
 attributes of its C<instant> possrep named [C<hour>, C<minute>, C<second>]
-have C<Single> / known values, and the other 3 C<instant> possrep
+have C<Just> / known values, and the other 3 C<instant> possrep
 attributes each have the C<Nothing> / unknown value.  A C<UTCTime> adds 1
 system-defined possrep whose name is C<time>, which has 3 attributes:
 C<hour> (a C<NNInt23>), C<minute> (a C<NNInt59>), C<second> (a
@@ -394,7 +394,7 @@ A C<UTCDuration> has 1 system-defined possrep whose name is C<duration>,
 which has 6 attributes: C<years>, C<months>, C<days>, C<hours>, C<minutes>,
 (all 5 each a C<maybe_of.Int>), C<seconds> (a C<maybe_of.Rat>).  Each
 attribute value is C<Nothing> when it is unknown or not applicable, and a
-C<Single> when it is known and applicable, as per a C<UTCInstant>.
+C<Just> when it is known and applicable, as per a C<UTCInstant>.
 
 The default value of C<UTCDuration> is zero; its minimum and maximum values
 are conceptually infinities and practically impossible.  The cardinality of
@@ -408,7 +408,7 @@ The C<UTCDuration> type explicitly composes the C<Ordered> mixin type.
 The C<UTCDuration> type has a default ordering algorithm which is
 structurally the same as for C<UTCInstant>: 1. ordering is done numerically
 one attribute at a time, from the largest units to the smallest; 2. for
-each attribute, the C<Nothing> value will order before any C<Single> value.
+each attribute, the C<Nothing> value will order before any C<Just> value.
 However, because the unit values are unconstrained, this algorithm will
 sort [0 months and 40 days] before [1 month and 0 days] even though common
 sense says the second should be before the first.  So for ordering to make
@@ -901,7 +901,7 @@ A C<UTCInstant_payload> consists mainly of a bracket-delimited sequence of
 literal or is completely absent.  The 6 elements correspond in order to
 the 6 attributes: C<year>, C<month>, C<day>, C<hour>, C<minute>, C<second>.
 For each element that is absent or defined, the corresponding attribute has
-the C<Nothing> or a C<Single> value, respectively.  For each of the first 5
+the C<Nothing> or a C<Just> value, respectively.  For each of the first 5
 elements, when it is defined, it must qualify as a valid I<body> part of an
 C<Int> node; for the 6th element, when it is defined, it must qualify as a
 valid I<body> part of a C<Rat> node.
@@ -940,7 +940,7 @@ A C<UTCDuration_payload> consists mainly of a bracket-delimited sequence of
 literal or is completely absent.  The 6 elements correspond in order to the
 6 attributes: C<years>, C<months>, C<days>, C<hours>, C<minutes>,
 C<seconds>.  For each element that is absent or defined, the corresponding
-attribute has the C<Nothing> or a C<Single> value, respectively.  For each
+attribute has the C<Nothing> or a C<Just> value, respectively.  For each
 of the first 5 elements, when it is defined, it must qualify as a valid
 I<body> part of an C<Int> node; for the 6th element, when it is defined, it
 must qualify as a valid I<body> part of a C<Rat> node.
@@ -1026,7 +1026,7 @@ undefs.  The 6 payload elements correspond in order, from the lowest to the
 highest indexed, to the 6 attributes: C<year>, C<month>, C<day>, C<hour>,
 C<minute>, C<second>.  For each payload element that Perl considers
 undefined or defined, the corresponding attribute has the C<Nothing> or a
-C<Single> value, respectively.  For each of the first 5 elements, when it
+C<Just> value, respectively.  For each of the first 5 elements, when it
 is defined, it must qualify as a valid payload for an C<Int> node; for
 the 6th element, when it is defined, it must qualify as a valid payload for
 a C<Rat> node.
@@ -1058,7 +1058,7 @@ undefs.  The 6 payload elements correspond in order, from the lowest to the
 highest indexed, to the 6 attributes: C<years>, C<months>, C<days>,
 C<hours>, C<minutes>, C<seconds>.  For each payload element that Perl
 considers undefined or defined, the corresponding attribute has the
-C<Nothing> or a C<Single> value, respectively.  For each of the first 5
+C<Nothing> or a C<Just> value, respectively.  For each of the first 5
 elements, when it is defined, it must qualify as a valid payload for an
 C<Int>  node; for the 6th element, when it is defined, it must qualify
 as a valid payload for a C<Rat>  node.
@@ -1142,7 +1142,7 @@ filling with undefs.  The 6 payload elements correspond in order, from the
 lowest to the highest indexed, to the 6 attributes: C<year>, C<month>,
 C<day>, C<hour>, C<minute>, C<second>.  For each payload element that Perl
 considers undefined or defined, the corresponding attribute has the
-C<Nothing> or a C<Single> value, respectively.  For each of the first 5
+C<Nothing> or a C<Just> value, respectively.  For each of the first 5
 elements, when it is defined, it must qualify as a valid payload for an
 C<Int> node; for the 6th element, when it is defined, it must qualify
 as a valid payload for a C<Rat> node.
@@ -1192,7 +1192,7 @@ filling with undefs.  The 6 payload elements correspond in order, from the
 lowest to the highest indexed, to the 6 attributes: C<years>, C<months>,
 C<days>, C<hours>, C<minutes>, C<seconds>.  For each payload element that
 Perl considers undefined or defined, the corresponding attribute has the
-C<Nothing> or a C<Single> value, respectively.  For each of the first 5
+C<Nothing> or a C<Just> value, respectively.  For each of the first 5
 elements, when it is defined, it must qualify as a valid payload for an
 C<Int>  node; for the 6th element, when it is defined, it must qualify
 as a valid payload for a C<Rat>  node.

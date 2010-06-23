@@ -2,6 +2,15 @@
                                   Changes
 ---------------------------------------------------------------------------
 
+2010-06-xx
+
+    * Muldis::D::Manual version 0.8.0 is released on CPAN as
+    Muldis-D-Manual-0.8.0.tar.gz.
+
+    * (TemporalExtras.pod)  Corresponding to changes introduced in Muldis D
+    spec v0.131.0:  Updated the temporal types' documentation to reflect
+    that the core type "Single" was renamed to "Just".
+
 2010-06-20
 
     * Muldis::D::Manual version 0.7.0 is released on CPAN as
