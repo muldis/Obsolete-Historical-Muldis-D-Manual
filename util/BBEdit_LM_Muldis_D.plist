@@ -223,7 +223,8 @@
 
     <key>Comment Pattern</key>
     <string><![CDATA[(?x:
-      \s+ (\#{2,} | \# [^\#]* \#) (\s+ (\#{2,} | \# [^\#]* \#))* \s+
+      \s+ (\#{2,} | \# [^\\\#]* (\\# [^\\\#]*)* \#)
+        (\s+ (\#{2,} | \# [^\\\#]* (\\# [^\\\#]*)* \#))* \s+
     )]]></string>
 
     <key>String Pattern</key>
@@ -238,13 +239,13 @@
           | HalfDown | HalfUp | HalfToZero | HalfToInf
           | HalfEven
         )
-      | (Text : (\\\s*\\)?)? (?<!\w) ' [^']* '
-      | (Comment : (\\\s*\\)?)? (?<!\w) ` [^`]* `
+      | (Text : (\\\s*\\)?)? (?<!\w) ' [^\\']* (\\' [^\\']*)* '
+      | (Comment : (\\\s*\\)?)? (?<!\w) ` [^\\`]* (\\` [^\\`]*)* `
       | ((Octet)? Blob : (\\\s*\\)?)? (?<!\w)
-        [137F] ; (\\\s*\\)? ' [0-9A-F\\\s]* '
+        [137Fbox] ; (\\\s*\\)? ' [0-9A-F\\\s]* '
       | ((|NN|P)Rat : (\\\s*\\)?)? (?<!\w)
         (
-            [1-9A-Z] ; (\\\s*\\)? -?[0-9A-Z_]+
+            [1-9A-Zbodx] ; (\\\s*\\)? -?[0-9A-Z_]+
             (
                 (\\\s*\\)? \. [0-9A-Z_]+
               | (\\\s*\\)? \/ [1-9A-Z][0-9A-Z_]*
@@ -260,7 +261,7 @@
         )
       | ((|NN|P)Int : (\\\s*\\)?)? (?<!\w)
         (
-            [1-9A-Z] ; (\\\s*\\)? -?[0-9A-Z_]+
+            [1-9A-Zbodx] ; (\\\s*\\)? -?[0-9A-Z_]+
           | (0 | -?[1-9](_?[0-9]+)*)
         )
       )
@@ -269,7 +270,8 @@
     <key>Function Pattern</key>
     <string><![CDATA[(?x:
       (?P<function_name>
-        (function|named-value|value-map|value-map-unary|value-filter
+        (subdepot
+          |function|named-value|value-map|value-map-unary|value-filter
           |value-constraint|transition-constraint|value-reduction
           |order-determination|updater|recipe|procedure|system-service
           |transaction|scalar-type|tuple-type|database-type|relation-type
@@ -278,7 +280,7 @@
           |distrib-subset-constraint|stimulus-response-rule) \s+
         (
             [a-zA-Z_][a-zA-Z0-9_-]*
-          | " [^"]* "
+          | " [^\\"]* (\\" [^\\"]*)* "
         )
       )
     )]]></string>

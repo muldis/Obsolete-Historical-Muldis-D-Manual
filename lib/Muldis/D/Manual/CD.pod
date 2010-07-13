@@ -83,7 +83,7 @@ also be made complete later if the rationale exists.
 
 =head2 PTMD_STD - the_database
 
-    Muldis_D:"http://muldis.com":0.131.0:PTMD_STD:{
+    Muldis_D:"http://muldis.com":0.134.0:PTMD_STD:{
         catalog_abstraction_level => rtn_inv_alt_syn,
         op_char_repertoire => basic
     }
@@ -166,16 +166,14 @@ also be made complete later if the rationale exists.
     recipe get_tracks_by_cd (&track_titles : array_of.Text,
             cd_title : Text, db ::= nlx.data) {
         track_titles := Array_from_attr( db.tracks matching (
-            db.cds matching Relation:{ { =>cd_title } }
+            db.cds matching @:{ { =>cd_title } }
         ), name => Name:track_title )
     }
 
     recipe get_tracks_by_artist (&track_titles : array_of.Text,
             artist_name : Text, db ::= nlx.data) {
         track_titles := Array_from_attr( db.tracks matching (
-            db.cds matching (
-                db.artists matching Relation:{ { =>artist_name } }
-            )
+            db.cds matching (db.artists matching @:{ { =>artist_name } })
         ), name => Name:track_title )
     }
 
@@ -184,14 +182,14 @@ also be made complete later if the rationale exists.
     recipe get_cd_by_track (&cd_title : maybe_of.Text,
             track_title : Text, db ::= nlx.data) {
         cd_title := Set_from_attr( db.cds matching (
-            db.tracks matching Relation:{ { =>track_title } }
+            db.tracks matching @:{ { =>track_title } }
         ), name => Name:cd_title )
     }
 
     recipe get_cds_by_artist (&cd_titles : array_of.Text,
             artist_name : Text, db ::= nlx.data) {
         cd_titles := Array_from_attr( db.cds matching (
-            db.artists matching Relation:{ { =>artist_name } }
+            db.artists matching @:{ { =>artist_name } }
         ), name => Name:cd_title )
     }
 
@@ -200,16 +198,14 @@ also be made complete later if the rationale exists.
     recipe get_artist_by_track (&artist_name : maybe_of.Text,
             track_title : Text, db ::= nlx.data) {
         artist_name := Set_from_attr( db.artists matching (
-            db.cds matching (
-                db.tracks matching Relation:{ { =>track_title } }
-            )
+            db.cds matching (db.tracks matching @:{ { =>track_title } })
         ), name => Name:artist_name )
     }
 
     recipe get_artist_by_cd (&artist_name : maybe_of.Text,
             cd_title : Text, db ::= nlx.data) {
         artist_name := Set_from_attr( db.artists matching (
-            db.cds matching Relation:{ { =>cd_title } }
+            db.cds matching @:{ { =>cd_title } }
         ), name => Name:artist_name )
     }
 
@@ -218,14 +214,14 @@ also be made complete later if the rationale exists.
     } # depot-catalog #
 
     depot-data Database:{
-        artists => Relation:{ artist_id, artist_name },
-        cds     => Relation:{ cd_id, artist_id, cd_title },
-        tracks  => Relation:{ track_id, cd_id, track_title }
+        artists => @:{ artist_id, artist_name },
+        cds     => @:{ cd_id, artist_id, cd_title },
+        tracks  => @:{ track_id, cd_id, track_title }
     } # depot-data #
 
 =head2 PTMD_STD - insert_db
 
-    Muldis_D:"http://muldis.com":0.131.0:PTMD_STD:{
+    Muldis_D:"http://muldis.com":0.134.0:PTMD_STD:{
         catalog_abstraction_level => rtn_inv_alt_syn,
         op_char_repertoire => basic
     }
@@ -244,7 +240,7 @@ also be made complete later if the rationale exists.
         # Connect to the_database in read-write mode. #
         # The "..." has likes of filename, server name, user, pass, etc. #
         create_depot_mount( name => Name:db, we_may_update => True,
-            details => Relation:OVLScaValExprNodeSet:{ ... } )
+            details => @:OVLScaValExprNodeSet:{ ... } )
 
         # Add test data to the_database, as a single atomic transaction. #
         # This might fail if records with same titles/etc already there. #
@@ -281,19 +277,19 @@ also be made complete later if the rationale exists.
         # fully-deterministic, giving same result on any implementation. #
         src_artists_with_ids ::= rank_by_attr_names( src.artists,
             name => Name:artist_id,
-            order_by => Array:[ Tuple:{ name => Name:artist_name,
+            order_by => [ %:{ name => Name:artist_name,
                 is_reverse_order => False } ],
             first_rank => max_used_artist_id ++
         )
         src_cds_with_ids ::= rank_by_attr_names( src.cds,
             name => Name:cd_id,
-            order_by => Array:[ Tuple:{ name => Name:cd_title,
+            order_by => [ %:{ name => Name:cd_title,
                 is_reverse_order => False } ],
             first_rank => max_used_cd_id ++
         )
         src_tracks_with_ids ::= rank_by_attr_names( src.tracks,
             name => Name:track_id,
-            order_by => Array:[ Tuple:{ name => Name:track_title,
+            order_by => [ %:{ name => Name:track_title,
                 is_reverse_order => False } ],
             first_rank => max_used_track_id ++
         )
@@ -314,16 +310,16 @@ also be made complete later if the rationale exists.
     } # depot-catalog #
 
     depot-data Database:{
-        artists => Relation:[ artist_name ];{
+        artists => @:[ artist_name ];{
             [ 'Michael Jackson' ],
             [ 'Eminem'          ]
         },
-        cds => Relation:[ cd_title, artist_name ];{
+        cds => @:[ cd_title, artist_name ];{
             [ 'Thriller'               , 'Michael Jackson' ],
             [ 'Bad'                    , 'Michael Jackson' ],
             [ 'The Marshall Mathers LP', 'Eminem'          ]
         },
-        tracks => Relation:[ track_title, cd_title ];{
+        tracks => @:[ track_title, cd_title ];{
             [ 'Beat It'        , 'Thriller'                ],
             [ 'Billie Jean'    , 'Thriller'                ],
             [ 'Dirty Diana'    , 'Bad'                     ],
@@ -336,7 +332,7 @@ also be made complete later if the rationale exists.
 
 =head2 PTMD_STD - test_db
 
-    Muldis_D:"http://muldis.com":0.131.0:PTMD_STD:{
+    Muldis_D:"http://muldis.com":0.134.0:PTMD_STD:{
         catalog_abstraction_level => rtn_inv_alt_syn,
         op_char_repertoire => basic
     }
@@ -353,7 +349,7 @@ also be made complete later if the rationale exists.
         # Connect to the_database in read-only mode. #
         # The "..." has likes of filename, server name, user, pass, etc. #
         create_depot_mount( name => Name:db,
-            details => Relation:OVLScaValExprNodeSet:{ ... } )
+            details => @:OVLScaValExprNodeSet:{ ... } )
 
         # Fetch test data, in a transaction for read-consistency. #
         nlx.lib.get_records()
@@ -455,7 +451,7 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl6_STD - the_database
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.131.0', 'HDMD_Perl6_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.134.0', 'HDMD_Perl6_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
@@ -556,9 +552,9 @@ also be made complete later if the rationale exists.
                 [ 'op', 'matching', [ :acc<db.tracks>,
                     [ 'op', 'matching', [ :acc<db.cds>,
                         [ 'op', 'matching', [ :acc<db.artists>,
-                            :Relation( Set.new(
+                            '@' => Set.new(
                                 { artist_name => :d<artist_name> }
-                            ) )
+                            )
                         ] ]
                     ] ]
                 ] ]
@@ -588,9 +584,9 @@ also be made complete later if the rationale exists.
             ], # depot-catalog #
 
             :depot-data[ 'Database', {
-                artists => :Relation(Set.new(<artist_id artist_name>)),
-                cds     => :Relation(Set.new(<cd_id artist_id cd_title>)),
-                tracks  => :Relation(Set.new(<track_id cd_id track_title>))
+                artists => '@' => Set.new(<artist_id artist_name>),
+                cds     => '@' => Set.new(<cd_id artist_id cd_title>),
+                tracks  => '@' => Set.new(<track_id cd_id track_title>)
             } ] # depot-data #
         ]
     ]
@@ -598,7 +594,7 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl6_STD - insert_db
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.131.0', 'HDMD_Perl6_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.134.0', 'HDMD_Perl6_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
@@ -616,7 +612,7 @@ also be made complete later if the rationale exists.
         # The "..." has likes of filename, server name, user, pass, etc. #
         [ 'iproc-imp-invo', 'create_depot_mount', { name => :Name<db>,
             we_may_update => Bool::True,
-            details => [ 'Relation', 'OVLScaValExprNodeSet', '...' ] } ],
+            details => [ '@', 'OVLScaValExprNodeSet', '...' ] } ],
 
         # Add test data to the_database, as a single atomic transaction. #
         # This might fail if records with same titles/etc already there. #
@@ -644,16 +640,16 @@ also be made complete later if the rationale exists.
             ], # depot-catalog #
 
             :depot-data[ 'Database', {
-                artists => :Relation( <artist_name> => Set.new(
+                artists => '@' => <artist_name> => Set.new(
                     [ 'Michael Jackson' ],
                     [ 'Eminem'          ]
-                ) ),
-                cds => :Relation( <cd_title artist_name> => Set.new(
+                ),
+                cds => '@' => <cd_title artist_name> => Set.new(
                     [ 'Thriller'               , 'Michael Jackson' ],
                     [ 'Bad'                    , 'Michael Jackson' ],
                     [ 'The Marshall Mathers LP', 'Eminem'          ]
-                ) ),
-                tracks => :Relation( <track_title cd_title> => Set.new(
+                ),
+                tracks => '@' => <track_title cd_title> => Set.new(
                     [ 'Beat It'        , 'Thriller'                ],
                     [ 'Billie Jean'    , 'Thriller'                ],
                     [ 'Dirty Diana'    , 'Bad'                     ],
@@ -661,7 +657,7 @@ also be made complete later if the rationale exists.
                     [ 'Leave Me Alone' , 'Bad'                     ],
                     [ 'Stan'           , 'The Marshall Mathers LP' ],
                     [ 'The Way I Am'   , 'The Marshall Mathers LP' ]
-                ) )
+                )
             } ] # depot-data #
         ]
     ]
@@ -669,7 +665,7 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl6_STD - test_db
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.131.0', 'HDMD_Perl6_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.134.0', 'HDMD_Perl6_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
@@ -684,7 +680,7 @@ also be made complete later if the rationale exists.
         # Connect to the_database in read-only mode. #
         # The "..." has likes of filename, server name, user, pass, etc. #
         [ 'iproc-imp-invo', 'create_depot_mount', { name => :Name<db>,
-            details => [ 'Relation', 'OVLScaValExprNodeSet', '...' ] } ],
+            details => [ '@', 'OVLScaValExprNodeSet', '...' ] } ],
 
         # Fetch test data, in a transaction for read-consistency. #
         :iproc-imp-invo<nlx.lib.get_records>,
@@ -771,7 +767,7 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl5_STD - the_database
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.131.0', 'HDMD_Perl5_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.134.0', 'HDMD_Perl5_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
@@ -868,9 +864,7 @@ also be made complete later if the rationale exists.
                 [ 'op', 'matching', [ ['acc','db.tracks'],
                     [ 'op', 'matching', [ ['acc','db.cds'],
                         [ 'op', 'matching', [ ['acc','db.artists'],
-                            [ 'Relation', [
-                                { artist_name => ['d','artist_name'] }
-                            ] ]
+                            [ '@', [{artist_name => ['d','artist_name']}] ]
                         ] ]
                     ] ]
                 ] ]
@@ -903,9 +897,9 @@ also be made complete later if the rationale exists.
             ] ], # depot-catalog #
 
             [ 'depot-data' => [ 'Database', {
-                artists => ['Relation',['artist_id','artist_name']],
-                cds     => ['Relation',['cd_id','artist_id','cd_title']],
-                tracks  => ['Relation',['track_id','cd_id','track_title']]
+                artists => ['@',['artist_id','artist_name']],
+                cds     => ['@',['cd_id','artist_id','cd_title']],
+                tracks  => ['@',['track_id','cd_id','track_title']]
             } ] ] # depot-data #
         ]
     ]
@@ -913,7 +907,7 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl5_STD - insert_db
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.131.0', 'HDMD_Perl5_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.134.0', 'HDMD_Perl5_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
@@ -932,7 +926,7 @@ also be made complete later if the rationale exists.
         # The "..." has likes of filename, server name, user, pass, etc. #
         [ 'iproc-imp-invo', 'create_depot_mount', { name => ['Name','db'],
             we_may_update => ['Bool','True'],
-            details => [ 'Relation', 'OVLScaValExprNodeSet', '...' ] } ],
+            details => [ '@', 'OVLScaValExprNodeSet', '...' ] } ],
 
         # Add test data to the_database, as a single atomic transaction. #
         # This might fail if records with same titles/etc already there. #
@@ -960,16 +954,16 @@ also be made complete later if the rationale exists.
             ] ], # depot-catalog #
 
             [ 'depot-data' => [ 'Database', {
-                artists => [ 'Relation', [ [ 'artist_name' ] => [
+                artists => [ '@', [ [ 'artist_name' ] => [
                     [ 'Michael Jackson' ],
                     [ 'Eminem'          ]
                 ] ] ],
-                cds => [ 'Relation', [ [ 'cd_title','artist_name' ] => [
+                cds => [ '@', [ [ 'cd_title','artist_name' ] => [
                     [ 'Thriller'               , 'Michael Jackson' ],
                     [ 'Bad'                    , 'Michael Jackson' ],
                     [ 'The Marshall Mathers LP', 'Eminem'          ]
                 ] ] ],
-                tracks => [ 'Relation', [ [ 'track_title','cd_title' ] => [
+                tracks => [ '@', [ [ 'track_title','cd_title' ] => [
                     [ 'Beat It'        , 'Thriller'                ],
                     [ 'Billie Jean'    , 'Thriller'                ],
                     [ 'Dirty Diana'    , 'Bad'                     ],
@@ -985,7 +979,7 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl5_STD - test_db
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.131.0', 'HDMD_Perl5_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.134.0', 'HDMD_Perl5_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
@@ -1001,7 +995,7 @@ also be made complete later if the rationale exists.
         # Connect to the_database in read-only mode. #
         # The "..." has likes of filename, server name, user, pass, etc. #
         [ 'iproc-imp-invo', 'create_depot_mount', { name => ['Name','db'],
-            details => [ 'Relation', 'OVLScaValExprNodeSet', '...' ] } ],
+            details => [ '@', 'OVLScaValExprNodeSet', '...' ] } ],
 
         # Fetch test data, in a transaction for read-consistency. #
         [ 'iproc-imp-invo', 'nlx.lib.get_records' ],

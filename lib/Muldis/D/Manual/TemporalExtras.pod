@@ -969,7 +969,7 @@ Examples:
 
     TAIDuration:3.14159
 
-    TAIDuration:1;1011101101*10^-11011
+    TAIDuration:b;1011101101*10^-11011
 
     TAIDuration:1/43
 
@@ -1079,7 +1079,7 @@ Examples I<TODO: What is t actual syntax for P6 [Instant|Duration] types?>:
 
     Duration.new(3.14159)
 
-    Duration.new(:2<1011101101> * :2<10> ** :2<-11011>)
+    Duration.new(0b1011101101 * 0b10 ** -0b11011)
 
     Duration.new(1/43)
 
@@ -1227,7 +1227,7 @@ Examples:
 
     [ 'TAIDuration', 3.14159 ]
 
-    [ 'TAIDuration', { 1 => ['1011101101','10','-11011'] } ]
+    [ 'TAIDuration', { b => ['1011101101','10','-11011'] } ]
 
     [ 'TAIDuration', [1,43] ]
 

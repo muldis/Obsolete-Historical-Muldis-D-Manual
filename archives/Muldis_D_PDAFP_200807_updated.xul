@@ -21,7 +21,7 @@ Muldis D -
 Portable Databases
 At Full Power
 (Created 2008 July)
-(Updated 2010 June)
+(Updated 2010 July)
 ----
 Darren Duncan
 Muldis Data Systems
@@ -143,7 +143,7 @@ scalar literals in the
 PTMD_STD dialect:
   True      # Bool #
   42        # Int #
-  F;'A705E' # Blob #
+  x;'A705E' # Blob #
   'サンプル' # Text #
   3.14159   # Rat #
   1/43      # Rat #
@@ -152,7 +152,7 @@ And here are the same scalar literals in the
 HDMD_Perl6_STD dialect:
   Bool::True # Bool #
   42         # Int #
-  Blob.new( F => 'A705E' ) # Blob #
+  :16{A705E} # Blob #
   'サンプル'  # Text #
   3.14159    # Rat #
   1/43       # Rat #
@@ -161,7 +161,7 @@ And here are the same scalar literals in the
 HDMD_Perl5_STD dialect:
   ['Bool',(1 == 1)] # Bool #
   42                # Int #
-  [ 'Blob', { F => 'A705E' } ] # Blob #
+  [ 'Blob', { 'x' => 'A705E' } ] # Blob #
   'サンプル'         # Text #
   3.14159           # Rat #
   [ 'Rat', [1,43] ] # Rat #
@@ -339,58 +339,58 @@ a relation's tuples are
 never ordered
 ----
 Tuples in PTMD_STD dialect:
-  Tuple:{}
-  Tuple:{
+  %:{}
+  %:{
     login_name => 'hartmark',
     login_pass => 'letmein',
     is_special => True
   }
-  Tuple:{
+  %:{
     name => 'Michelle',
     age  => 17
   }
 ----
 Same in PTMD_Perl6_STD dialect:
-  :Tuple{}
-  :Tuple{
+  '%' => {}
+  '%' => {
     login_name => 'hartmark',
     login_pass => 'letmein',
     is_special => Bool::True,
   }
-  :Tuple{
+  '%' => {
     name => 'Michelle',
     age  => 17,
   }
 ----
 Relations in PTMD_STD dialect:
-  Relation:{}
-  Relation:{ x, y, z }
-  Relation:{ {} }
-  Relation:{
+  @:{}
+  @:{ x, y, z }
+  @:{ {} }
+  @:{
     {
       login_name => 'hartmark',
       login_pass => 'letmein',
       is_special => True,
     }
   }
-  Relation:[ name, age ];{
+  @:[ name, age ];{
     [ 'Michelle', 17 ]
   }
 ----
 Same in PTMD_Perl6_STD dialect:
-  :Relation( Set.new() )
-  :Relation( Set.new(<x y z>) )
-  :Relation( Set.new( {} ) )
-  :Relation( Set.new(
+  '@' => Set.new()
+  '@' => Set.new(<x y z>)
+  '@' => Set.new( {} )
+  '@' => Set.new(
     {
       login_name => 'hartmark',
       login_pass => 'letmein',
       is_special => Bool::True,
     },
-  ) )
-  :Relation( <name age> => Set.new(
+  )
+  '@' => <name age> => Set.new(
     [ 'Michelle', 17 ],
-  ) )
+  )
 ----
 Muldis D also has canonical
 representations of plain
@@ -428,17 +428,17 @@ those having a single attr
 named with the empty string
 ----
 PTMD_STD dialect:
-  Scalar:fed.lib.the_db.WeekDay:name;{
+  $:fed.lib.the_db.WeekDay:name;{
     "" => "monday"
   }
-  Scalar:fed.lib.the_db.WeekDay:number;{
+  $:fed.lib.the_db.WeekDay:number;{
     "" => 5
   }
 HDMD_Perl6_STD dialect:
-  [ 'Scalar', 'fed.lib.the_db.WeekDay', name => {
+  [ '$', 'fed.lib.the_db.WeekDay', name => {
     '' => 'monday',
   } ]
-  [ 'Scalar', 'fed.lib.the_db.WeekDay', number => {
+  [ '$', 'fed.lib.the_db.WeekDay', number => {
     '' => 5,
   } ]
 ----
@@ -679,16 +679,16 @@ you don't have to split up a
 relvar into several for
 normalization
 ----
-  Relation:[ order_id, cust_id, order_item ];{
-    [ 5073, 209, Relation:{
+  @:[ order_id, cust_id, order_item ];{
+    [ 5073, 209, @:{
       { prod_id => 'paint', qty => 3 }
     } ],
-    [ 5074, 332, Relation:{
+    [ 5074, 332, @:{
       { prod_id => 'axle',  qty => 20 },
       { prod_id => 'lever', qty => 50 },
       { prod_id => 'paint', qty => 8 }
     } ],
-    [ 5075, 17, Relation:{
+    [ 5075, 17, @:{
       { prod_id => 'banana', qty => 100 },
       { prod_id => 'orange', qty => 160 }
     } ],
@@ -1154,9 +1154,9 @@ SQL:
   FROM tab1
 ----
 Muldis D:
-  tab1 matching Relation:{
-    col1 => 'hello', col2 => 5,
-    col1 => 'world', col2 => 7
+  tab1 matching @:{
+    { col1 => 'hello', col2 => 5 },
+    { col1 => 'world', col2 => 7 }
   }
 SQL:
   SELECT *
@@ -1214,8 +1214,7 @@ SQL:
 ----
 Muldis D:
   with value-map myext {
-    Tuple:{ a => 'x',
-      b => (.m - .n) }
+    %:{a => 'x', b => (.m - .n)}
   }
   tab1 extend <nlx.lib.myext>()
 SQL:
