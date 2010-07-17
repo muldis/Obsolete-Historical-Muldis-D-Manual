@@ -172,18 +172,6 @@
     <string>b-has</string>
     <string>b-!has</string>
     <string>b-not-has</string>
-    <string>sub</string>
-    <string>!sub</string>
-    <string>not-sub</string>
-    <string>super</string>
-    <string>!super</string>
-    <string>not-super</string>
-    <string>psub</string>
-    <string>!psub</string>
-    <string>not-psub</string>
-    <string>psuper</string>
-    <string>!psuper</string>
-    <string>not-psuper</string>
     <string>minus</string>
     <string>except</string>
     <string>!matching</string>
