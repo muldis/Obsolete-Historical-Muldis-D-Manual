@@ -973,15 +973,15 @@ Examples:
 
     TAIDuration:1/43
 
-    UTCInstant:[1964,10,16,16,12,47.5] # a UTCDateTime #
+    UTCInstant:[1964,10,16,16,12,47.5] #`a UTCDateTime`#
 
-    UTCInstant:[2002,12,6,,,] # a UTCDate #
+    UTCInstant:[2002,12,6,,,] #`a UTCDate`#
 
-    UTCInstant:[,,,14,2,29.0] # a UTCTime #
+    UTCInstant:[,,,14,2,29.0] #`a UTCTime`#
 
-    FloatInstant:[2003,4,5,2,,] # min,sec unknown or N/A #
+    FloatInstant:[2003,4,5,2,,] #`min,sec unknown or N/A`#
 
-    FloatInstant:[1407,,,,,] # just know its sometime in 1407 #
+    FloatInstant:[1407,,,,,] #`just know its sometime in 1407`#
 
     UTCDuration:[3,5,1,6,15,45.000012]
 

@@ -16,6 +16,20 @@
     Muldis D spec v0.135.0 for PTMD_STD:  Update the keywords list to
     remove all 12 Latin-letter keywords denoting sub/superset tests.
 
+    * (BBEdit_LM_Muldis_D.plist)  Corresponding to changes introduced in
+    Muldis D spec v0.136.0 for PTMD_STD:  Update the syntax coloring
+    patterns and function-search pattern considering changes to the syntax
+    of code comments and how string literals treat whitespace.
+
+    * (CD.pod, Muldis_D_PDAFP_200807_updated.xul, TemporalExtras.pod)
+    Corresponding to changes introduced in Muldis D spec v0.136.0 for
+    PTMD_STD:  Update all code examples with not-as-value comments to add
+    nested backtick delimiters, remove per-line delims from block comments.
+
+    * (Muldis_D_PDAFP_200807_updated.xul)  Corresponding to changes
+    introduced in Muldis D spec v0.136.0 for PTMD_STD:  Update all code
+    examples with cardinality prefix op to rename it to "#" from "r#".
+
 2010-07-13
 
     * Muldis::D::Manual version 0.8.0 is released on CPAN as

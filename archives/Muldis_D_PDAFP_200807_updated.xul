@@ -141,12 +141,12 @@ that is partly specced now
 As examples, here are some
 scalar literals in the
 PTMD_STD dialect:
-  True      # Bool #
-  42        # Int #
-  x;'A705E' # Blob #
-  'サンプル' # Text #
-  3.14159   # Rat #
-  1/43      # Rat #
+  True      #`Bool`#
+  42        #`Int`#
+  x;'A705E' #`Blob`#
+  'サンプル' #`Text`#
+  3.14159   #`Rat`#
+  1/43      #`Rat`#
 ----
 And here are the same scalar literals in the
 HDMD_Perl6_STD dialect:
@@ -577,7 +577,7 @@ Recipes
 ----
   recipe count_people (&p_count : NNInt,
       db ::= fed.mydb) {
-    p_count := r# db.people
+    p_count := # db.people
   }
 ----
 Recipes are exactly the
@@ -1143,7 +1143,7 @@ SQL:
   SELECT * FROM tab1
 ----
 Muldis D:
-  r# tab1
+  # tab1
 SQL (as a scalar query):
   (SELECT COUNT(*) FROM tab1)
 ----
