@@ -546,7 +546,7 @@ invoke functional routines
 Updaters
 ----
   updater chop_sign (&topic : Int) {
-    topic := || topic
+    topic := ||topic
   }
 ----
 Updaters are imperative but
@@ -577,7 +577,7 @@ Recipes
 ----
   recipe count_people (&p_count : NNInt,
       db ::= fed.mydb) {
-    p_count := # db.people
+    p_count := #db.people
   }
 ----
 Recipes are exactly the
@@ -1143,7 +1143,7 @@ SQL:
   SELECT * FROM tab1
 ----
 Muldis D:
-  # tab1
+  #tab1
 SQL (as a scalar query):
   (SELECT COUNT(*) FROM tab1)
 ----
