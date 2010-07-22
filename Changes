@@ -7,6 +7,28 @@
     * Muldis::D::Manual version 0.9.0 is released on CPAN as
     Muldis-D-Manual-0.9.0.tar.gz.
 
+    * (CD.pod)  Updated the example code, in all 3 dialects, such that all
+    type and constraint declarations have been consolidated into a topology
+    that much more closely resembles their most likely direct SQL database
+    counterparts.  This is effectively just a code refactor as the
+    structure of all actual database data/relvars didn't change at all.
+    Firstly, the root database type now has the empty string as its
+    declared name, as if it was effectively built-in to the depot
+    scaffholding rather than being a normal user-defined type.  Secondly,
+    the definition of each relvar is now effectively built-in to it.  The
+    effective name of the relation type for each relvar is now lowercased
+    and so identical to the name of its relvar, and the tuple type plus
+    primary key that help define the relation type are now nested into the
+    latter, meaning that the relation type now declares a subdepot with the
+    same name as its relvar and the triple are nested beneath that
+    subdepot, with the relvar having an empty-string name.  All of the
+    now-nested tuple types and primary keys have been renamed to just "T"
+    and "pk" respectively, and so all relation type defs now have a more
+    uniform format.  Where applicable, any surrogate keys of relation types
+    had also become nested under the latter, but their declared names
+    didn't change.  The subset constraints were not renamed or nested,
+    staying as they were.  No routines were changed at all.
+
     * (CD.pod, Muldis_D_PDAFP_200807_updated.xul)  Corresponding to changes
     introduced in Muldis D spec v0.135.0:  Update all code examples with
     postcircumfix op invocations to excise the [$,%,@] sigils leading the
