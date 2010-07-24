@@ -154,24 +154,18 @@
     <string>where</string>
     <string>!where</string>
     <string>not-where</string>
-    <string>in-r</string>
-    <string>!in-r</string>
-    <string>not-in-r</string>
-    <string>r-has</string>
-    <string>r-!has</string>
-    <string>r-not-has</string>
-    <string>in-s</string>
-    <string>!in-s</string>
-    <string>not-in-s</string>
-    <string>s-has</string>
-    <string>s-!has</string>
-    <string>s-not-has</string>
-    <string>in-b</string>
-    <string>!in-b</string>
-    <string>not-in-b</string>
-    <string>b-has</string>
-    <string>b-!has</string>
-    <string>b-not-has</string>
+    <string>inside</string>
+    <string>!inside</string>
+    <string>not-inside</string>
+    <string>holds</string>
+    <string>!holds</string>
+    <string>not-holds</string>
+    <string>in</string>
+    <string>!in</string>
+    <string>not-in</string>
+    <string>has</string>
+    <string>!has</string>
+    <string>not-has</string>
     <string>minus</string>
     <string>except</string>
     <string>!matching</string>

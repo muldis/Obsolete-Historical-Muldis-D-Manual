@@ -56,6 +56,10 @@
     introduced in Muldis D spec v0.137.0 for PTMD_STD:  Update all code
     examples with symbolic prefix ops to remove now-optional whitespace.
 
+    * (BBEdit_LM_Muldis_D.plist)  Corresponding to changes introduced in
+    Muldis D spec v0.137.0 for PTMD_STD:  Update the keywords list to
+    consolidate/rename the keywords denoting membership-tests like "in".
+
 2010-07-13
 
     * Muldis::D::Manual version 0.8.0 is released on CPAN as
