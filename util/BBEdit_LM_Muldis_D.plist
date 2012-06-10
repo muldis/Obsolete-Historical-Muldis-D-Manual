@@ -53,7 +53,6 @@
     <string>value-map-unary</string>
     <string>value-filter</string>
     <string>value-constraint</string>
-    <string>transition-constraint</string>
     <string>value-reduction</string>
     <string>order-determination</string>
     <string>updater</string>
@@ -109,6 +108,7 @@
     <string>child</string>
     <string>using-attrs</string>
 
+    <string>let</string>
     <string>var</string>
     <string>try</string>
     <string>catch</string>
@@ -204,12 +204,12 @@
     <string><![CDATA[a-zA-Z0-9_∅!-]]></string>
 
     <key>Comment Pattern</key>
-    <string><![CDATA[(?x:
-      (\#{2,} | \# \s* ` [^`]* (\\` [^`]*)* ` \s* \#)
+    <string><![CDATA[(?xs:
+      (\#{2,} | \# \s* ` .*? (?<!\\) ` \s* \#)
     )]]></string>
 
     <key>String Pattern</key>
-    <string><![CDATA[(?x:
+    <string><![CDATA[(?xs:
       (
         (Singleton : (\\\s*\\)?)? (?<!\w) (-Inf | Inf | -∞ | ∞)
       | (Bool : (\\\s*\\)?)? (?<!\w) (False | True | ⊥ | ⊤)
@@ -220,17 +220,17 @@
           | HalfDown | HalfUp | HalfToZero | HalfToInf
           | HalfEven
         )
-      | (Text : (\\\s*\\)?)? (?<!\w) ' [^']* (\\' [^']*)* '
-      | (Comment : (\\\s*\\)?)? (?<!\w) ` [^`]* (\\` [^`]*)* `
+      | (Text : (\\\s*\\)?)? (?<!\w) ' .*? (?<!\\) '
       | ((Octet)? Blob : (\\\s*\\)?)? (?<!\w)
-        [137Fbox] ; (\\\s*\\)? ' [0-9A-F\\\s]* '
+        ([137F] ; | 0[box]) (\\\s*\\)? ' [0-9A-Fa-f\\\s]* (?<!\\) '
       | ((|NN|P)Rat : (\\\s*\\)?)? (?<!\w)
         (
-            [1-9A-Zbodx] ; (\\\s*\\)? -?[0-9A-Z_]+
+            ([1-9A-Za-z] ; | 0[bodx]) (\\\s*\\)? -?[0-9A-Za-z_]+
             (
-                (\\\s*\\)? \. [0-9A-Z_]+
-              | (\\\s*\\)? \/ [1-9A-Z][0-9A-Z_]*
-              | (\\\s*\\)? \* [1-9A-Z][0-9A-Z_]* (\\\s*\\)? \^ -?[0-9A-Z_]+
+                (\\\s*\\)? \. [0-9A-Za-z_]+
+              | (\\\s*\\)? \/ [1-9A-Za-z][0-9A-Za-z_]*
+              | (\\\s*\\)? \* [1-9A-Za-z][0-9A-Za-z_]*
+                  (\\\s*\\)? \^ -?[0-9A-Za-z_]+
             )
           | (0 | -?[1-9](_?[0-9]+)*)
             (
@@ -242,18 +242,18 @@
         )
       | ((|NN|P)Int : (\\\s*\\)?)? (?<!\w)
         (
-            [1-9A-Zbodx] ; (\\\s*\\)? -?[0-9A-Z_]+
+            ([1-9A-Za-z] ; | 0[bodx]) (\\\s*\\)? -?[0-9A-Za-z_]+
           | (0 | -?[1-9](_?[0-9]+)*)
         )
       )
     )]]></string>
 
     <key>Function Pattern</key>
-    <string><![CDATA[(?x:
+    <string><![CDATA[(?xs:
       (?P<function_name>
         (subdepot
           |function|named-value|value-map|value-map-unary|value-filter
-          |value-constraint|transition-constraint|value-reduction
+          |value-constraint|value-reduction
           |order-determination|updater|recipe|procedure|system-service
           |transaction|scalar-type|tuple-type|database-type|relation-type
           |domain-type|subset-type|mixin-type|key-constraint|primary-key
@@ -261,7 +261,7 @@
           |distrib-subset-constraint|stimulus-response-rule) \s+
         (
             [a-zA-Z_][a-zA-Z0-9_-]*
-          | " [^"]* (\\" [^"]*)* "
+          | " .*? (?<!\\) "
         )
       )
     )]]></string>

@@ -688,71 +688,71 @@ seconds are known.
 These system-service routines provide ways to get the current date or time
 from the system.
 
-=head2 sys.std.Temporal.TAIInstant.fetch_curr_instant
+=head2 sys.std.Temporal.TAIInstant.fetch_trans_instant
 
-C<system-service fetch_curr_instant (&target : TAIInstant)
-implements sys.std.Temporal.Instant.fetch_curr_instant {...}>
+C<system-service fetch_trans_instant (&target : TAIInstant)
+implements sys.std.Temporal.Instant.fetch_trans_instant [...]>
 
 This system-service routine will update the variable supplied as its
 C<target> argument so that it holds the value of the current TAI instant as
 taken with the full precision that the implementation's system clock or
 used time server supports.
 
-=head2 sys.std.Temporal.UTCInstant.fetch_curr_datetime
+=head2 sys.std.Temporal.UTCInstant.fetch_trans_datetime
 
-C<system-service fetch_curr_datetime (&target : UTCDateTime)
-implements sys.std.Temporal.Instant.fetch_curr_instant {...}>
+C<system-service fetch_trans_datetime (&target : UTCDateTime)
+implements sys.std.Temporal.Instant.fetch_trans_instant [...]>
 
 This system-service routine will update the variable supplied as its
 C<target> argument so that it holds the value of the current UTC date and
 time (YMDHIS) as taken with the full precision that the implementation's
 system clock or used time server supports.
 
-=head2 sys.std.Temporal.UTCInstant.fetch_curr_date
+=head2 sys.std.Temporal.UTCInstant.fetch_trans_date
 
-C<system-service fetch_curr_date (&target : UTCDate)
-implements sys.std.Temporal.Instant.fetch_curr_instant {...}>
+C<system-service fetch_trans_date (&target : UTCDate)
+implements sys.std.Temporal.Instant.fetch_trans_instant [...]>
 
 This system-service routine is the same as
-C<sys.std.Temporal.UTCInstant.fetch_curr_date> except that it only
+C<sys.std.Temporal.UTCInstant.fetch_trans_date> except that it only
 produces an instant value with the date (YMD) attributes set.
 
-=head2 sys.std.Temporal.UTCInstant.fetch_curr_time
+=head2 sys.std.Temporal.UTCInstant.fetch_trans_time
 
-C<system-service fetch_curr_time (&target : UTCTime)
-implements sys.std.Temporal.Instant.fetch_curr_instant {...}>
+C<system-service fetch_trans_time (&target : UTCTime)
+implements sys.std.Temporal.Instant.fetch_trans_instant [...]>
 
 This system-service routine is the same as
-C<sys.std.Temporal.UTCInstant.fetch_curr_date> except that it only
+C<sys.std.Temporal.UTCInstant.fetch_trans_date> except that it only
 produces an instant value with the time (HIS) attributes set; it still
 retains the full precision.
 
-=head2 sys.std.Temporal.FloatInstant.fetch_curr_datetime
+=head2 sys.std.Temporal.FloatInstant.fetch_trans_datetime
 
-C<system-service fetch_curr_datetime (&target : FloatDateTime)
-implements sys.std.Temporal.Instant.fetch_curr_instant {...}>
+C<system-service fetch_trans_datetime (&target : FloatDateTime)
+implements sys.std.Temporal.Instant.fetch_trans_instant [...]>
 
 This system-service routine will update the variable supplied as its
 C<target> argument so that it holds the value of the current floating date
 and time (YMDHIS) as taken with the full precision that the
 implementation's system clock or used time server supports.
 
-=head2 sys.std.Temporal.FloatInstant.fetch_curr_date
+=head2 sys.std.Temporal.FloatInstant.fetch_trans_date
 
-C<system-service fetch_curr_date (&target : FloatDate)
-implements sys.std.Temporal.Instant.fetch_curr_instant {...}>
+C<system-service fetch_trans_date (&target : FloatDate)
+implements sys.std.Temporal.Instant.fetch_trans_instant [...]>
 
 This system-service routine is the same as
-C<sys.std.Temporal.FloatInstant.fetch_curr_date> except that it only
+C<sys.std.Temporal.FloatInstant.fetch_trans_date> except that it only
 produces an instant value with the date (YMD) attributes set.
 
-=head2 sys.std.Temporal.FloatInstant.fetch_curr_time
+=head2 sys.std.Temporal.FloatInstant.fetch_trans_time
 
-C<system-service fetch_curr_time (&target : FloatTime)
-implements sys.std.Temporal.Instant.fetch_curr_instant {...}>
+C<system-service fetch_trans_time (&target : FloatTime)
+implements sys.std.Temporal.Instant.fetch_trans_instant [...]>
 
 This system-service routine is the same as
-C<sys.std.Temporal.FloatInstant.fetch_curr_date> except that it only
+C<sys.std.Temporal.FloatInstant.fetch_trans_date> except that it only
 produces an instant value with the time (HIS) attributes set; it still
 retains the full precision.
 
@@ -861,7 +861,7 @@ Grammar:
         <UTCDuration_payload>
 
     <UTCDuration_payload> ::=
-          <num_max_col_val> ';' <unspace> <utc_duration_body>
+          <num_max_col_val> '#' <unspace> <utc_duration_body>
         | <d_utc_duration_body>
 
     <utc_duration_body> ::=
@@ -953,7 +953,7 @@ integer, and C<seconds> may be any rational number.  I<Currently,
 C<UTCDuration> has no system-defined subtypes, but that may change later.>
 
 See also the definition of the catalog data type
-C<sys.std.Core.Type.Cat.OVLScaValExprNodeSet>, a tuple of which is what
+C<sys.std.Core.Type.Cat.SysScaValExprNodeSet>, a tuple of which is what
 every kind of C<value__sse_temporal> node distills to when it is beneath
 the context of a C<depot> node, as it describes some semantics.
 
@@ -969,7 +969,7 @@ Examples:
 
     TAIDuration:3.14159
 
-    TAIDuration:b;1011101101*10^-11011
+    TAIDuration:0b1011101101*10^-11011
 
     TAIDuration:1/43
 
@@ -1256,7 +1256,7 @@ Darren Duncan (C<darren@DarrenDuncan.net>)
 
 This file is part of the Muldis D language and implementations manual.
 
-Muldis D Manual is Copyright © 2008-2010, Muldis Data Systems, Inc.
+Muldis D Manual is Copyright © 2008-2011, Muldis Data Systems, Inc.
 
 See the LICENSE AND COPYRIGHT of L<Muldis::D::Manual> for details.
 

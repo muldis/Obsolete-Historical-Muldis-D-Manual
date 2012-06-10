@@ -83,7 +83,7 @@ also be made complete later if the rationale exists.
 
 =head2 PTMD_STD - the_database
 
-    Muldis_D:"http://muldis.com":0.137.0:PTMD_STD:{
+    Muldis_D:"http://muldis.com":0.148.0:PTMD_STD:{
         catalog_abstraction_level => rtn_inv_alt_syn,
         op_char_repertoire => basic
     }
@@ -104,30 +104,24 @@ also be made complete later if the rationale exists.
     #######################################################################
 
     relation-type artists {
-        tuple-type nlx.lib.T
-        with tuple-type T {
+        over tuple-type T {
             attr artist_id   : Int
             attr artist_name : Text
         }
-        constraint nlx.lib.pk
-        with primary-key pk { artist_id }
-        constraint nlx.lib.sk_artist_name
-        with key-constraint sk_artist_name { artist_name }
+        primary-key pk { artist_id }
+        key-constraint sk_artist_name { artist_name }
     }
 
     #######################################################################
 
     relation-type cds {
-        tuple-type nlx.lib.T
-        with tuple-type T {
+        over tuple-type T {
             attr cd_id     : Int
             attr artist_id : Int
             attr cd_title  : Text
         }
-        constraint nlx.lib.pk
-        with primary-key pk { cd_id }
-        constraint nlx.lib.sk_cd_title
-        with key-constraint sk_cd_title { cd_title }
+        primary-key pk { cd_id }
+        key-constraint sk_cd_title { cd_title }
     }
 
     subset-constraint sc_artist_has_cds {
@@ -138,16 +132,13 @@ also be made complete later if the rationale exists.
     #######################################################################
 
     relation-type tracks {
-        tuple-type nlx.lib.T
-        with tuple-type T {
+        over tuple-type T {
             attr track_id    : Int
             attr cd_id       : Int
             attr track_title : Text
         }
-        constraint nlx.lib.pk
-        with primary-key pk { track_id }
-        constraint nlx.lib.sk_track_title
-        with key-constraint sk_track_title { track_title }
+        primary-key pk { track_id }
+        key-constraint sk_track_title { track_title }
     }
 
     subset-constraint sc_cd_has_tracks {
@@ -215,7 +206,7 @@ also be made complete later if the rationale exists.
 
 =head2 PTMD_STD - insert_db
 
-    Muldis_D:"http://muldis.com":0.137.0:PTMD_STD:{
+    Muldis_D:"http://muldis.com":0.148.0:PTMD_STD:{
         catalog_abstraction_level => rtn_inv_alt_syn,
         op_char_repertoire => basic
     }
@@ -225,7 +216,7 @@ also be made complete later if the rationale exists.
 
         stimulus-response-rule bootstrap {
             when after-mount
-            invoke main
+            invoke nlx.lib.main
         }
 
     #######################################################################
@@ -234,7 +225,7 @@ also be made complete later if the rationale exists.
         #`Connect to the_database in read-write mode.
           The "..." has likes of filename, server name, user, pass, etc.`#
         create_depot_mount( name => Name:db, we_may_update => True,
-            details => @:OVLScaValExprNodeSet:{ ... } )
+            details => @:SysScaValExprNodeSet:{ ... } )
 
         #`Add test data to the_database, as a single atomic transaction.
           This might fail if records with same titles/etc already there.`#
@@ -259,39 +250,39 @@ also be made complete later if the rationale exists.
           There are, of course, other ways to produce record ids.`#
 
         #`So start by determining the existing maximum ids.`#
-        max_used_artist_id ::= is_empty(db.artists) ?? 0
+        let max_used_artist_id ::= is_empty(db.artists) ?? 0
             !! max( Set_from_attr( db.artists, name => Name:artist_id ) )
-        max_used_cd_id ::= is_empty(db.cds) ?? 0
+        let max_used_cd_id ::= is_empty(db.cds) ?? 0
             !! max( Set_from_attr( db.cds, name => Name:cd_id ) )
-        max_used_track_id ::= is_empty(db.tracks) ?? 0
+        let max_used_track_id ::= is_empty(db.tracks) ?? 0
             !! max( Set_from_attr( db.tracks, name => Name:track_id ) )
 
         #`Now generate new record ids and attach them to records to add.
           The process involves sorting of the new data simply to make it
           fully-deterministic, giving same result on any implementation.`#
-        src_artists_with_ids ::= rank_by_attr_names( src.artists,
+        let src_artists_with_ids ::= rank_by_attr_names( src.artists,
             name => Name:artist_id,
             order_by => [ %:{ name => Name:artist_name,
                 is_reverse_order => False } ],
-            first_rank => max_used_artist_id ++
+            first_rank => max_used_artist_id++
         )
-        src_cds_with_ids ::= rank_by_attr_names( src.cds,
+        let src_cds_with_ids ::= rank_by_attr_names( src.cds,
             name => Name:cd_id,
             order_by => [ %:{ name => Name:cd_title,
                 is_reverse_order => False } ],
-            first_rank => max_used_cd_id ++
+            first_rank => max_used_cd_id++
         )
-        src_tracks_with_ids ::= rank_by_attr_names( src.tracks,
+        let src_tracks_with_ids ::= rank_by_attr_names( src.tracks,
             name => Name:track_id,
             order_by => [ %:{ name => Name:track_title,
                 is_reverse_order => False } ],
-            first_rank => max_used_track_id ++
+            first_rank => max_used_track_id++
         )
 
         #`Now substitute parent record ids for parent names or titles.`#
-        new_artists ::= src_artists_with_ids
-        new_cds ::= src_cds_with_ids compose new_artists
-        new_tracks ::= src_tracks_with_ids compose new_cds{!artist_id}
+        let new_artists ::= src_artists_with_ids
+        let new_cds ::= src_cds_with_ids compose new_artists
+        let new_tracks ::= src_tracks_with_ids compose new_cds{!artist_id}
 
         #`Now insert the prepared new records into the_database.`#
         db.artists :=union new_artists
@@ -304,16 +295,16 @@ also be made complete later if the rationale exists.
     } #`depot-catalog`#
 
     depot-data Database:{
-        artists => @:[ artist_name ];{
+        artists => @:[ artist_name ]:{
             [ 'Michael Jackson' ],
             [ 'Eminem'          ]
         },
-        cds => @:[ cd_title, artist_name ];{
+        cds => @:[ cd_title, artist_name ]:{
             [ 'Thriller'               , 'Michael Jackson' ],
             [ 'Bad'                    , 'Michael Jackson' ],
             [ 'The Marshall Mathers LP', 'Eminem'          ]
         },
-        tracks => @:[ track_title, cd_title ];{
+        tracks => @:[ track_title, cd_title ]:{
             [ 'Beat It'        , 'Thriller'                ],
             [ 'Billie Jean'    , 'Thriller'                ],
             [ 'Dirty Diana'    , 'Bad'                     ],
@@ -326,7 +317,7 @@ also be made complete later if the rationale exists.
 
 =head2 PTMD_STD - test_db
 
-    Muldis_D:"http://muldis.com":0.137.0:PTMD_STD:{
+    Muldis_D:"http://muldis.com":0.148.0:PTMD_STD:{
         catalog_abstraction_level => rtn_inv_alt_syn,
         op_char_repertoire => basic
     }
@@ -334,7 +325,7 @@ also be made complete later if the rationale exists.
     depot-catalog {
         stimulus-response-rule bootstrap {
             when after-mount
-            invoke main
+            invoke nlx.lib.main
         }
 
     #######################################################################
@@ -343,7 +334,7 @@ also be made complete later if the rationale exists.
         #`Connect to the_database in read-only mode.
           The "..." has likes of filename, server name, user, pass, etc.`#
         create_depot_mount( name => Name:db,
-            details => @:OVLScaValExprNodeSet:{ ... } )
+            details => @:SysScaValExprNodeSet:{ ... } )
 
         #`Fetch test data, in a transaction for read-consistency.`#
         nlx.lib.get_records()
@@ -370,21 +361,13 @@ also be made complete later if the rationale exists.
     procedure disp_list (h1 : Text, h2 : Text, list : array_of.Text) [
         var eol : Text
         end_of_line_Text( &eol )
-        var msg : Text
-        { msg := h1 ~ '(' ~ h2 ~ '):'
-            ~ eol ~ cat_with_sep( list, sep => eol ) ~ eol ~ eol }
-        write_Text( msg )
+        write_Text( h1 ~ '(' ~ h2 ~ '):'
+            ~ eol ~ cat_with_sep( list, sep => eol ) ~ eol ~ eol )
     ]
 
     procedure disp_item (h1 : Text, h2 : Text, item : maybe_of.Text) [
-        var h : Text
-        var v : Text
-        {
-            h := h1 ~ '(' ~ h2 ~ '):'
-            v := item // '<No Match!>'
-        }
-        write_Text_line( h )
-        write_Text_line( v )
+        write_Text_line( h1 ~ '(' ~ h2 ~ '):' )
+        write_Text_line( item // '<No Match!>' )
         write_Text_line()
     ]
 
@@ -445,7 +428,7 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl6_STD - the_database
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.137.0', 'HDMD_Perl6_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.148.0', 'HDMD_Perl6_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
@@ -535,11 +518,11 @@ also be made complete later if the rationale exists.
     [ 'recipe', 'get_tracks_by_artist',
             { track_titles => ['&','array_of.Text'],
             artist_name => 'Text', db => ['::=','nlx.data'] } => [
-        [ 'op', ':=', [ :d<track_titles>,
+        [ 'i-op', ':=', [ :d<track_titles>,
             [ 'curried-func', 'Array_from_attr', [
-                [ 'op', 'matching', [ :acc<db.tracks>,
-                    [ 'op', 'matching', [ :acc<db.cds>,
-                        [ 'op', 'matching', [ :acc<db.artists>,
+                [ 'i-op', 'matching', [ :acc<db.tracks>,
+                    [ 'i-op', 'matching', [ :acc<db.cds>,
+                        [ 'i-op', 'matching', [ :acc<db.artists>,
                             '@' => Set.new(
                                 { artist_name => :d<artist_name> }
                             )
@@ -582,7 +565,7 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl6_STD - insert_db
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.137.0', 'HDMD_Perl6_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.148.0', 'HDMD_Perl6_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
@@ -591,30 +574,31 @@ also be made complete later if the rationale exists.
             :depot-catalog[
                 :self-local-dbvar-type<Database>,
 
-                ['stimulus-response-rule','bootstrap',:after-mount<main>],
+                ['stimulus-response-rule', 'bootstrap',
+                    :after-mount<nlx.lib.main>],
 
     #######################################################################
 
     [ 'procedure', 'main', {} => [
         # Connect to the_database in read-write mode. #
         # The "..." has likes of filename, server name, user, pass, etc. #
-        [ 'iproc-imp-invo', 'create_depot_mount', { name => :Name<db>,
+        [ 'proc-invo', 'create_depot_mount', { name => :Name<db>,
             we_may_update => Bool::True,
-            details => [ '@', 'OVLScaValExprNodeSet', '...' ] } ],
+            details => [ '@', 'SysScaValExprNodeSet', '...' ] } ],
 
         # Add test data to the_database, as a single atomic transaction. #
         # This might fail if records with same titles/etc already there. #
         [ 'try-catch',
-            :iproc-imp-invo<nlx.lib.insert_records>,
-            :iproc-imp-invo<nlx.lib.insert_failed>
+            :proc-invo<nlx.lib.insert_records>,
+            :proc-invo<nlx.lib.insert_failed>
         ],
 
         # Disconnect the_database now that we're done with it. #
-        [ 'iproc-imp-invo', 'drop_depot_mount', { name => :Name<db> } ],
+        [ 'proc-invo', 'drop_depot_mount', { name => :Name<db> } ],
     ] ],
 
     [ 'procedure', 'insert_failed', { err => 'Exception' } => [
-        [ 'iproc-imp-invo', 'write_Text_line',
+        [ 'proc-invo', 'write_Text_line',
             [ 'Failed to insert, maybe because of duplicates.' ] ]
     ] ],
 
@@ -653,46 +637,47 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl6_STD - test_db
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.137.0', 'HDMD_Perl6_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.148.0', 'HDMD_Perl6_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
 
         [ 'depot',
             :depot-catalog[
-                ['stimulus-response-rule','bootstrap',:after-mount<main>],
+                ['stimulus-response-rule', 'bootstrap',
+                    :after-mount<nlx.lib.main>],
 
     #######################################################################
 
     [ 'procedure', 'main', {} => [
         # Connect to the_database in read-only mode. #
         # The "..." has likes of filename, server name, user, pass, etc. #
-        [ 'iproc-imp-invo', 'create_depot_mount', { name => :Name<db>,
-            details => [ '@', 'OVLScaValExprNodeSet', '...' ] } ],
+        [ 'proc-invo', 'create_depot_mount', { name => :Name<db>,
+            details => [ '@', 'SysScaValExprNodeSet', '...' ] } ],
 
         # Fetch test data, in a transaction for read-consistency. #
-        :iproc-imp-invo<nlx.lib.get_records>,
+        :proc-invo<nlx.lib.get_records>,
 
         # Disconnect the_database now that we're done with it. #
-        [ 'iproc-imp-invo', 'drop_depot_mount', { name => :Name<db> } ],
+        [ 'proc-invo', 'drop_depot_mount', { name => :Name<db> } ],
     ] ],
 
     #######################################################################
 
     [ 'transaction', 'get_records', {} => [
-        [ 'iproc-imp-invo', 'nlx.lib.get_tracks_by_cd',
+        [ 'proc-invo', 'nlx.lib.get_tracks_by_cd',
             { cd_title => 'Bad' } ],
-        [ 'iproc-imp-invo', 'nlx.lib.get_tracks_by_artist',
+        [ 'proc-invo', 'nlx.lib.get_tracks_by_artist',
             { artist_name => 'Michael Jackson' } ],
 
-        [ 'iproc-imp-invo', 'nlx.lib.get_cd_by_track',
+        [ 'proc-invo', 'nlx.lib.get_cd_by_track',
             { track_title => 'Stan' } ],
-        [ 'iproc-imp-invo', 'nlx.lib.get_cds_by_artist',
+        [ 'proc-invo', 'nlx.lib.get_cds_by_artist',
             { artist_name => 'Michael Jackson' } ],
 
-        [ 'iproc-imp-invo', 'nlx.lib.get_artist_by_track',
+        [ 'proc-invo', 'nlx.lib.get_artist_by_track',
             { track_title => 'Dirty Diana' } ],
-        [ 'iproc-imp-invo', 'nlx.lib.get_artist_by_cd',
+        [ 'proc-invo', 'nlx.lib.get_artist_by_cd',
             { cd_title => 'The Marshall Mathers LP' } ],
     ] ],
 
@@ -701,18 +686,14 @@ also be made complete later if the rationale exists.
     [ 'procedure', 'disp_list', { h1 => 'Text', h2 => 'Text',
             list => 'array_of.Text' } => [
         [ 'var', 'eol', 'Text' ],
-        [ 'iproc-imp-invo', 'end_of_line_Text', [ ['&',:d<eol>] ] ],
-        [ 'var', 'msg', 'Text' ],
-        :atomic-stmt[
-            [ 'op', ':=', [ :d<msg>, [ 'op', '~', [
-                :d<h1>, '(', :d<h2>, '):',
-                :d<eol>,
-                [ 'func-invo', 'cat_with_sep', [ :d<list> ],
-                    { 'sep' => :d<eol> } ],
-                :d<eol>, :d<eol>
-            ] ] ] ]
-        ],
-        [ 'iproc-imp-invo', 'write_Text', [ :d<msg> ] ],
+        [ 'proc-invo', 'end_of_line_Text', [ ['&',:d<eol>] ] ],
+        [ 'proc-invo', 'write_Text', [ [ 'i-op', '~', [
+            :d<h1>, '(', :d<h2>, '):',
+            :d<eol>,
+            [ 'func-invo', 'cat_with_sep', [ :d<list> ],
+                { 'sep' => :d<eol> } ],
+            :d<eol>, :d<eol>
+        ] ] ] ],
     ] ],
 
     [ 'procedure', 'disp_item', { h1 => 'Text', h2 => 'Text',
@@ -724,10 +705,10 @@ also be made complete later if the rationale exists.
 
     [ 'procedure', 'get_tracks_by_artist', { artist_name => 'Text' } => [
         [ 'var', 'track_titles', 'array_of.Text' ],
-        [ 'iproc-imp-invo', 'fed.lib.db.get_tracks_by_artist',
+        [ 'proc-invo', 'fed.lib.db.get_tracks_by_artist',
             { track_titles => ['&',:d<track_titles>],
             artist_name => :d<artist_name> } ],
-        [ 'iproc-imp-invo', 'nlx.lib.disp_list',
+        [ 'proc-invo', 'nlx.lib.disp_list',
             { h1 => 'get_tracks_by_artist', h2 => :d<artist_name>,
             list => :d<track_titles> } ],
     ] ],
@@ -755,7 +736,7 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl5_STD - the_database
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.137.0', 'HDMD_Perl5_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.148.0', 'HDMD_Perl5_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
@@ -841,11 +822,11 @@ also be made complete later if the rationale exists.
     [ 'recipe', 'get_tracks_by_artist',
             [ { track_titles => ['&','array_of.Text'],
             artist_name => 'Text', db => ['::=','nlx.data'] } => [
-        [ 'op', ':=', [ ['d','track_titles'],
+        [ 'i-op', ':=', [ ['d','track_titles'],
             [ 'curried-func', 'Array_from_attr', [
-                [ 'op', 'matching', [ ['acc','db.tracks'],
-                    [ 'op', 'matching', [ ['acc','db.cds'],
-                        [ 'op', 'matching', [ ['acc','db.artists'],
+                [ 'i-op', 'matching', [ ['acc','db.tracks'],
+                    [ 'i-op', 'matching', [ ['acc','db.cds'],
+                        [ 'i-op', 'matching', [ ['acc','db.artists'],
                             [ '@', [{artist_name => ['d','artist_name']}] ]
                         ] ]
                     ] ]
@@ -889,7 +870,7 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl5_STD - insert_db
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.137.0', 'HDMD_Perl5_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.148.0', 'HDMD_Perl5_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
@@ -899,30 +880,30 @@ also be made complete later if the rationale exists.
                 [ 'self-local-dbvar-type', 'Database' ],
 
                 [ 'stimulus-response-rule', 'bootstrap',
-                    ['after-mount' => 'main'] ],
+                    ['after-mount' => 'nlx.lib.main'] ],
 
     #######################################################################
 
     [ 'procedure', 'main', [ {} => [
         # Connect to the_database in read-write mode. #
         # The "..." has likes of filename, server name, user, pass, etc. #
-        [ 'iproc-imp-invo', 'create_depot_mount', { name => ['Name','db'],
+        [ 'proc-invo', 'create_depot_mount', { name => ['Name','db'],
             we_may_update => ['Bool','True'],
-            details => [ '@', 'OVLScaValExprNodeSet', '...' ] } ],
+            details => [ '@', 'SysScaValExprNodeSet', '...' ] } ],
 
         # Add test data to the_database, as a single atomic transaction. #
         # This might fail if records with same titles/etc already there. #
         [ 'try-catch',
-            [ 'iproc-imp-invo', 'nlx.lib.insert_records' ],
-            [ 'iproc-imp-invo', 'nlx.lib.insert_failed' ]
+            [ 'proc-invo', 'nlx.lib.insert_records' ],
+            [ 'proc-invo', 'nlx.lib.insert_failed' ]
         ],
 
         # Disconnect the_database now that we're done with it. #
-        [ 'iproc-imp-invo', 'drop_depot_mount', {name => ['Name','db']} ],
+        [ 'proc-invo', 'drop_depot_mount', {name => ['Name','db']} ],
     ] ] ],
 
     [ 'procedure', 'insert_failed', [ { err => 'Exception' } => [
-        [ 'iproc-imp-invo', 'write_Text_line',
+        [ 'proc-invo', 'write_Text_line',
             [ 'Failed to insert, maybe because of duplicates.' ] ]
     ] ] ],
 
@@ -961,7 +942,7 @@ also be made complete later if the rationale exists.
 =head2 HDMD_Perl5_STD - test_db
 
     [
-        [ 'Muldis_D', 'http://muldis.com', '0.137.0', 'HDMD_Perl5_STD', {
+        [ 'Muldis_D', 'http://muldis.com', '0.148.0', 'HDMD_Perl5_STD', {
             catalog_abstraction_level => 'rtn_inv_alt_syn',
             op_char_repertoire => 'basic'
         } ],
@@ -969,39 +950,39 @@ also be made complete later if the rationale exists.
         [ 'depot',
             [ 'depot-catalog' => [
                 [ 'stimulus-response-rule', 'bootstrap',
-                    ['after-mount' => 'main'] ],
+                    ['after-mount' => 'nlx.lib.main'] ],
 
     #######################################################################
 
     [ 'procedure', 'main', [ {} => [
         # Connect to the_database in read-only mode. #
         # The "..." has likes of filename, server name, user, pass, etc. #
-        [ 'iproc-imp-invo', 'create_depot_mount', { name => ['Name','db'],
-            details => [ '@', 'OVLScaValExprNodeSet', '...' ] } ],
+        [ 'proc-invo', 'create_depot_mount', { name => ['Name','db'],
+            details => [ '@', 'SysScaValExprNodeSet', '...' ] } ],
 
         # Fetch test data, in a transaction for read-consistency. #
-        [ 'iproc-imp-invo', 'nlx.lib.get_records' ],
+        [ 'proc-invo', 'nlx.lib.get_records' ],
 
         # Disconnect the_database now that we're done with it. #
-        [ 'iproc-imp-invo', 'drop_depot_mount', {name => ['Name','db']} ],
+        [ 'proc-invo', 'drop_depot_mount', {name => ['Name','db']} ],
     ] ] ],
 
     #######################################################################
 
     [ 'transaction', 'get_records', [ {} => [
-        [ 'iproc-imp-invo', 'nlx.lib.get_tracks_by_cd',
+        [ 'proc-invo', 'nlx.lib.get_tracks_by_cd',
             { cd_title => 'Bad' } ],
-        [ 'iproc-imp-invo', 'nlx.lib.get_tracks_by_artist',
+        [ 'proc-invo', 'nlx.lib.get_tracks_by_artist',
             { artist_name => 'Michael Jackson' } ],
 
-        [ 'iproc-imp-invo', 'nlx.lib.get_cd_by_track',
+        [ 'proc-invo', 'nlx.lib.get_cd_by_track',
             { track_title => 'Stan' } ],
-        [ 'iproc-imp-invo', 'nlx.lib.get_cds_by_artist',
+        [ 'proc-invo', 'nlx.lib.get_cds_by_artist',
             { artist_name => 'Michael Jackson' } ],
 
-        [ 'iproc-imp-invo', 'nlx.lib.get_artist_by_track',
+        [ 'proc-invo', 'nlx.lib.get_artist_by_track',
             { track_title => 'Dirty Diana' } ],
-        [ 'iproc-imp-invo', 'nlx.lib.get_artist_by_cd',
+        [ 'proc-invo', 'nlx.lib.get_artist_by_cd',
             { cd_title => 'The Marshall Mathers LP' } ],
     ] ] ],
 
@@ -1010,18 +991,14 @@ also be made complete later if the rationale exists.
     [ 'procedure', 'disp_list', [ { h1 => 'Text', h2 => 'Text',
             list => 'array_of.Text' } => [
         [ 'var', 'eol', 'Text' ],
-        [ 'iproc-imp-invo', 'end_of_line_Text', [ ['&',['d','eol']] ] ],
-        [ 'var', 'msg', 'Text' ],
-        [ 'atomic-stmt' => [
-            [ 'op', ':=', [ ['d','msg'], [ 'op', '~', [
-                ['d','h1'], '(', ['d','h2'], '):',
-                ['d','eol'],
-                [ 'func-invo', 'cat_with_sep', [ ['d','list'] ],
-                    { 'sep' => ['d','eol'] } ],
-                ['d','eol'], ['d','eol']
-            ] ] ] ]
-        ] ],
-        [ 'iproc-imp-invo', 'write_Text', [ ['d','msg'] ] ],
+        [ 'proc-invo', 'end_of_line_Text', [ ['&',['d','eol']] ] ],
+        [ 'proc-invo', 'write_Text', [ [ 'i-op', '~', [
+            ['d','h1'], '(', ['d','h2'], '):',
+            ['d','eol'],
+            [ 'func-invo', 'cat_with_sep', [ ['d','list'] ],
+                { 'sep' => ['d','eol'] } ],
+            ['d','eol'], ['d','eol']
+        ] ] ] ],
     ] ] ],
 
     [ 'procedure', 'disp_item', [ { h1 => 'Text', h2 => 'Text',
@@ -1033,10 +1010,10 @@ also be made complete later if the rationale exists.
 
     [ 'procedure', 'get_tracks_by_artist', [ { artist_name => 'Text' } => [
         [ 'var', 'track_titles', 'array_of.Text' ],
-        [ 'iproc-imp-invo', 'fed.lib.db.get_tracks_by_artist',
+        [ 'proc-invo', 'fed.lib.db.get_tracks_by_artist',
             { track_titles => ['&',['d','track_titles']],
             artist_name => ['d','artist_name'] } ],
-        [ 'iproc-imp-invo', 'nlx.lib.disp_list',
+        [ 'proc-invo', 'nlx.lib.disp_list',
             { h1 => 'get_tracks_by_artist', h2 => ['d','artist_name'],
             list => ['d','track_titles'] } ],
     ] ] ],
@@ -1114,7 +1091,7 @@ This current document was written/derived by:
 
 This file is part of the Muldis D language and implementations manual.
 
-Muldis D Manual is Copyright © 2008-2010, Muldis Data Systems, Inc.
+Muldis D Manual is Copyright © 2008-2011, Muldis Data Systems, Inc.
 
 See the LICENSE AND COPYRIGHT of L<Muldis::D::Manual> for details.
 

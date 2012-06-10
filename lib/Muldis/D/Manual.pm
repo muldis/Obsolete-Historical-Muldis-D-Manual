@@ -74,7 +74,7 @@ Legacy temporal data types, operators, and syntax removed from Muldis D.
 The separate all-documentation distribution L<Muldis::D> is the formal
 definition of the Muldis D language, whose spec and implementations this
 Muldis D Manual is concerned with.  The Muldis D language in turn has as a
-primary influence the work of Christopher J. Date and Hugh Darwen whose
+primary influence the work of Chris Date (C.J. Date) and Hugh Darwen whose
 home website is L<http://www.thethirdmanifesto.com/>.
 
 The separate distribution L<Muldis::Rosetta> is the feature implementation
@@ -89,7 +89,7 @@ Darren Duncan (C<darren@DarrenDuncan.net>)
 
 This file is part of the Muldis D language and implementations manual.
 
-Muldis D Manual is Copyright © 2008-2010, Muldis Data Systems, Inc.
+Muldis D Manual is Copyright © 2008-2011, Muldis Data Systems, Inc.
 
 L<http://www.muldis.com/>
 

@@ -75,7 +75,7 @@ Abstract:
     Muldis D is intended to qualify as a "D" language as defined by
     "Databases, Types, and The Relational Model: The Third Manifesto"
     (TTM), a formal proposal for a solid foundation for data and database
-    management systems, written by Christopher J. Date (who also wrote
+    management systems, written by Chris Date (C.J. Date; who also wrote
     "Database in Depth") and Hugh Darwen.  Several other "D" languages
     exist, including the teaching language "Tutorial D", but Muldis D is
     arguably the first one that is actually practical for industrial use.

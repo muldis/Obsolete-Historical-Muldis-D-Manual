@@ -14,6 +14,35 @@ table for these items; they are simply to be done "as soon as possible".
 the progress is non-trivial, so there are regular public snapshots with
 nicely rendered documentation.
 
+* Use the same syntax coloring for all kinds of quoted strings, regardless
+of whether they are single-quotes, double-quotes, or backticks; so then the
+coloring isn't so much say "this is Text" as its saying "this is quoted".
+In particular, we should color quoted identifiers too, as a visual aid.
+
+* Some people are uncomfortable with the large number of non-alpha symbols
+that Muldis D provides for use, such as in operators or in literals.  This
+input from a Python user.  All the symbols contribute to Muldis D looking
+rather Perlish despite it not having any $ sigils.  So document something
+to help such people be more comfortable, such as making it easier to either
+learn or to avoid (thanks to foo(x,y) syntax existing for everything) the
+symbols.
+
+* Add a set of code examples for eventual provision to "Rosetta Code",
+http://rosettacode.org/, which has a matrix of several hundred tasks by
+several hundred programming languages.  This is a good place to get tasks
+to derive some Muldis D examples from, "how do you do X".  Quoth the raven:
+"Rosetta Code is a programming chrestomathy site. The idea is to present
+solutions to the same task in as many different languages as possible,
+to demonstrate how languages are similar and different, and to aid a person
+with a grounding in one approach to a problem in learning another."
+The examples will not actually be uploaded to there until a Muldis D impl
+exists that correctly executes them.  The examples can also help drive the
+design of Muldis D, such as when it is otherwise too difficult to express a
+problem in Muldis D, so the lang evolves to make writing the task easier.
+Regardless, the examples/comparisons will also remain in the
+Muldis D Manual indefinitely.  I could also add tasks to the site that
+Muldis D would be good at, such as relational algebra.  So yeah.
+
 * IN PROGRESS ...
 Start this distribution, which collects miscellaneous and large
 documentation associated with the Muldis D language but isn't part of the

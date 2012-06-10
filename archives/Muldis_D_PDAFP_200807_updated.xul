@@ -21,7 +21,7 @@ Muldis D -
 Portable Databases
 At Full Power
 (Created 2008 July)
-(Updated 2010 July)
+(Updated 2010 November)
 ----
 Darren Duncan
 Muldis Data Systems
@@ -143,7 +143,7 @@ scalar literals in the
 PTMD_STD dialect:
   True      #`Bool`#
   42        #`Int`#
-  x;'A705E' #`Blob`#
+  0x'A705E' #`Blob`#
   'サンプル' #`Text`#
   3.14159   #`Rat`#
   1/43      #`Rat`#
@@ -161,7 +161,7 @@ And here are the same scalar literals in the
 HDMD_Perl5_STD dialect:
   ['Bool',(1 == 1)] # Bool #
   42                # Int #
-  [ 'Blob', { 'x' => 'A705E' } ] # Blob #
+  [ 'Blob', { 0x => 'A705E' } ] # Blob #
   'サンプル'         # Text #
   3.14159           # Rat #
   [ 'Rat', [1,43] ] # Rat #
@@ -235,8 +235,8 @@ a "D" language as defined by
 "Databases, Types, and
 The Relational Model:
 The Third Manifesto" (TTM),
-a book by Hugh Darwen
-and Christopher J. Date
+a book by Chris Date
+(C.J. Date) and Hugh Darwen
 ----
 The main part of the book,
 chapter 4, is also a free
@@ -373,7 +373,7 @@ Relations in PTMD_STD dialect:
       is_special => True,
     }
   }
-  @:[ name, age ];{
+  @:[ name, age ]:{
     [ 'Michelle', 17 ]
   }
 ----
@@ -428,10 +428,10 @@ those having a single attr
 named with the empty string
 ----
 PTMD_STD dialect:
-  $:fed.lib.the_db.WeekDay:name;{
+  $:fed.lib.the_db.WeekDay:name:{
     "" => "monday"
   }
-  $:fed.lib.the_db.WeekDay:number;{
+  $:fed.lib.the_db.WeekDay:number:{
     "" => 5
   }
 HDMD_Perl6_STD dialect:
@@ -546,7 +546,7 @@ invoke functional routines
 Updaters
 ----
   updater chop_sign (&topic : Int) {
-    topic := ||topic
+    topic := abs topic
   }
 ----
 Updaters are imperative but
@@ -594,7 +594,7 @@ use the database
 Procedures
 ----
   procedure the_now (&time : Instant) {
-    fetch_curr_instant( &time )
+    fetch_trans_instant( &time )
   }
 ----
 Procedures are imperative,
@@ -679,7 +679,7 @@ you don't have to split up a
 relvar into several for
 normalization
 ----
-  @:[ order_id, cust_id, order_item ];{
+  @:[ order_id, cust_id, order_item ]:{
     [ 5073, 209, @:{
       { prod_id => 'paint', qty => 3 }
     } ],
@@ -744,7 +744,7 @@ more tuples rather than 1+
 Identity matters
 ----
 Muldis D's generic
-"is_identical" and "assign"
+"is_same" and "assign"
 operators work for all
 types, including nonscalars,
 so you can compare or assign
@@ -752,7 +752,7 @@ whole relations without
 contrivances
 ----
 With character data,
-"is_identical" treats any
+"is_same" treats any
 differences in case or
 marks or whitespace as
 significant, and so any
@@ -776,7 +776,7 @@ distinction for identity
 With numeric data, Muldis D
 treats even floating-point
 derived values as exact
-values; "is_identical" will
+values; "is_same" will
 only result in TRUE if all
 bits of the significand and
 exponent are the same
@@ -1213,10 +1213,9 @@ SQL:
   FROM tab1
 ----
 Muldis D:
-  with value-map myext {
+  tab1 extend <(value-map {
     %:{a => 'x', b => (.m - .n)}
-  }
-  tab1 extend <nlx.lib.myext>()
+  })>()
 SQL:
   SELECT tab1.*, 'x' AS a,
     (tab1.m - tab1.n) AS b
@@ -1331,14 +1330,6 @@ Muldis D fully supports keys
 consisting of multiple
 attributes, for all kinds of
 key constraints
-----
-Transition constraints are a
-main exception; those apply
-to a variable rather than
-being a type constraint;
-they check that a var may
-change directly from its old
-value to its new value
 ----
 Transactions
 ----
