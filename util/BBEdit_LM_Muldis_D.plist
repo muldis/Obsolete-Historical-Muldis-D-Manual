@@ -6,14 +6,14 @@
   <key>BBEditDocumentType</key>
   <string>CodelessLanguageModule</string>
   <key>BBLMLanguageDisplayName</key>
-  <string>Muldis D dialect PTMD_STD</string>
+  <string>Muldis D Plain Text</string>
   <key>BBLMLanguageCode</key>
-  <string>PTMD</string>
+  <string>MDPT</string>
   <key>BBLMSuffixMap</key>
   <array>
     <dict>
       <key>BBLMLanguageSuffix</key>
-      <string>.md</string>
+      <string>.mdpt</string>
     </dict>
   </array>
   <key>BBLMColorsSyntax</key>
@@ -25,245 +25,85 @@
   <key>BBLMKeywordList</key>
   <array>
     <string>Muldis_D</string>
-    <string>PTMD_STD</string>
-    <string>catalog_abstraction_level</string>
-    <string>the_floor</string>
-    <string>code_as_data</string>
-    <string>plain_rtn_inv</string>
-    <string>rtn_inv_alt_syn</string>
-    <string>op_char_repertoire</string>
-    <string>basic</string>
-    <string>extended</string>
-    <string>standard_syntax_extensions</string>
-
-    <string>D0</string>
-    <string>D0C0</string>
-    <string>D0C1</string>
-    <string>Nothing</string>
-    <string>∅</string>
-
-    <string>depot-catalog</string>
-    <string>depot-data</string>
-    <string>subdepot</string>
-    <string>self-local-dbvar-type</string>
-
-    <string>function</string>
-    <string>named-value</string>
-    <string>value-map</string>
-    <string>value-map-unary</string>
-    <string>value-filter</string>
-    <string>value-constraint</string>
-    <string>value-reduction</string>
-    <string>order-determination</string>
-    <string>updater</string>
-    <string>recipe</string>
-    <string>procedure</string>
-    <string>system-service</string>
-    <string>transaction</string>
-
-    <string>scalar-type</string>
-    <string>tuple-type</string>
-    <string>database-type</string>
-    <string>relation-type</string>
-    <string>domain-type</string>
-    <string>subset-type</string>
-    <string>mixin-type</string>
-    <string>key-constraint</string>
-    <string>primary-key</string>
-    <string>distrib-key-constraint</string>
-    <string>distrib-primary-key</string>
-    <string>subset-constraint</string>
-    <string>distrib-subset-constraint</string>
-
-    <string>stimulus-response-rule</string>
-    <string>after-mount</string>
-    <string>invoke</string>
-
-    <string>implements</string>
-    <string>with</string>
-
-    <string>possrep</string>
-    <string>is-base</string>
-    <string>possrep-map</string>
-    <string>from</string>
-    <string>using</string>
-    <string>reverse-using</string>
-    <string>attr</string>
-    <string>virtual-attr-map</string>
-    <string>determinant-attrs</string>
-    <string>dependent-attrs</string>
-    <string>map-function</string>
-    <string>is-updateable</string>
-    <string>source-union</string>
-    <string>source-intersection</string>
-    <string>filter-union</string>
-    <string>filter-intersection</string>
-    <string>base-type</string>
-    <string>of</string>
-    <string>constraint</string>
+    <string>Plain_Text</string>
+    <string>abstract</string>
+    <string>and_provides_its_default</string>
+    <string>associative</string>
+    <string>commutative</string>
+    <string>composes</string>
+    <string>constant</string>
     <string>default</string>
-    <string>and-provides-its-default</string>
-    <string>parent</string>
-    <string>using-key</string>
-    <string>child</string>
-    <string>using-attrs</string>
-
-    <string>let</string>
-    <string>var</string>
-    <string>try</string>
-    <string>catch</string>
-    <string>leave</string>
-    <string>iterate</string>
-    <string>loop</string>
-
-    <string>if</string>
-    <string>then</string>
     <string>else</string>
+    <string>fail</string>
+    <string>folded</string>
+    <string>from</string>
+    <string>function</string>
     <string>given</string>
-    <string>when</string>
-    <string>default</string>
-
-    <string>and</string>
-    <string>or</string>
-    <string>xnor</string>
-    <string>iff</string>
-    <string>xor</string>
-    <string>union</string>
-    <string>intersect</string>
-    <string>exclude</string>
-    <string>symdiff</string>
-    <string>join</string>
-    <string>times</string>
-    <string>cross-join</string>
-
-    <string>nand</string>
-    <string>nor</string>
-    <string>compose</string>
-
-    <string>isa</string>
-    <string>!isa</string>
-    <string>not-isa</string>
-    <string>as</string>
-    <string>asserting</string>
-    <string>assuming</string>
-    <string>imp</string>
-    <string>implies</string>
-    <string>nimp</string>
-    <string>nif</string>
-    <string>exp</string>
-    <string>where</string>
-    <string>!where</string>
-    <string>not-where</string>
-    <string>inside</string>
-    <string>!inside</string>
-    <string>not-inside</string>
-    <string>holds</string>
-    <string>!holds</string>
-    <string>not-holds</string>
-    <string>in</string>
-    <string>!in</string>
-    <string>not-in</string>
-    <string>has</string>
-    <string>!has</string>
-    <string>not-has</string>
-    <string>minus</string>
-    <string>except</string>
-    <string>!matching</string>
-    <string>not-matching</string>
-    <string>antijoin</string>
-    <string>semiminus</string>
-    <string>matching</string>
-    <string>semijoin</string>
-    <string>divideby</string>
-    <string>like</string>
-    <string>!like</string>
-    <string>not-like</string>
-
+    <string>has_segment</string>
+    <string>idempotent</string>
+    <string>identity</string>
+    <string>if</string>
+    <string>implements</string>
+    <string>is</string>
+    <string>normalize</string>
     <string>not</string>
-
-    <string>div</string>
-    <string>mod</string>
-    <string>log</string>
-    <string>log-e</string>
-    <string>round</string>
-
-    <string>min</string>
-    <string>max</string>
-
-    <string>ordered</string>
-    <string>by</string>
-
-    <string>p5rx</string>
-    <string>set</string>
-    <string>array</string>
-    <string>bag</string>
+    <string>of</string>
+    <string>overrides</string>
+    <string>package</string>
+    <string>package_segment</string>
+    <string>procedure</string>
+    <string>requires</string>
+    <string>requires_implements</string>
+    <string>script</string>
+    <string>searching</string>
+    <string>singleton</string>
+    <string>synonym</string>
+    <string>then</string>
+    <string>to</string>
+    <string>type</string>
+    <string>union</string>
+    <string>using</string>
+    <string>via</string>
+    <string>virtual</string>
+    <string>when</string>
+    <string>where</string>
   </array>
   <key>Language Features</key>
   <dict>
     <key>Identifier and Keyword Character Class</key>
-    <string><![CDATA[a-zA-Z0-9_∅!-]]></string>
+    <string><![CDATA[a-zA-Z0-9_]]></string>
 
     <key>Comment Pattern</key>
     <string><![CDATA[(?xs:
-      (\#{2,} | \# \s* ` .*? (?<!\\) ` \s* \#)
+      (` [^`]* `)
     )]]></string>
 
     <key>String Pattern</key>
     <string><![CDATA[(?xs:
       (
-        (Singleton : (\\\s*\\)?)? (?<!\w) (-Inf | Inf | -∞ | ∞)
-      | (Bool : (\\\s*\\)?)? (?<!\w) (False | True | ⊥ | ⊤)
-      | (Order : (\\\s*\\)?)? (?<!\w) (Increase | Same | Decrease)
-      | (RoundMeth : (\\\s*\\)?)? (?<!\w)
-        (
-            Down | Up | ToZero | ToInf
-          | HalfDown | HalfUp | HalfToZero | HalfToInf
-          | HalfEven
-        )
-      | (Text : (\\\s*\\)?)? (?<!\w) ' .*? (?<!\\) '
-      | ((Octet)? Blob : (\\\s*\\)?)? (?<!\w)
-        ([137F] ; | 0[box]) (\\\s*\\)? ' [0-9A-Fa-f\\\s]* (?<!\\) '
-      | ((|NN|P)Rat : (\\\s*\\)?)? (?<!\w)
-        (
-            ([1-9A-Za-z] ; | 0[bodx]) (\\\s*\\)? -?[0-9A-Za-z_]+
-            (
-                (\\\s*\\)? \. [0-9A-Za-z_]+
-              | (\\\s*\\)? \/ [1-9A-Za-z][0-9A-Za-z_]*
-              | (\\\s*\\)? \* [1-9A-Za-z][0-9A-Za-z_]*
-                  (\\\s*\\)? \^ -?[0-9A-Za-z_]+
-            )
-          | (0 | -?[1-9](_?[0-9]+)*)
-            (
-                (\\\s*\\)? \. [0-9](_?[0-9]+)*
-              | (\\\s*\\)? \/ [1-9](_?[0-9]+)*
-              | (\\\s*\\)? \* [1-9](_?[0-9]+)*
-                  (\\\s*\\)? \^ -?[0-9](_?[0-9]+)*
-            )
-        )
-      | ((|NN|P)Int : (\\\s*\\)?)? (?<!\w)
-        (
-            ([1-9A-Za-z] ; | 0[bodx]) (\\\s*\\)? -?[0-9A-Za-z_]+
-          | (0 | -?[1-9](_?[0-9]+)*)
-        )
+        (false | true)
+      | (' [^']* ')
+      | ((?<!\w) [0-9] [0-9A-Za-z_]* (\. [0-9A-Za-z_]+)?)
       )
     )]]></string>
 
     <key>Function Pattern</key>
     <string><![CDATA[(?xs:
       (?P<function_name>
-        (subdepot
-          |function|named-value|value-map|value-map-unary|value-filter
-          |value-constraint|value-reduction
-          |order-determination|updater|recipe|procedure|system-service
-          |transaction|scalar-type|tuple-type|database-type|relation-type
-          |domain-type|subset-type|mixin-type|key-constraint|primary-key
-          |distrib-key-constraint|distrib-primary-key|subset-constraint
-          |distrib-subset-constraint|stimulus-response-rule) \s+
         (
-            [a-zA-Z_][a-zA-Z0-9_-]*
-          | " .*? (?<!\\) "
+            [a-zA-Z_][a-zA-Z0-9_]*
+          | " [^"]* "
         )
+        (
+          \s* [.:] \s*
+          (
+              [a-zA-Z_][a-zA-Z0-9_]*
+            | " [^"]* "
+          )
+        )*
       )
+      \s* ::= \s*
+      (type|constant|function|procedure|synonym)
     )]]></string>
   </dict>
 </dict>

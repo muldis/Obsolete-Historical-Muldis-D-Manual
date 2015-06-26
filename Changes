@@ -2,10 +2,15 @@
                                   Changes
 ---------------------------------------------------------------------------
 
-2011-03-xx
+2015-06-xx
 
     * Muldis::D::Manual version 0.10.0 is released on CPAN as
     Muldis-D-Manual-0.10.0.tar.gz.
+
+    * (BBEdit_LM_Muldis_D.plist)  Corresponding to changes introduced in
+    Muldis D Plain Text spec version 0.200+, rewrote this file.  The new
+    version is just 1/3 of the size of the old one, 3K down from 8K, and
+    should perform faster too.
 
     * Incremented all copyright year range-ends to 2011.
 
